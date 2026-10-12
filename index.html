@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFIAR STORE - Digital Premium Accounts</title>
+    <style>
+        :root {
+            --bg-color: #0f0f11;
+            --card-bg: #1a1a1d;
+            --text-main: #e2e2e2;
+            --text-muted: #888888;
+            --accent-cyan: #00f0ff;
+            --accent-pink: #ff0055;
+            --accent-yellow: #ffee00;
+            --border-color: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(180deg, rgba(26,26,29,1) 0%, rgba(15,15,17,1) 100%);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .store-title {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 3.5rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: inline-block;
+            text-shadow: 4px 4px 0px var(--accent-pink), -2px -2px 0px var(--accent-cyan);
+            transform: rotate(-2deg);
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+
+        .category-title {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+            margin: 40px 0 20px;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 5px;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .search-container { margin: 10px 0 30px; }
+        
+        #searchInput {
+            width: 100%; padding: 15px 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            color: var(--text-main); font-size: 1rem;
+            border-radius: 8px; outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        #searchInput:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .product-list { display: flex; flex-direction: column; gap: 15px; }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 15px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: all 0.2s ease;
+            position: relative; overflow: hidden;
+        }
+
+        .product-card:hover { border-color: var(--accent-cyan); transform: translateX(5px); }
+
+        .product-card::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 4px; background-color: var(--accent-cyan);
+            transform: scaleY(0); transition: transform 0.2s ease;
+        }
+
+        .product-card:hover::before { transform: scaleY(1); }
+
+        .product-info { display: flex; align-items: center; gap: 15px; }
+        .product-icon {
+            font-size: 1.8rem; display: flex; align-items: center; justify-content: center;
+            width: 45px; height: 45px; background: #2a2a2d; border-radius: 8px;
+        }
+        .product-name { font-weight: 700; font-size: 1.1rem; }
+        
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.85); z-index: 1000;
+            justify-content: center; align-items: center; padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg); width: 100%; max-width: 400px;
+            border-radius: 12px; border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+            animation: modalSlideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 20px; border-bottom: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center;
+            background: #222; border-radius: 10px 10px 0 0;
+        }
+
+        .modal-title {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 1.5rem; color: var(--accent-yellow); letter-spacing: 1px;
+            display: flex; align-items: center; gap: 10px;
+        }
+
+        .close-btn {
+            background: none; border: none; color: var(--text-muted);
+            font-size: 2rem; cursor: pointer; transition: color 0.2s;
+        }
+        .close-btn:hover { color: var(--accent-pink); }
+
+        .modal-body {
+            padding: 30px 20px; text-align: center;
+        }
+        
+        .start-price-label { font-size: 1rem; color: var(--text-muted); margin-bottom: 5px; }
+        .start-price-value { font-size: 2.2rem; font-weight: 900; color: var(--accent-cyan); margin-bottom: 20px; text-shadow: 2px 2px 0px #000; }
+        .modal-desc { font-size: 0.95rem; color: #d1d1d1; line-height: 1.6; padding: 0 10px; }
+
+        .modal-footer {
+            padding: 20px; border-top: 1px solid var(--border-color); background: #151515;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .btn-order {
+            display: block; width: 100%; padding: 15px;
+            background-color: var(--accent-cyan); color: #000;
+            text-align: center; text-decoration: none; font-weight: 700;
+            font-size: 1rem; border-radius: 8px; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s ease;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.5); border: 2px solid #000;
+        }
+        .btn-order:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px rgba(0,0,0,0.5); background-color: #fff; }
+        .btn-order:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px rgba(0,0,0,0.5); }
+
+        .not-found { display: none; text-align: center; padding: 30px; color: var(--text-muted); font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1 class="store-title">AFIAR STORE</h1>
+        <p>Premium Digital Accounts & Subscriptions</p>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari aplikasi (Netflix, Canva, ChatGPT)...">
+        </div>
+
+        <div id="catalogContainer">
+            <!-- Konten akan di-generate otomatis oleh JavaScript -->
+        </div>
+
+        <div id="notFoundMsg" class="not-found">Produk tidak ditemukan. Coba kata kunci lain.</div>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span id="modalIcon">🔥</span>
+                    <span id="modalTitle">Product Name</span>
+                </div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="start-price-label">Harga Mulai Dari:</div>
+                <div class="start-price-value" id="modalPrice">Rp 0</div>
+                <div class="modal-desc">
+                    Tersedia berbagai pilihan durasi dan plan premium (Harian, Bulanan, Tahunan).<br><br>
+                    <span style="color: var(--accent-yellow);"><b>Klik tombol di bawah untuk melihat pricelist lengkap & cek stok via Admin!</b></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="waLink" class="btn-order" target="_blank">📲 MINTA PRICELIST LENGKAP</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // DATA PRODUK (Paling mudah diedit! Cukup ubah nama, ikon, atau harga awal)
+        // =========================================================================
+        const products = [
+            // --- AI & INTELLIGENCE ---
+            { cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", icon: "🤖", startPrice: "5.000" },
+            { cat: "AI & INTELLIGENCE", name: "ChatGPT Go", icon: "🚀", startPrice: "3.500" },
+            { cat: "AI & INTELLIGENCE", name: "Claude AI", icon: "🧠", startPrice: "6.000" },
+            { cat: "AI & INTELLIGENCE", name: "Gemini Pro + G.One", icon: "✨", startPrice: "2.200" },
+            { cat: "AI & INTELLIGENCE", name: "Perplexity Pro", icon: "🔍", startPrice: "4.500" },
+            { cat: "AI & INTELLIGENCE", name: "GPTZero", icon: "🛡️", startPrice: "3.000" },
+            { cat: "AI & INTELLIGENCE", name: "Grammarly", icon: "✍️", startPrice: "2.500" },
+            { cat: "AI & INTELLIGENCE", name: "Quillbot", icon: "📝", startPrice: "3.000" },
+
+            // --- STREAMING & HIBURAN ---
+            { cat: "STREAMING & HIBURAN", name: "Netflix Harian", icon: "🔴", startPrice: "3.000" },
+            { cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", icon: "🎬", startPrice: "20.000" },
+            { cat: "STREAMING & HIBURAN", name: "Spotify", icon: "🟢", startPrice: "4.000" },
+            { cat: "STREAMING & HIBURAN", name: "YouTube Premium", icon: "▶️", startPrice: "5.000" },
+            { cat: "STREAMING & HIBURAN", name: "Apple Music", icon: "🍎", startPrice: "4.000" },
+            { cat: "STREAMING & HIBURAN", name: "Joox VIP", icon: "🎵", startPrice: "5.000" },
+            { cat: "STREAMING & HIBURAN", name: "Amazon Prime Video", icon: "📦", startPrice: "2.800" },
+            { cat: "STREAMING & HIBURAN", name: "Bstation", icon: "📺", startPrice: "3.000" },
+            { cat: "STREAMING & HIBURAN", name: "Crunchyroll", icon: "🍙", startPrice: "2.500" },
+            { cat: "STREAMING & HIBURAN", name: "Disney+ Hotstar", icon: "🏰", startPrice: "4.000" },
+            { cat: "STREAMING & HIBURAN", name: "Drakor ID", icon: "🇰🇷", startPrice: "2.000" },
+            { cat: "STREAMING & HIBURAN", name: "HBO Max", icon: "🎬", startPrice: "4.000" },
+            { cat: "STREAMING & HIBURAN", name: "iQIYI", icon: "🐉", startPrice: "2.000" },
+            { cat: "STREAMING & HIBURAN", name: "Vidio", icon: "📺", startPrice: "5.000" },
+            { cat: "STREAMING & HIBURAN", name: "VIU Premium", icon: "💛", startPrice: "2.000" },
+            { cat: "STREAMING & HIBURAN", name: "WeTV", icon: "🐧", startPrice: "9.000" },
+
+            // --- CREATIVE & EDITING ---
+            { cat: "CREATIVE & EDITING", name: "Canva Pro / Edu", icon: "🎨", startPrice: "1.500" },
+            { cat: "CREATIVE & EDITING", name: "CapCut Pro", icon: "✂️", startPrice: "5.000" },
+            { cat: "CREATIVE & EDITING", name: "Adobe Express", icon: "✨", startPrice: "5.000" },
+            { cat: "CREATIVE & EDITING", name: "Alight Motion", icon: "🎞️", startPrice: "1.800" },
+            { cat: "CREATIVE & EDITING", name: "InShot", icon: "📱", startPrice: "15.000" },
+            { cat: "CREATIVE & EDITING", name: "Lightroom", icon: "📸", startPrice: "5.000" },
+            { cat: "CREATIVE & EDITING", name: "PicsArt Pro", icon: "🖼️", startPrice: "1.800" },
+            { cat: "CREATIVE & EDITING", name: "Remini Pro (App)", icon: "✨", startPrice: "3.200" },
+            { cat: "CREATIVE & EDITING", name: "Remini Web", icon: "💻", startPrice: "3.000" },
+
+            // --- PRODUCTIVITY & EDU ---
+            { cat: "PRODUCTIVITY & EDU", name: "Microsoft 365", icon: "📊", startPrice: "2.000" },
+            { cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", icon: "📹", startPrice: "5.000" },
+            { cat: "PRODUCTIVITY & EDU", name: "CamScanner", icon: "📄", startPrice: "6.000" },
+            { cat: "PRODUCTIVITY & EDU", name: "GetContact", icon: "📞", startPrice: "2.000" },
+            { cat: "PRODUCTIVITY & EDU", name: "GoodNotes 6", icon: "📓", startPrice: "19.000" },
+            { cat: "PRODUCTIVITY & EDU", name: "Wattpad", icon: "📖", startPrice: "2.800" }
+        ];
+
+        // Generator HTML Otomatis
+        const container = document.getElementById('catalogContainer');
+        let currentCategory = "";
+
+        products.forEach(p => {
+            // Buat Judul Kategori jika berubah
+            if (p.cat !== currentCategory) {
+                currentCategory = p.cat;
+                const catTitle = document.createElement('div');
+                catTitle.className = "category-title";
+                catTitle.innerText = currentCategory;
+                container.appendChild(catTitle);
+            }
+
+            // Buat Kartu Produk
+            const card = document.createElement('div');
+            card.className = "product-card";
+            card.setAttribute("data-name", p.name.toLowerCase());
+            card.onclick = () => openModal(p.name, p.icon, p.startPrice);
+
+            card.innerHTML = `
+                <div class="product-info">
+                    <div class="product-icon">${p.icon}</div>
+                    <div class="product-name">${p.name}</div>
+                </div>
+                <div class="arrow-icon">➔</div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Fitur Live Search
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+            let categories = document.getElementsByClassName('category-title');
+            let hasVisibleCards = false;
+
+            // Sembunyikan semua kategori dulu
+            for (let cat of categories) { cat.style.display = 'none'; }
+
+            // Filter kartu produk
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].getAttribute('data-name');
+                if (text.includes(filter)) {
+                    cards[i].style.display = "flex";
+                    hasVisibleCards = true;
+                    
+                    // Tampilkan kategori milik kartu ini
+                    let prevSibling = cards[i].previousElementSibling;
+                    while(prevSibling) {
+                        if(prevSibling.classList.contains('category-title')) {
+                            prevSibling.style.display = 'block';
+                            break;
+                        }
+                        prevSibling = prevSibling.previousElementSibling;
+                    }
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            document.getElementById('notFoundMsg').style.display = hasVisibleCards ? 'none' : 'block';
+        });
+
+        // Modal Functions
+        const modal = document.getElementById("productModal");
+        
+        function openModal(title, icon, startPrice) {
+            document.getElementById('modalIcon').innerText = icon;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = "Rp " + startPrice;
+            
+            // Setup WA Link
+            const phone = "62882006216644";
+            const message = encodeURIComponent(`Halo AFIAR STORE, boleh minta pricelist lengkap untuk produk: *${title}* ?`);
+            document.getElementById('waLink').href = `https://wa.me/${phone}?text=${message}`;
+            
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden"; 
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) { closeModal(); }
+        }
+    </script>
+</body>
+</html>
