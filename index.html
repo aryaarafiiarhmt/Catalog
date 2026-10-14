@@ -4,77 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AFIAR STORE - Digital Premium Accounts</title>
-    <!-- Tailwind CSS untuk styling modern dan responsif -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Font Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-color: #0b0c10;
-            --card-bg: #1f2833;
-            --card-hover: #2b3642;
-            --text-main: #c5c6c7;
-            --text-muted: #8892b0;
-            --accent-cyan: #66fcf1;
-            --accent-teal: #45a29e;
+            --card-bg: #151922;
+            --card-hover: #1e2532;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #b026ff;
             --accent-pink: #ff0055;
-            --accent-yellow: #fce803;
-            --border-color: #333;
-            --success: #00ff00;
-            --danger: #ff3333;
+            --accent-gold: #ffd700;
+            --border-color: #262f40;
+            --success: #00ff66;
+            --warning: #ffb800;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
 
         body {
             background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, rgba(176, 38, 255, 0.12), transparent 60%);
             color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
             overflow-x: hidden;
         }
 
+        /* Security Banner */
+        .security-banner {
+            background: linear-gradient(90deg, rgba(255,0,85,0.15) 0%, rgba(176,38,255,0.15) 50%, rgba(0,240,255,0.15) 100%);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 8px 15px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #fff;
+            font-weight: 600;
+        }
+        .security-banner span { color: var(--accent-gold); font-weight: 800; }
+
         .header {
             text-align: center;
-            padding: 35px 20px 20px;
-            background: linear-gradient(180deg, rgba(31,40,51,0.9) 0%, rgba(11,12,16,1) 100%);
-            border-bottom: 1px solid rgba(102, 252, 241, 0.2);
+            padding: 30px 20px 22px;
+            background: linear-gradient(180deg, rgba(21,25,34,0.95) 0%, rgba(11,12,16,1) 100%);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             position: relative;
+        }
+
+        .af-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1a1025 0%, #0d1b2a 100%);
+            border: 2px solid var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.35), inset 0 0 10px rgba(176, 38, 255, 0.4);
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 1.7rem;
+            color: #fff;
+            text-shadow: 2px 2px 0px var(--accent-pink), -2px -2px 0px var(--accent-cyan);
+            margin-bottom: 8px;
+            transform: rotate(-3deg);
         }
 
         .store-title {
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-size: 2.8rem;
-            color: var(--text-main);
+            font-size: 2.7rem;
+            color: #fff;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
+            letter-spacing: 2.5px;
+            margin-bottom: 4px;
             text-shadow: 3px 3px 0px var(--accent-pink), -2px -2px 0px var(--accent-cyan);
-            transform: skew(-3deg);
+            transform: skew(-4deg);
         }
 
-        .header p { color: var(--accent-cyan); font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; }
+        .header-sub {
+            color: var(--accent-cyan);
+            font-weight: 800;
+            font-size: 0.78rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
 
-        .container { max-width: 650px; margin: 0 auto; padding: 15px; }
+        .header-actions {
+            margin-top: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-        .search-container { margin: 15px 0; }
+        .btn-qris-top {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 7px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-qris-top:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+        }
+
+        .container { max-width: 680px; margin: 0 auto; padding: 15px; }
+
+        .search-container { margin: 12px 0; position: relative; }
         
         #searchInput {
-            width: 100%; padding: 14px 18px;
-            background-color: rgba(31,40,51,0.6);
-            border: 1px solid var(--accent-teal);
-            color: #fff; font-size: 0.95rem;
+            width: 100%; padding: 13px 16px;
+            background-color: rgba(21, 25, 34, 0.85);
+            border: 1px solid var(--border-color);
+            color: #fff; font-size: 0.9rem;
             border-radius: 10px; outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
         #searchInput:focus {
             border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(102, 252, 241, 0.25);
+            box-shadow: 0 0 14px rgba(0, 240, 255, 0.25);
         }
 
         .filters {
-            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 15px;
+            display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 12px;
             scrollbar-width: none;
         }
         .filters::-webkit-scrollbar { display: none; }
@@ -82,15 +145,25 @@
         .filter-btn {
             background: var(--card-bg); border: 1px solid var(--border-color);
             color: var(--text-muted); padding: 8px 14px; border-radius: 20px;
-            cursor: pointer; white-space: nowrap; font-weight: 600; font-size: 0.8rem;
+            cursor: pointer; white-space: nowrap; font-weight: 700; font-size: 0.78rem;
             transition: all 0.2s;
         }
         .filter-btn.active {
-            background: var(--accent-teal); color: #fff; border-color: var(--accent-cyan);
-            box-shadow: 0 0 10px rgba(102,252,241,0.3);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(176, 38, 255, 0.25));
+            color: #fff; border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
         }
 
-        .product-list { display: flex; flex-direction: column; gap: 12px; }
+        .catalog-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-list { display: flex; flex-direction: column; gap: 10px; }
 
         .product-card {
             background-color: var(--card-bg);
@@ -100,111 +173,131 @@
             cursor: pointer; transition: all 0.2s ease;
             position: relative; overflow: hidden;
         }
-        .product-card:hover { border-color: var(--accent-cyan); background-color: var(--card-hover); transform: translateY(-2px); }
+        .product-card:hover {
+            border-color: var(--accent-cyan);
+            background-color: var(--card-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1);
+        }
 
         .badges-container {
-            position: absolute; top: -2px; right: 12px;
-            display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end;
+            position: absolute; top: 0px; right: 10px;
+            display: flex; gap: 4px;
             pointer-events: none;
         }
         .badge {
-            font-size: 0.6rem; font-weight: 800; padding: 2px 7px; border-radius: 4px;
-            text-transform: uppercase; color: #000; box-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+            font-size: 0.58rem; font-weight: 800; padding: 2px 7px; border-radius: 0 0 5px 5px;
+            text-transform: uppercase; color: #000;
         }
         .badge.hot { background-color: var(--accent-pink); color: #fff; }
-        .badge.limit { background-color: var(--accent-yellow); }
-        .badge.promo { background-color: var(--accent-cyan); }
+        .badge.promo { background-color: var(--accent-cyan); color: #000; }
+        .badge.limit { background-color: var(--accent-gold); color: #000; }
 
-        .product-info { display: flex; align-items: center; gap: 12px; z-index: 1; }
+        .product-info { display: flex; align-items: center; gap: 12px; z-index: 1; padding-right: 8px; }
         .product-icon {
-            font-size: 1.8rem; display: flex; align-items: center; justify-content: center;
-            width: 46px; height: 46px; background: rgba(0,0,0,0.35); border-radius: 10px;
+            font-size: 1.65rem; display: flex; align-items: center; justify-content: center;
+            width: 46px; height: 46px; background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px; flex-shrink: 0;
         }
         .product-details { display: flex; flex-direction: column; }
-        .product-name { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 2px; }
+        .product-name { font-weight: 700; font-size: 0.96rem; color: #fff; }
+        .product-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
         
-        .status { font-size: 0.72rem; display: flex; align-items: center; gap: 5px; color: var(--text-muted); }
+        .status { font-size: 0.7rem; display: flex; align-items: center; gap: 5px; color: var(--text-muted); margin-top: 3px; }
         .status-dot { width: 7px; height: 7px; border-radius: 50%; }
-        .status-dot.ready { background-color: var(--success); box-shadow: 0 0 5px var(--success); }
-        .status-dot.limited { background-color: var(--danger); box-shadow: 0 0 5px var(--danger); }
+        .status-dot.ready { background-color: var(--success); box-shadow: 0 0 6px var(--success); }
 
+        .price-col { text-align: right; flex-shrink: 0; }
+        .price-label { font-size: 0.62rem; color: var(--text-muted); display: block; margin-bottom: 2px; }
         .price-tag {
-            font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);
-            background: rgba(102, 252, 241, 0.1); padding: 5px 10px; border-radius: 6px;
+            font-size: 0.82rem; font-weight: 800; color: var(--accent-gold);
+            background: rgba(255, 215, 0, 0.1); border: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 4px 9px; border-radius: 6px; display: inline-block;
         }
 
         /* Modal Popup */
         .modal {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(11, 12, 16, 0.88); z-index: 1000;
-            justify-content: center; align-items: center; padding: 15px;
+            background-color: rgba(7, 8, 12, 0.88); z-index: 1000;
+            justify-content: center; align-items: center; padding: 12px;
             backdrop-filter: blur(8px);
         }
         .modal-content {
-            background-color: var(--card-bg); width: 100%; max-width: 440px;
-            border-radius: 16px; border: 1px solid var(--accent-teal);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            background-color: var(--card-bg); width: 100%; max-width: 480px;
+            border-radius: 16px; border: 1px solid var(--accent-cyan);
+            box-shadow: 0 10px 35px rgba(0, 240, 255, 0.15);
             display: flex; flex-direction: column; max-height: 92vh;
             overflow: hidden;
         }
         .modal-header {
-            padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.08);
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.3);
         }
-        .modal-title { font-size: 1.2rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
-        .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; line-height: 1; }
+        .modal-title { font-size: 1.1rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.7rem; cursor: pointer; line-height: 1; }
         
-        .modal-body { padding: 18px; overflow-y: auto; }
-        
-        .step-box {
-            background: rgba(102, 252, 241, 0.05);
-            border: 1px border-dashed var(--accent-teal);
-            border-radius: 10px; padding: 12px; margin-bottom: 15px;
-            font-size: 0.8rem; color: #d0d7de;
-        }
-        .step-item { display: flex; items-center; gap: 8px; margin-bottom: 4px; }
-        .step-num {
-            background: var(--accent-teal); color: #000; font-weight: 800;
-            width: 18px; height: 18px; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 0.65rem; shrink-0;
+        .modal-body { padding: 16px; overflow-y: auto; }
+
+        .section-label {
+            font-size: 0.74rem; color: var(--accent-cyan); margin-bottom: 7px;
+            font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
         }
 
-        .variant-selector { margin: 10px 0 15px; text-align: left; }
-        .variant-selector p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .variant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 8px; }
+        .variant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); gap: 7px; margin-bottom: 14px; }
         .variant-btn {
-            background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);
-            color: #fff; padding: 9px; border-radius: 8px; cursor: pointer;
-            font-size: 0.82rem; transition: all 0.2s; text-align: center;
+            background: rgba(0,0,0,0.35); border: 1px solid var(--border-color);
+            color: #e2e8f0; padding: 8px 6px; border-radius: 8px; cursor: pointer;
+            font-size: 0.75rem; transition: all 0.2s; text-align: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
+        .variant-btn .v-name { font-weight: 600; font-size: 0.73rem; }
+        .variant-btn .v-price { font-size: 0.7rem; color: var(--accent-gold); font-weight: 800; margin-top: 2px; }
         .variant-btn.active {
-            background: rgba(102, 252, 241, 0.2); border-color: var(--accent-cyan);
-            color: var(--accent-cyan); font-weight: bold;
-            box-shadow: 0 0 8px rgba(102, 252, 241, 0.3);
+            background: rgba(0, 240, 255, 0.15); border-color: var(--accent-cyan);
+            color: #fff; box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
         }
 
-        .price-display { margin: 10px 0 15px; text-align: center; }
-        .price-display span { font-size: 1.8rem; font-weight: 900; color: var(--accent-yellow); text-shadow: 2px 2px 0px #000; }
+        .price-display {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,215,0,0.25);
+            border-radius: 10px; padding: 10px; margin-bottom: 14px; text-align: center;
+        }
+        .price-display .selected-pkg { font-size: 0.75rem; color: var(--text-muted); display: block; }
+        .price-display .selected-val { font-size: 1.55rem; font-weight: 900; color: var(--accent-gold); }
 
-        /* Tampilan Gambar QRIS Resmi Afiar Store */
+        .pricelist-box {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-purple);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.76rem;
+            color: #cbd5e1;
+            white-space: pre-line;
+            margin-bottom: 14px;
+            max-height: 210px;
+            overflow-y: auto;
+            line-height: 1.5;
+        }
+
+        /* Kartu Gambar QRIS Afiar Store Resmi */
         .qris-card-wrapper {
-            background: #ffffff;
+            background: #10141d;
             border-radius: 12px;
             padding: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
             text-align: center;
-            margin: 15px 0 10px;
-            border: 2px solid #e2e8f0;
-            position: relative;
+            margin-top: 6px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
         }
         .qris-img-container {
             width: 100%;
-            max-width: 280px;
-            margin: 0 auto;
+            max-width: 260px;
+            margin: 8px auto;
             border-radius: 8px;
             overflow: hidden;
-            background: #f8fafc;
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            background: #000;
         }
         .qris-img-container img {
             width: 100%;
@@ -213,92 +306,103 @@
             object-fit: contain;
         }
 
-        .modal-footer { padding: 15px 18px; border-top: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); }
+        .modal-footer { padding: 13px 16px; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.35); }
         .btn-order {
-            display: block; width: 100%; padding: 14px;
+            display: block; width: 100%; padding: 13px;
             background: linear-gradient(90deg, #25D366 0%, #128C7E 100%);
             color: #fff; text-align: center; text-decoration: none; font-weight: 800;
-            border-radius: 8px; text-transform: uppercase; font-size: 0.9rem; transition: all 0.2s;
+            border-radius: 8px; text-transform: uppercase; font-size: 0.86rem; transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
-        .btn-order:hover { filter: brightness(1.1); transform: scale(1.01); }
+        .btn-order:hover { filter: brightness(1.1); }
 
-        .faq-section { margin-top: 35px; }
-        .section-title { color: var(--accent-cyan); font-size: 1.1rem; margin-bottom: 12px; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+        .faq-section { margin-top: 32px; }
+        .section-title { color: var(--accent-cyan); font-size: 1rem; margin-bottom: 12px; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; }
         
         .accordion {
             background-color: var(--card-bg); color: #fff; cursor: pointer; padding: 12px 15px;
             width: 100%; text-align: left; border: 1px solid var(--border-color);
-            outline: none; transition: 0.3s; border-radius: 8px; margin-bottom: 5px;
-            font-weight: 600; font-size: 0.85rem; display: flex; justify-content: space-between;
+            outline: none; transition: 0.3s; border-radius: 8px; margin-bottom: 6px;
+            font-weight: 600; font-size: 0.83rem; display: flex; justify-content: space-between;
         }
-        .accordion:hover, .accordion.active { background-color: var(--card-hover); border-color: var(--accent-teal); }
+        .accordion:hover, .accordion.active { background-color: var(--card-hover); border-color: var(--accent-cyan); }
         .panel {
-            padding: 0 15px; background-color: rgba(0,0,0,0.2); max-height: 0;
+            padding: 0 15px; background-color: rgba(0,0,0,0.25); max-height: 0;
             overflow: hidden; transition: max-height 0.2s ease-out;
-            border-radius: 0 0 8px 8px; margin-top: -5px; margin-bottom: 8px;
-            font-size: 0.82rem; color: var(--text-muted);
+            border-radius: 0 0 8px 8px; margin-top: -6px; margin-bottom: 8px;
+            font-size: 0.8rem; color: var(--text-muted);
         }
         .panel p { padding: 12px 0; }
 
-        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--border-color); }
-        .payment-logos { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-        .pay-badge { background: #fff; color: #000; font-size: 0.68rem; font-weight: 800; padding: 3px 7px; border-radius: 4px; }
-        .tnc-text { font-size: 0.78rem; color: var(--text-muted); }
+        .footer { text-align: center; margin-top: 36px; padding-top: 20px; border-top: 1px dashed var(--border-color); }
+        .payment-logos { display: flex; justify-content: center; gap: 7px; margin-bottom: 12px; flex-wrap: wrap; }
+        .pay-badge { background: #1e293b; border: 1px solid #334155; color: #e2e8f0; font-size: 0.68rem; font-weight: 800; padding: 4px 8px; border-radius: 5px; }
+        .tnc-text { font-size: 0.76rem; color: var(--text-muted); }
         .tnc-text strong { color: var(--accent-pink); }
     </style>
 </head>
 <body>
 
+    <div class="security-banner">
+        ⚠️ <span>SECURITY ADVISORY:</span> Wajib cek stok via WhatsApp Admin sebelum melakukan transfer QRIS!
+    </div>
+
     <header class="header">
+        <div class="af-logo">AF</div>
         <h1 class="store-title">AFIAR STORE</h1>
-        <p>PREMIUM DIGITAL ACCOUNTS • LEGAL & BERGARANSI</p>
+        <p class="header-sub">PREMIUM DIGITAL ACCOUNTS • GARANSI S&amp;K BERLAKU</p>
+        <div class="header-actions">
+            <button class="btn-qris-top" onclick="openPaymentModal()">💳 Petunjuk Pembayaran &amp; QRIS Resmi</button>
+            <a href="https://wa.me/62882006216644" target="_blank" class="btn-qris-top" style="border-color: #25D366; color: #25D366; text-decoration: none;">💬 Chat Admin WA</a>
+        </div>
     </header>
 
     <div class="container">
-        <!-- Input Pencarian -->
         <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Cari aplikasi (ChatGPT, Netflix, Canva, CapCut)...">
+            <input type="text" id="searchInput" placeholder="🔍 Cari produk (ChatGPT, Netflix, Canva, Vidio, Zoom)...">
         </div>
 
-        <!-- Filter Kategori -->
         <div class="filters" id="filterContainer">
-            <button class="filter-btn active" data-filter="all">Semua</button>
-            <button class="filter-btn" data-filter="AI & INTELLIGENCE">🤖 AI</button>
-            <button class="filter-btn" data-filter="STREAMING & HIBURAN">🎬 Streaming</button>
-            <button class="filter-btn" data-filter="CREATIVE & EDITING">🎨 Editing</button>
-            <button class="filter-btn" data-filter="PRODUCTIVITY & EDU">📊 Produktivitas</button>
-            <button class="filter-btn" data-filter="BUNDLE">🎁 Promo Bundle</button>
+            <button class="filter-btn active" data-filter="all">⚡ Semua (39)</button>
+            <button class="filter-btn" data-filter="AI & INTELLIGENCE">🤖 AI Tools (8)</button>
+            <button class="filter-btn" data-filter="STREAMING & HIBURAN">🎬 Streaming &amp; Musik (16)</button>
+            <button class="filter-btn" data-filter="CREATIVE & EDITING">🎨 Creative &amp; Editing (9)</button>
+            <button class="filter-btn" data-filter="PRODUCTIVITY & EDU">📊 Produktivitas &amp; Edu (6)</button>
         </div>
 
-        <!-- Daftar Katalog Produk -->
-        <div id="catalogContainer" class="product-list">
-            <!-- Rendered via JS -->
+        <div class="catalog-count">
+            <span id="productCountText">Menampilkan 39 produk</span>
+            <span>Klik produk untuk detail &amp; order</span>
         </div>
+
+        <div id="catalogContainer" class="product-list"></div>
 
         <!-- FAQ Section -->
         <div class="faq-section">
-            <h2 class="section-title">Pertanyaan Umum (FAQ)</h2>
-            <button class="accordion">Berapa lama proses pemesanan? <span>+</span></button>
-            <div class="panel"><p>Proses sangat cepat! Biasanya akun akan dikirimkan dalam 1-15 menit setelah pembayaran dan konfirmasi via WA terverifikasi.</p></div>
+            <h2 class="section-title">Pertanyaan Umum &amp; Prosedur (FAQ)</h2>
+            <button class="accordion">Bagaimana cara order di AFIAR STORE? <span>+</span></button>
+            <div class="panel"><p>1. Pilih produk di katalog dan klik varian paket yang diinginkan.<br>2. Klik tombol <b>Cek Stok &amp; Order via WA</b> untuk memastikan ketersediaan stok.<br>3. Lakukan pembayaran via QRIS Resmi (<b>Afiar Store - Catering / NMID: ID1026544678653</b>) atau E-Wallet.<br>4. Kirimkan bukti screenshot pembayaran ke Admin WA (+62 882-0062-16644).</p></div>
 
-            <button class="accordion">Bagaimana alur pemesanannya? <span>+</span></button>
-            <div class="panel"><p>1. Pilih produk & durasi di katalog.<br>2. Klik tombol Cek Stok & Order via WA untuk konfirmasi ketersediaan.<br>3. Scan QRIS resmi Afiar Store untuk pembayaran.<br>4. Kirimkan bukti transfer ke Admin WA.</p></div>
+            <button class="accordion">Bagaimana ketentuan Garansi S&amp;K Berlaku? <span>+</span></button>
+            <div class="panel"><p>Setiap paket memiliki keterangan garansi yang transparan (seperti <b>Fullgar / Garansi Backfree</b> atau <b>Nogar / No Garansi</b>). Selama masa garansi aktif, pembeli wajib mematuhi aturan pemakaian (tidak mengubah password/data akun, tidak melanggar batas maksimal login device) agar klaim garansi tetap berlaku.</p></div>
 
-            <button class="accordion">Bagaimana sistem garansinya? <span>+</span></button>
-            <div class="panel"><p>Kami memberikan garansi sesuai paket. Jika terjadi kendala (layar limit/password) selama masa aktif, silakan lapor ke Admin via WA untuk segera ditangani.</p></div>
+            <button class="accordion">Apa tujuan pembayaran resmi AFIAR STORE? <span>+</span></button>
+            <div class="panel"><p>• <b>QRIS All Payment:</b> Afiar Store - Catering (NMID: ID1026544678653)<br>• <b>DANA / GoPay / ShopeePay:</b> 082149992412 a.n AFIAR STORE<br>Pastikan nama tujuan sesuai sebelum menekan tombol konfirmasi bayar.</p></div>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <div class="payment-logos">
-                <span class="pay-badge">QRIS</span>
+                <span class="pay-badge">QRIS ALL PAYMENT</span>
                 <span class="pay-badge">DANA</span>
                 <span class="pay-badge">GOPAY</span>
                 <span class="pay-badge">SHOPEEPAY</span>
-                <span class="pay-badge">BCA / SEABANK</span>
+                <span class="pay-badge">SEABANK / BANK TRANSFER</span>
             </div>
-            <p class="tnc-text"><strong>* Garansi S&K Berlaku</strong> | Akun Sharing / Private Sesuai Paket<br>© 2026 AFIAR STORE.</p>
+            <p class="tnc-text">
+                <strong>* Garansi S&amp;K Berlaku</strong> • Transparan &amp; Terpercaya<br>
+                WA Admin: <a href="https://wa.me/62882006216644" target="_blank" style="color: var(--accent-cyan);">+62 882-0062-16644</a> | IG: <a href="https://instagram.com/afiar_business" target="_blank" style="color: var(--accent-cyan);">@afiar_business</a><br>
+                © 2026 AFIAR STORE. All Rights Reserved.
+            </p>
         </div>
     </div>
 
@@ -307,111 +411,1069 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title">
-                    <span id="modalIcon">🔥</span>
-                    <span id="modalTitle">Product</span>
+                    <span id="modalIcon">⚡</span>
+                    <span id="modalTitle">Nama Produk</span>
                 </div>
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             
             <div class="modal-body">
-                <!-- Petunjuk Alur Transaksi -->
-                <div class="step-box">
-                    <div class="step-item">
-                        <span class="step-num">1</span>
-                        <span>Pilih varian durasi & klik <b>Cek Stok & Order via WA</b>.</span>
-                    </div>
-                    <div class="step-item">
-                        <span class="step-num">2</span>
-                        <span>Lakukan pembayaran dengan scan gambar QRIS di bawah ini.</span>
-                    </div>
-                </div>
+                <div id="productSection">
+                    <div class="section-label">1. Pilih Pintasan Paket Populer:</div>
+                    <div class="variant-grid" id="variantGrid"></div>
 
-                <!-- Pemilih Varian Durasi -->
-                <div class="variant-selector">
-                    <p>Pilih Durasi / Paket:</p>
-                    <div class="variant-grid" id="variantGrid">
-                        <!-- Variant buttons injected dynamically -->
+                    <div class="price-display">
+                        <span class="selected-pkg" id="selectedPkgName">Paket Terpilih</span>
+                        <span class="selected-val" id="modalPrice">Rp 0</span>
                     </div>
-                </div>
 
-                <!-- Tampilan Harga -->
-                <div class="price-display">
-                    <span id="modalPrice">Rp 0</span>
+                    <div class="section-label">2. Rincian Pricelist Lengkap &amp; Ketentuan:</div>
+                    <div class="pricelist-box" id="modalDetails"></div>
                 </div>
 
                 <!-- Kartu Gambar QRIS Afiar Store Resmi -->
                 <div class="qris-card-wrapper">
-                    <p style="color: #1a202c; font-weight: 800; font-size: 0.8rem; margin-bottom: 6px; text-transform: uppercase;">
-                        💳 Gambar QRIS Pembayaran Resmi
+                    <p style="color: var(--accent-cyan); font-weight: 800; font-size: 0.78rem; text-transform: uppercase;">
+                        💳 QRIS Resmi: Afiar Store - Catering
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 0.68rem; margin-bottom: 6px;">
+                        NMID: ID1026544678653 • DANA/GoPay/ShopeePay: 082149992412
                     </p>
                     
                     <div class="qris-img-container">
-                        <!-- Menampilkan gambar QRIS resmi dari file user -->
-                        <img id="qrisImage" src="WhatsApp Image 2026-10-04 at 1.19.08 PM.jpeg" alt="QRIS Afiar Store - Catering" onerror="handleImageError(this)">
+                        <img id="qrisImage" src="Payment Web Page.jpeg" alt="QRIS AFIAR STORE" onerror="handleImageError(this)">
                     </div>
 
-                    <div style="margin-top: 8px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
-                        <a id="btnDownloadQris" href="WhatsApp Image 2026-10-04 at 1.19.08 PM.jpeg" download="QRIS_Afiar_Store.jpeg" target="_blank" style="font-size: 0.72rem; background: #2d3748; color: #fff; padding: 4px 10px; border-radius: 6px; font-weight: 700; text-decoration: none;">
-                            📥 Simpan Gambar QRIS
+                    <div style="margin-top: 8px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                        <a id="btnDownloadQris" href="Payment Web Page.jpeg" download="QRIS_AFIAR_STORE.jpeg" target="_blank" style="font-size: 0.72rem; background: #1e293b; border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 5px 12px; border-radius: 6px; font-weight: 700; text-decoration: none;">
+                            📥 Unduh / Simpan Gambar QRIS
                         </a>
-                        <label for="qrisFileInput" style="font-size: 0.72rem; background: #e2e8f0; color: #2d3748; padding: 4px 10px; border-radius: 6px; font-weight: 700; cursor: pointer;">
-                            📁 Ganti File QRIS
-                        </label>
-                        <input type="file" id="qrisFileInput" accept="image/*" style="display: none;" onchange="uploadCustomQris(event)">
                     </div>
                 </div>
             </div>
 
-            <!-- Modal Footer Button -->
             <div class="modal-footer">
-                <a href="#" id="waLink" class="btn-order" target="_blank">📲 CEK STOK & ORDER VIA WA</a>
+                <a href="#" id="waLink" class="btn-order" target="_blank">📲 CEK STOK &amp; ORDER VIA WA</a>
             </div>
         </div>
     </div>
 
     <script>
-        // Data Katalog Produk
         const products = [
-            // BUNDLE PROMO
-            { cat: "BUNDLE", name: "YT Premium + YT Music", icon: "🎁", status: "ready", badges: ["🔥 BEST SELLER", "🎁 PROMO"], variants: [{name: "1 Bulan", price: "5.000"}] },
-            { cat: "BUNDLE", name: "Gemini Pro + G.One", icon: "✨", status: "ready", badges: ["🎁 PROMO"], variants: [{name: "1 Bulan", price: "2.200"}] },
-            { cat: "BUNDLE", name: "Mic. 365 + OneDrive 1TB", icon: "📊", status: "ready", badges: ["🎁 PROMO"], variants: [{name: "1 Bulan", price: "2.000"}] },
+            // 1-8: AI & INTELLIGENCE
+            {
+                id: 1, cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", shortcut: "chatgptplus", icon: "⚡", badges: ["🔥 BEST SELLER"],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Sharing 8U (1 Hari)", price: "5.000" },
+                    { name: "Sharing 5U (1 Hari)", price: "8.000" },
+                    { name: "Sharing 8U (7 Hari)", price: "15.000" },
+                    { name: "Sharing 8U (1 Bln)", price: "49.000" },
+                    { name: "Sharing Trik 5U (1 Bln)", price: "24.000" },
+                    { name: "Private Trik (1 Bln)", price: "102.000" },
+                    { name: "Private Legal (1 Bln)", price: "377.000" }
+                ],
+                details: `▪ Sharing Legal (8U | 5U | 3U)
+• 1 Hari : 5k | 8k | 11k
+• 2 Hari : 6k | 13k | 19k
+• 3 Hari : 7k | 17k | 23k
+• 4 Hari : 8.5k | 21k | 29k
+• 5 Hari : 11k | 26k | 33k
+• 7 Hari : 15k | 36k | 41k
+• 14 Hari : 27k | 52k | 72k
+• 1 Bulan : 49k | 92k | 127k
 
-            // AI & INTELLIGENCE
-            { cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", icon: "🤖", status: "ready", badges: ["🔥 HOT"], variants: [{name: "1 Hari", price: "5.000"}, {name: "3 Hari", price: "12.000"}, {name: "1 Bulan", price: "40.000"}] },
-            { cat: "AI & INTELLIGENCE", name: "Claude AI Pro", icon: "🧠", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "6.000"}] },
-            { cat: "AI & INTELLIGENCE", name: "Quillbot Premium", icon: "📝", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "3.000"}, {name: "1 Tahun", price: "25.000"}] },
+▪ Sharing Trik (Nogar)
+• 1 Bulan (5U) : 24k | 1 Bulan (3U) : 37k
 
-            // STREAMING & HIBURAN
-            { cat: "STREAMING & HIBURAN", name: "Netflix Harian", icon: "🔴", status: "limited", badges: ["🔥 BEST SELLER", "⚠️ STOK TERBATAS"], variants: [{name: "1 Hari", price: "3.000"}, {name: "3 Hari", price: "8.000"}, {name: "7 Hari", price: "15.000"}] },
-            { cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", icon: "🎬", status: "ready", badges: [], variants: [{name: "Sharing 1B", price: "20.000"}, {name: "Private 1B", price: "35.000"}] },
-            { cat: "STREAMING & HIBURAN", name: "Spotify Premium", icon: "🟢", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "4.000"}, {name: "3 Bulan", price: "10.000"}] },
-            { cat: "STREAMING & HIBURAN", name: "YouTube Premium", icon: "▶️", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "5.000"}, {name: "4 Bulan", price: "18.000"}] },
-            
-            // CREATIVE & EDITING
-            { cat: "CREATIVE & EDITING", name: "Canva Pro / Edu", icon: "🎨", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "1.500"}, {name: "1 Tahun", price: "10.000"}, {name: "Lifetime", price: "15.000"}] },
-            { cat: "CREATIVE & EDITING", name: "CapCut Pro", icon: "✂️", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "5.000"}, {name: "1 Tahun", price: "35.000"}] },
-            { cat: "CREATIVE & EDITING", name: "Alight Motion", icon: "🎞️", status: "ready", badges: [], variants: [{name: "1 Tahun", price: "1.800"}] },
+▪ Private 1 Bulan
+• Legal (Garansi) : 377k | Trik (Nogar) : 102k
 
-            // PRODUCTIVITY & EDU
-            { cat: "PRODUCTIVITY & EDU", name: "Microsoft 365", icon: "📊", status: "ready", badges: [], variants: [{name: "1 Bulan", price: "2.000"}] },
-            { cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", icon: "📹", status: "ready", badges: [], variants: [{name: "1 Hari", price: "5.000"}, {name: "1 Bulan", price: "25.000"}] }
+📌 Ketentuan:
+✅ Akun dari seller & standby OTP
+✅ Paid legal bergaransi Backfree (BF)
+✅ Private bisa akun cust / perpanjang (PPJ)
+⚠️ Membeli sharing = paham risiko limit server`
+            },
+            {
+                id: 2, cat: "AI & INTELLIGENCE", name: "ChatGPT Go", shortcut: "chatgptgo", icon: "🚀", badges: ["PROMO"],
+                startPrice: "3.500",
+                variants: [
+                    { name: "Sharing 8U (1 Hari)", price: "3.500" },
+                    { name: "Sharing 8U (7 Hari)", price: "6.500" },
+                    { name: "Sharing 8U (1 Bln)", price: "17.000" },
+                    { name: "Sharing 4U (1 Bln)", price: "27.000" },
+                    { name: "Link Redeem", price: "37.000" },
+                    { name: "Jaspay Trik (Nogar)", price: "52.000" }
+                ],
+                details: `▪ Sharing Legal (8U | 4U | 2U)
+• 1 Hari : 3.5k | 5k | 9k
+• 3 Hari : 4.5k | 7k | 13k
+• 5 Hari : 5.5k | 9k | 17k
+• 7 Hari : 6.5k | 11k | 21k
+• 14 Hari : 12k | 20k | 32k
+• 1 Bulan : 17k | 27k | 52k
+
+▪ Private / Lainnya
+• Jaspay Legal (Akun Cust) : Harga GPlay + 7k
+• Jaspay Trik (Akun Cust, Nogar) : 52k
+• Link Redeem (Tanpa Method) : 37k
+
+📌 Ketentuan:
+✅ Sharing akun dari seller (Paid Legal, Garansi BF)
+✅ Durasi 1 bulan = 25-30 hari
+⚠️ Membeli sharing = paham risiko limit`
+            },
+            {
+                id: 3, cat: "AI & INTELLIGENCE", name: "Claude AI", shortcut: "claude", icon: "🧠", badges: ["🔥 HOT"],
+                startPrice: "6.000",
+                variants: [
+                    { name: "Sharing 10U (1 Hari)", price: "6.000" },
+                    { name: "Sharing 4U (1 Hari)", price: "11.000" },
+                    { name: "Sharing 10U (7 Hari)", price: "21.000" },
+                    { name: "Sharing 10U (1 Bln)", price: "54.000" },
+                    { name: "Sharing 4U (1 Bln)", price: "102.000" },
+                    { name: "Private Legal (1 Bln)", price: "402.000" }
+                ],
+                details: `▪ Sharing Legal (10U | 4U Less Limit)
+• 1 Hari : 6k | 11k
+• 2 Hari : 9k | 16k
+• 3 Hari : 11k | 21k
+• 5 Hari : 16k | 31k
+• 7 Hari : 21k | 41k
+• 14 Hari : 37k | 72k
+• 1 Bulan : 54k | 102k
+
+▪ Private Legal
+• 1 Bulan : 402k
+
+📌 Ketentuan:
+✅ Akun dari seller, wajib standby OTP saat login
+✅ Paid legal bergaransi Backfree (BF)
+✅ Private bisa akun cust & perpanjang tiap bulan
+⚠️ Durasi berjalan sejak akun dikirimkan`
+            },
+            {
+                id: 4, cat: "AI & INTELLIGENCE", name: "Gemini Pro + G.One", shortcut: "gemini", icon: "✨", badges: ["🎁 BUNDLE"],
+                startPrice: "2.200",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "2.200" },
+                    { name: "Sharing (7 Hari)", price: "5.000" },
+                    { name: "Sharing (1 Bln)", price: "8.000" },
+                    { name: "Private Seller (1 Bln)", price: "17.000" },
+                    { name: "Private Invite (1 Bln)", price: "20.000" },
+                    { name: "Head Gemini Fullgar (1B)", price: "27.000" }
+                ],
+                details: `(Include VEO3, GDrive 2-5 TB, GMeet, Google Flow)
+▪ Sharing (Akun Seller)
+• 1 Hari : 2.2k | 3 Hari : 3k | 5 Hari : 4k
+• 7 Hari : 5k | 14 Hari : 7k | 1 Bulan : 8k
+• 2 Bulan : 13k | 3 Bulan : 18k
+
+▪ Private Invite (Akun Cust)
+• 1 Hari : 3.5k | 3 Hari : 4.5k | 7 Hari : 8k
+• 14 Hari : 13k | 1 Bulan : 20k | 2 Bulan : 28k
+• 3 Bulan : 38k | 4 Bulan : 49k
+
+▪ Private Akun Seller
+• 7 Hari : 11k | 14 Hari : 14k | 1 Bulan : 17k
+
+▪ Head Gemini (Bisa Invite 5 Member)
+• 1 Bulan : 22k (Nogar) | 27k (Fullgar)
+• 3 Bulan : 38k (Nogar) | 48k (Fullgar)
+
+📌 Ketentuan:
+✅ Penyimpanan 2-5 TB & Garansi Backfree`
+            },
+            {
+                id: 5, cat: "AI & INTELLIGENCE", name: "Perplexity Pro", shortcut: "perplexity", icon: "🔍", badges: [],
+                startPrice: "4.500",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "4.500" },
+                    { name: "Sharing (7 Hari)", price: "16.000" },
+                    { name: "Sharing (1 Bln)", price: "40.000" },
+                    { name: "Private (1 Hari)", price: "16.000" },
+                    { name: "Private (7 Hari)", price: "46.000" },
+                    { name: "Private (1 Bln)", price: "452.000" }
+                ],
+                details: `▪ Sharing Legal
+• 1 Hari : 4.5k | 2 Hari : 7k | 3 Hari : 10k
+• 5 Hari : 13k | 7 Hari : 16k | 14 Hari : 27k
+• 1 Bulan : 40k | 2 Bulan : 78k
+
+▪ Private Legal
+• 1 Hari : 16k | 3 Hari : 26k | 5 Hari : 36k
+• 7 Hari : 46k | 1 Bulan : 452k
+
+📌 Ketentuan:
+✅ Akun dari seller (Login Google, wajib standby OTP)
+✅ Paid legal, bukan trik`
+            },
+            {
+                id: 6, cat: "AI & INTELLIGENCE", name: "GPTZero", shortcut: "gptzero", icon: "🛡️", badges: [],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Jasa 1x Cek Plagiasi/AI", price: "3.000" },
+                    { name: "Jasa Cek Plagiasi + AI", price: "4.500" },
+                    { name: "Sharing Prem (1 Hari)", price: "8.000" },
+                    { name: "Sharing Prem (1 Bln)", price: "27.000" },
+                    { name: "Private Prem (1 Bln)", price: "42.000" },
+                    { name: "Private Pro (1 Bln)", price: "87.000" }
+                ],
+                details: `▪ Jasa Cek File (Per 1x Cek)
+• Cek Plagiasi / Similarity : 3k
+• Cek AI (Indo/Eng) : 3k
+• Cek Plagiasi + AI : 4.5k (>50k karakter +1.5k)
+
+▪ Sharing (Premium | Profesional)
+• 1 Hari : 8k | 11k
+• 3 Hari : 11k | 16k
+• 7 Hari : 16k | 21k
+• 14 Hari : 22k | 37k
+• 1 Bulan : 27k | 47k
+
+▪ Private (Premium | Profesional)
+• 1 Hari : 11k | 13k
+• 3 Hari : 16k | 19k
+• 7 Hari : 21k | 26k
+• 14 Hari : 32k | 47k
+• 1 Bulan : 42k | 87k
+
+📌 Ketentuan:
+✅ Maks 50.000 karakter/cek (Premium) & >50.000 (Profesional)
+✅ Size file maks 15 MB`
+            },
+            {
+                id: 7, cat: "AI & INTELLIGENCE", name: "Grammarly", shortcut: "grammarly", icon: "✍️", badges: [],
+                startPrice: "2.500",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "2.500" },
+                    { name: "Sharing (7 Hari)", price: "8.000" },
+                    { name: "Sharing (1 Bln)", price: "11.000" },
+                    { name: "Sharing (6 Bln)", price: "40.000" },
+                    { name: "Private (7 Hari)", price: "16.000" },
+                    { name: "Private (1 Bln)", price: "47.000" }
+                ],
+                details: `▪ Sharing
+• 1 Hari : 2.5k | 3 Hari : 4k | 5 Hari : 6k
+• 7 Hari : 8k | 1 Bulan : 11k | 2 Bulan : 20k
+• 3 Bulan : 25k | 6 Bulan : 40k
+
+▪ Private (Maks 5 Device)
+• 7 Hari : 16k | 1 Bulan : 47k
+
+📌 Ketentuan:
+✅ Akun dari seller (Harian login Google, standby OTP)
+✅ Full garansi Backfree (BF)`
+            },
+            {
+                id: 8, cat: "AI & INTELLIGENCE", name: "Quillbot", shortcut: "quillbot", icon: "📝", badges: [],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Sharing 5U (1 Hari)", price: "3.000" },
+                    { name: "Sharing 5U (3 Hari)", price: "5.000" },
+                    { name: "Sharing 5U (7 Hari)", price: "9.000" },
+                    { name: "Sharing 5U (1 Bln)", price: "12.000" },
+                    { name: "Private (1 Bln)", price: "47.000" }
+                ],
+                details: `▪ Sharing (5 User)
+• 1 Hari : 3k | 3 Hari : 5k | 5 Hari : 7k
+• 7 Hari : 9k | 1 Bulan : 12k
+
+▪ Private
+• 1 Bulan : 47k
+
+📌 Ketentuan:
+✅ Akun dari seller
+✅ Full garansi Backfree (BF)`
+            },
+
+            // 9-24: STREAMING & HIBURAN
+            {
+                id: 9, cat: "STREAMING & HIBURAN", name: "Netflix Harian", shortcut: "netflixharian", icon: "🔴", badges: ["🔥 BEST SELLER"],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Sharing 1P2U (1 Hari)", price: "3.000" },
+                    { name: "Sharing 1P1U (1 Hari)", price: "3.500" },
+                    { name: "Anti Limit (1 Hari)", price: "4.500" },
+                    { name: "Semi Private (1 Hari)", price: "5.000" },
+                    { name: "Sharing 1P2U (7 Hari)", price: "14.000" },
+                    { name: "Private Trial 30H (Nogar)", price: "37.000" }
+                ],
+                details: `▪ Sharing 1P2U (1 Profil 2 User)
+• 1 Hari : 3k | 2 Hari : 5k | 3 Hari : 7k
+• 4 Hari : 9k | 5 Hari : 11k | 7 Hari : 14k
+
+▪ Sharing 1P1U (1 Profil 1 User)
+• 1 Hari : 3.5k | 2 Hari : 6k | 3 Hari : 8.5k
+• 4 Hari : 11k | 5 Hari : 13k | 7 Hari : 17k
+
+▪ Anti Limit (Bebas Limit Screen)
+• 1 Hari : 4.5k | 2 Hari : 8k | 3 Hari : 11k
+• 5 Hari : 18k | 7 Hari : 23k
+
+▪ Semi Private (Bisa Login 2 Device)
+• 1 Hari : 5k | 3 Hari : 12k | 5 Hari : 19k | 7 Hari : 24k
+
+▪ Private Trial (Nogar)
+• 30 Hari : 37k
+
+📌 Ketentuan:
+✅ Akun dari seller, login maks 1 device (kecuali Semi Private)
+✅ Login TV tambah fee +2k
+⚠️ Dilarang gonta-ganti device`
+            },
+            {
+                id: 10, cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", shortcut: "netflixbulanan", icon: "🎬", badges: ["🔥 HOT"],
+                startPrice: "20.000",
+                variants: [
+                    { name: "1P2U Reg Luar (1 Bln)", price: "20.000" },
+                    { name: "1P2U Legal Indo (1 Bln)", price: "23.000" },
+                    { name: "1P1U Reg Luar (1 Bln)", price: "39.000" },
+                    { name: "1P1U Legal Indo (1 Bln)", price: "42.000" },
+                    { name: "Semi Private (1 Bln)", price: "44.000" },
+                    { name: "Anti Limit (1 Bln)", price: "52.000" }
+                ],
+                details: `▪ Sharing 1P2U
+• Reg Luar (1 Bulan) : 20k
+• Legal Indo : 1 Bln (23k) | 2 Bln (43k) | 3 Bln (62k)
+
+▪ Sharing 1P1U
+• Reg Luar (1 Bulan) : 39k
+• Legal Indo : 1 Bln (42k) | 2 Bln (81k)
+
+▪ Semi Private (Bisa 2 Device - Legal Indo)
+• 1 Bulan : 44k | 2 Bulan : 85k | 3 Bulan : 128k
+
+▪ Anti Limit (Legal Indo)
+• 1 Bulan : 52k | 2 Bulan : 101k
+
+📌 Ketentuan:
+✅ Pengguna iOS sangat disarankan pilih Legal Indo
+✅ Akun dari seller, khusus 1 device (dilarang ganti device)
+✅ Full garansi & support OTP Household`
+            },
+            {
+                id: 11, cat: "STREAMING & HIBURAN", name: "Spotify Premium", shortcut: "spotify", icon: "🟢", badges: [],
+                startPrice: "4.000",
+                variants: [
+                    { name: "Private (1 Hari)", price: "4.000" },
+                    { name: "Private (7 Hari)", price: "9.000" },
+                    { name: "Private (1 Bln)", price: "12.000" },
+                    { name: "Private (3 Bln)", price: "15.000" },
+                    { name: "Famhead 3 Member (1 Bln)", price: "32.000" }
+                ],
+                details: `▪ Private (Akun Seller)
+• 1 Hari : 4k | 3 Hari : 6k | 5 Hari : 7k
+• 7 Hari : 9k | 1 Bulan : 12k | 3 Bulan : 15k
+
+▪ Famhead (Bisa Invite 3 Member)
+• 1 Bulan : 32k
+
+📌 Ketentuan & Opsi Garansi:
+✅ Bebas iklan & bisa download lagu offline
+✅ Transfer playlist tambah +1k
+✅ Harga di atas No Garansi (Garansi login 1 jam)
+✅ Tambah Garansi Backfree: Harian (+1k) / Bulanan Garansi 1 Minggu (+5k)`
+            },
+            {
+                id: 12, cat: "STREAMING & HIBURAN", name: "YouTube Premium", shortcut: "youtube", icon: "▶️", badges: ["🔥 BEST SELLER"],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Sharing Fullgar (1 Bln)", price: "5.000" },
+                    { name: "Famplan Nogar (1 Bln)", price: "5.000" },
+                    { name: "Famplan Fullgar (1 Bln)", price: "7.000" },
+                    { name: "Indplan Cust Fullgar (1B)", price: "9.000" },
+                    { name: "Indplan Seller Fullgar (1B)", price: "14.000" },
+                    { name: "Indplan Gsuite Fullgar (1B)", price: "17.000" }
+                ],
+                details: `(Sudah termasuk YouTube Music)
+▪ Akun Sharing (Akun Seller - Fullgar)
+• 1 Bulan : 5k | 2 Bulan : 9k | 3 Bulan : 12k | 6 Bulan : 23k
+
+▪ Famplan Invite Akun Cust (Nogar | Fullgar)
+• 1 Bulan : 5k | 7k
+• 2 Bulan : 9k | 13k
+• 3 Bulan : 12k | 18k
+• 6 Bulan : 23k | 35k
+
+▪ Indplan / Famhead Renew (Akun Cust | Akun Seller)
+• 1 Bulan (Nogar) : 7k | 12k
+• 1 Bulan (Fullgar) : 9k | 14k
+• 2 Bulan (Fullgar) : 16k | 26k
+• 3 Bulan (Fullgar) : 23k | 38k
+• 6 Bulan (Fullgar) : 45k | 75k
+
+▪ Indplan Gsuite
+• 1 Bulan : 14k (Nogar) | 17k (Fullgar)
+
+📌 Ketentuan:
+✅ Fullgar = Garansi Backfree selama durasi
+✅ Durasi 1 bulan = 25-30 hari`
+            },
+            {
+                id: 13, cat: "STREAMING & HIBURAN", name: "Apple Music", shortcut: "applemusic", icon: "🍎", badges: [],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Family Link (5 Hari)", price: "3.000" },
+                    { name: "Family Link (1 Bln)", price: "9.000" },
+                    { name: "Indplan Andro (1 Bln)", price: "10.000" },
+                    { name: "Famhead Nogar (1 Bln)", price: "22.000" },
+                    { name: "Famhead Fullgar (1 Bln)", price: "27.000" }
+                ],
+                details: `▪ Family Link / iMessage (Akun Cust - All Device)
+• 5 Hari : 3k | 7 Hari : 4k | 14 Hari : 7k
+• 1 Bulan : 9k | 2 Bulan : 15k | 3 Bulan : 23k
+
+▪ Indplan (Akun Seller - Khusus Android)
+• 1 Bulan : 10k | 2 Bulan : 15k | 3 Bulan : 21k
+
+▪ Famhead (Akun Seller - Khusus Andro / Bisa Invite iOS)
+• 1 Bulan (Nogar) : 22k | 1 Bulan (Fullgar) : 27k
+
+📌 Ketentuan:
+✅ Garansi Backfree (BF)
+✅ Durasi >1 bulan menggunakan sistem renewal`
+            },
+            {
+                id: 14, cat: "STREAMING & HIBURAN", name: "Joox VIP", shortcut: "joox", icon: "🎵", badges: [],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Private (1 Hari)", price: "5.000" },
+                    { name: "Private (7 Hari)", price: "9.000" },
+                    { name: "Private (14 Hari)", price: "14.000" },
+                    { name: "Private (1 Bln)", price: "17.000" }
+                ],
+                details: `▪ Private (Akun Seller)
+• 1 Hari : 5k | 3 Hari : 6k | 5 Hari : 7k
+• 7 Hari : 9k | 14 Hari : 14k | 1 Bulan : 17k
+
+📌 Ketentuan:
+✅ Akun dari seller
+✅ Bebas iklan & bisa unduh lagu offline`
+            },
+            {
+                id: 15, cat: "STREAMING & HIBURAN", name: "Amazon Prime Video", shortcut: "prime", icon: "📦", badges: [],
+                startPrice: "2.800",
+                variants: [
+                    { name: "Sharing 3U (1 Hari)", price: "2.800" },
+                    { name: "Sharing 3U (7 Hari)", price: "5.000" },
+                    { name: "Sharing 3U (1 Bln)", price: "9.000" },
+                    { name: "Private Fullgar (1 Bln)", price: "17.000" }
+                ],
+                details: `▪ Sharing Harian (3U Anti Limit)
+• 1 Hari : 2.8k | 3 Hari : 3.5k | 5 Hari : 4k | 7 Hari : 5k
+
+▪ Sharing Bulanan (3U Anti Limit)
+• 1 Bulan : 9k | 2 Bulan : 16k | 3 Bulan : 23k
+
+▪ Private Full Garansi
+• 1 Bulan : 17k
+
+📌 Ketentuan:
+✅ Akun dari seller, maks login 1 device
+⚠️ Dilarang gonta-ganti device`
+            },
+            {
+                id: 16, cat: "STREAMING & HIBURAN", name: "Bstation Premium", shortcut: "bstation", icon: "📺", badges: [],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Sharing (7 Hari)", price: "3.000" },
+                    { name: "Sharing (1 Bln)", price: "5.000" },
+                    { name: "Sharing 1 Thn (Gar 12B)", price: "17.000" },
+                    { name: "Private AllDev (7 Hari)", price: "11.000" },
+                    { name: "Private AllDev (1 Bln)", price: "30.000" }
+                ],
+                details: `▪ Sharing (Non-TV / Maks 1 Device)
+• 7 Hari : 3k | 14 Hari : 4.5k | 1 Bulan : 5k
+• 3 Bulan : 9k | 6 Bulan : 13k
+• 1 Tahun (Garansi 6B) : 14k | (Garansi 12B) : 17k
+
+▪ Private (All Device - Bisa Login TV)
+• 7 Hari : 11k | 14 Hari : 17k | 1 Bulan : 30k
+
+📌 Ketentuan:
+✅ Akun dari seller, limit screen 1 device
+✅ Ingin login di TV wajib ambil paket Private`
+            },
+            {
+                id: 17, cat: "STREAMING & HIBURAN", name: "Crunchyroll", shortcut: "crunchyroll", icon: "🍙", badges: [],
+                startPrice: "2.500",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "2.500" },
+                    { name: "Sharing (1 Bln)", price: "7.000" },
+                    { name: "Sharing 1 Thn (Gar 12B)", price: "20.000" },
+                    { name: "Private (1 Hari)", price: "4.000" },
+                    { name: "Private (7 Hari)", price: "9.000" }
+                ],
+                details: `▪ Sharing
+• 1 Hari : 2.5k | 3 Hari : 3k | 5 Hari : 3.5k
+• 7 Hari : 4.5k | 14 Hari : 6k | 1 Bulan : 7k
+• 1 Tahun (Garansi 6B) : 15k | (Garansi 12B) : 20k
+
+▪ Private
+• 1 Hari : 4k | 3 Hari : 6k | 5 Hari : 8k
+• 7 Hari : 9k | 14 Hari : 12k
+
+📌 Ketentuan:
+✅ Akun dari seller, sharing maks login 1 device
+✅ Private sistem renew per minggu`
+            },
+            {
+                id: 18, cat: "STREAMING & HIBURAN", name: "Disney+ Hotstar", shortcut: "disney", icon: "🏰", badges: ["🔥 HOT"],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Basic 3U (1 Hari)", price: "3.000" },
+                    { name: "Prem 10U (1 Hari)", price: "4.000" },
+                    { name: "Prem 10U (1 Bln)", price: "17.000" },
+                    { name: "Basic 3U (1 Bln)", price: "28.000" },
+                    { name: "Prem Anti Limit 3U (1B)", price: "47.000" },
+                    { name: "Private Prem (1 Bln)", price: "127.000" }
+                ],
+                details: `(Khusus Region Indonesia)
+▪ Harian Basic (Sharing 3U)
+• 1 Hari : 3k | 3 Hari : 5k | 5 Hari : 7k | 7 Hari : 9k | 14 Hari : 17k
+
+▪ Harian Premium (10U | 6U | 3U)
+• 1 Hari : 4k | 5.5k | 7k
+• 3 Hari : 6k | 10k | 13k
+• 5 Hari : 8k | 14k | 16k
+• 7 Hari : 11k | 16k | 19k
+• 14 Hari : 14k | 20k | 27k
+
+▪ Bulanan Basic (1 Bulan)
+• Sharing (3U) : 28k | Anti Limit (2U) : 40k | Private : 77k
+
+▪ Bulanan Premium (1 Bulan)
+• Sharing (10U) : 17k | Sharing (8U) : 20k
+• Less Limit (6U) : 25k | Anti Limit (3U) : 47k
+• Private : 127k
+
+📌 Ketentuan:
+✅ Paid legal, full garansi, maks 1 device
+✅ Login via OTP (janjian terlebih dahulu)
+✅ Private menggunakan nomor HP customer`
+            },
+            {
+                id: 19, cat: "STREAMING & HIBURAN", name: "Drakor ID", shortcut: "drakorid", icon: "🇰🇷", badges: [],
+                startPrice: "2.000",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "2.000" },
+                    { name: "Sharing (7 Hari)", price: "6.000" },
+                    { name: "Sharing (1 Bln)", price: "8.000" },
+                    { name: "Sharing (1 Thn)", price: "17.000" }
+                ],
+                details: `▪ Sharing (Maks 1 Device)
+• 1 Hari : 2k | 3 Hari : 3k | 5 Hari : 4k
+• 7 Hari : 6k | 1 Bulan : 8k | 3 Bulan : 11k
+• 6 Bulan : 15k | 1 Tahun : 17k
+
+📌 Ketentuan:
+✅ Akun dari seller, dilarang gonta-ganti device
+✅ Harian login Google (standby OTP), Bulanan/Tahunan login biasa`
+            },
+            {
+                id: 20, cat: "STREAMING & HIBURAN", name: "HBO Max", shortcut: "hbomax", icon: "🎬", badges: [],
+                startPrice: "3.500",
+                variants: [
+                    { name: "Trik 4U Nogar (1 Hari)", price: "3.500" },
+                    { name: "Legal Std (1 Hari)", price: "4.000" },
+                    { name: "Legal Std (1 Bln)", price: "14.000" },
+                    { name: "Legal Ultimate (1 Bln)", price: "19.000" },
+                    { name: "Private Trik Nogar (1B)", price: "27.000" },
+                    { name: "Private Legal Std (1B)", price: "102.000" }
+                ],
+                details: `▪ HBO Legal Paid — Sharing (Standard | Ultimate)
+• 1 Hari : 4k | 5.5k
+• 3 Hari : 6k | 7.5k
+• 5 Hari : 8k | 9.5k
+• 7 Hari : 9.5k | 11k
+• 14 Hari : 12k | 15k
+• 1 Bulan : 14k | 19k
+• 2 Bulan : 26k | 36k
+• 3 Bulan : 38k | 53k
+
+▪ HBO Legal Paid — Private 1 Bulan
+• Standard : 102k | Ultimate : 152k (Full garansi, login TV wajib beli 2 slot)
+
+▪ HBO Trik Paid (No Garansi — Standard)
+• Sharing 4U : 1 Hari (3.5k) | 3 Hari (4.5k) | 7 Hari (8.5k) | 1 Bulan (10.5k)
+• Private 1 Bulan : 27k (Bisa login TV tanpa biaya slot tambahan)`
+            },
+            {
+                id: 21, cat: "STREAMING & HIBURAN", name: "iQIYI", shortcut: "iqiyi", icon: "🐉", badges: [],
+                startPrice: "2.000",
+                variants: [
+                    { name: "Sharing Std 8U (1 Hari)", price: "2.000" },
+                    { name: "Sharing Std 8U (1 Bln)", price: "6.000" },
+                    { name: "Sharing Prem 10U (1 Bln)", price: "7.000" },
+                    { name: "Private Std (1 Bln)", price: "30.000" },
+                    { name: "Private Prem (1 Bln)", price: "37.000" }
+                ],
+                details: `▪ Sharing Standar (8U Biasa | 2U Anti Limit)
+• 1 Hari : 2k | 3.5k
+• 3 Hari : 2.2k | 5k
+• 7 Hari : 3k | 7k
+• 14 Hari : 5k | 10k
+• 1 Bulan (8U) : 6k | 3 Bulan : 9k | 6 Bulan : 14k
+• 1 Tahun (8U) : 17k (Gar 6B) | 23k (Gar 12B)
+
+▪ Sharing Premium (10U Biasa | 4U Anti Limit)
+• 1 Hari : 2.5k | 3 Hari : 3.5k | 7 Hari : 4.5k
+• 1 Bulan : 7k | 12k
+• 2 Bulan : 10k | 23k
+• 3 Bulan : 13k | 32k
+• 6 Bulan : 23k | 60k
+• 1 Tahun (Gar 12B) : 40k | 125k
+
+▪ Private (Standar | Premium)
+• 7 Hari : 11k | 16k
+• 14 Hari : 17k | 22k
+• 1 Bulan : 30k | 37k
+
+📌 Ketentuan:
+✅ Sharing maks 1 device (Harian login TV wajib beli 2 slot)
+✅ Private maks login 10 device`
+            },
+            {
+                id: 22, cat: "STREAMING & HIBURAN", name: "Vidio Platinum", shortcut: "vidio", icon: "📺", badges: ["🔥 HOT"],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Private TV/Mob (1 Hari)", price: "5.000" },
+                    { name: "Private AllDev (1 Hari)", price: "6.000" },
+                    { name: "Sharing 2U Mob (1 Bln)", price: "17.000" },
+                    { name: "Private TV Only (1 Bln)", price: "17.000" },
+                    { name: "Sharing 2U AllDev (1 Bln)", price: "23.000" },
+                    { name: "Private AllDev (1 Bln)", price: "39.000" }
+                ],
+                details: `▪ Sharing 2U (Mobile | All Device)
+• 1 Bulan : 17k | 23k
+• 2 Bulan : 31k | 45k
+• 3 Bulan : 46k | 63k
+
+▪ Private (TV Only | Mobile | All Device)
+• 1 Hari : 5k | 5k | 6k
+• 3 Hari : 7k | 7k | 8k
+• 5 Hari : 11k | 11k | 13k
+• 7 Hari : 13k | 13k | 16k
+• 1 Bulan : 17k | 29k | 39k
+• 2 Bulan : 31k | 55k | -
+• 3 Bulan : 45k | 78k | -
+
+📌 Ketentuan:
+✅ Mobile = Khusus HP/Tab/iPad
+✅ TV = Khusus Smart TV (Unlock Platinum, ada iklan)
+✅ AllDev = Bisa semua perangkat
+✅ Garansi Backfree, maks login 1 device`
+            },
+            {
+                id: 23, cat: "STREAMING & HIBURAN", name: "VIU Premium", shortcut: "viu", icon: "💛", badges: [],
+                startPrice: "2.000",
+                variants: [
+                    { name: "Private Anti Limit (1H)", price: "2.000" },
+                    { name: "Private Biasa (1 Bln)", price: "4.000" },
+                    { name: "Private Anti Limit (1 Bln)", price: "6.000" },
+                    { name: "Private Biasa (1 Thn)", price: "13.000" },
+                    { name: "Lifetime (Gar 12B)", price: "30.000" }
+                ],
+                details: `(Semua akun VIU adalah Private / 1 User)
+▪ Harian Anti Limit
+• 1 Hari : 2k | 2 Hari : 3k | 3 Hari : 3.5k | 7 Hari : 5k
+
+▪ Bulanan / Tahunan Anti Limit
+• 1 Bulan : 6k | 2 Bulan : 9k | 3 Bulan : 10k
+• 6 Bulan : 18k | 1 Tahun (Gar 6B) : 21k
+• Lifetime (Gar 6B) : 25k | (Gar 12B) : 30k
+
+▪ Private Biasa
+• 1 Bulan : 4k | 2 Bulan : 6k | 3 Bulan : 7k
+• 6 Bulan : 12k | 1 Tahun (Gar 6B) : 13k`
+            },
+            {
+                id: 24, cat: "STREAMING & HIBURAN", name: "WeTV VIP", shortcut: "wetv", icon: "🐧", badges: [],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Harian (1 Hari)", price: "3.000" },
+                    { name: "Harian (7 Hari)", price: "5.000" },
+                    { name: "Sharing 6U (1 Bln)", price: "9.000" },
+                    { name: "Sharing 3U TV (1 Bln)", price: "14.000" },
+                    { name: "Private (1 Bln)", price: "32.000" }
+                ],
+                details: `▪ Harian
+• 1 Hari : 3k | 3 Hari : 3.5k | 5 Hari : 4k | 7 Hari : 5k | 14 Hari : 7k
+
+▪ Sharing Bulanan (6U | 3U Less Limit | 2U Anti Limit)
+• 1 Bulan : 9k | 14k | 20k
+• 2 Bulan : 16k | 26k | 38k
+• 3 Bulan : 23k | 38k | 56k
+
+▪ Private
+• 7 Hari : 11k | 14 Hari : 20k | 1 Bulan : 32k
+• 2 Bulan : 62k | 3 Bulan : 88k
+
+📌 Ketentuan:
+✅ Maks login 1 device
+✅ Login TV wajib pilih Less Limit (3U) / Anti Limit (2U) / Private`
+            },
+
+            // 25-33: CREATIVE & EDITING
+            {
+                id: 25, cat: "CREATIVE & EDITING", name: "Canva Pro / Edu", shortcut: "canva", icon: "🎨", badges: ["🔥 BEST SELLER"],
+                startPrice: "1.500",
+                variants: [
+                    { name: "Member Pro (1 Hari)", price: "1.500" },
+                    { name: "Member Pro (1 Bln)", price: "4.000" },
+                    { name: "Edu Private (1 Bln)", price: "6.000" },
+                    { name: "Edu Sharing Lifetime (12B)", price: "13.000" },
+                    { name: "Edu Private Lifetime (12B)", price: "20.000" },
+                    { name: "Admin 20M Fullgar (1B)", price: "34.000" }
+                ],
+                details: `▪ Canva Member Pro (Invite Email Cust)
+• 1 Hari : 1.5k | 2 Hari : 1.6k | 3 Hari : 1.7k
+• 5 Hari : 1.9k | 7 Hari : 2k
+• 1 Bulan : 4k | 2 Bulan : 6k | 3 Bulan : 7k
+• 4 Bulan : 9k | 5 Bulan : 10k (Role Designer: Harian +500p / Bulanan +1k)
+
+▪ Canva Education (Private | Sharing)
+• 1 Hari : 2k | 1.5k
+• 3 Hari : 3k | 2k
+• 7 Hari : 4k | 2.5k
+• 1 Bulan : 6k | 4k
+• 3 Bulan : 9k | 6k
+• 6 Bulan : 15k | 10k
+• Lifetime (Gar 6B) : 18k | 12k
+• Lifetime (Gar 12B) : 20k | 13k
+
+▪ Team Pro Business (Head 99 Member | Admin 20 Member)
+• Head 1 Bln : 37k (Nogar) | 47k (Fullgar)
+• Admin 1 Bln : 29k (Nogar) | 34k (Fullgar)`
+            },
+            {
+                id: 26, cat: "CREATIVE & EDITING", name: "CapCut Pro", shortcut: "capcut", icon: "✂️", badges: ["🔥 HOT"],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Pro Sharing 2U (1 Hari)", price: "5.000" },
+                    { name: "Pro Private (1 Hari)", price: "7.000" },
+                    { name: "Pro Sharing 2U (7 Hari)", price: "13.000" },
+                    { name: "Pro Sharing 2U (1 Bln)", price: "22.000" },
+                    { name: "Pro Private Nogar (1B)", price: "37.000" },
+                    { name: "Pro Private Fullgar (1B)", price: "42.000" }
+                ],
+                details: `▪ CapCut Pro — Sharing 2U (Andro/iOS/Web)
+• 1 Hari : 5k | 3 Hari : 8k | 5 Hari : 9.5k
+• 7 Hari : 13k | 14 Hari : 17k | 1 Bulan : 22k
+
+▪ CapCut Pro — Private (Andro/iOS/Web)
+• 1 Hari : 7k | 3 Hari : 11k | 5 Hari : 14k
+• 7 Hari : 21k | 14 Hari : 32k
+• 1 Bulan : 37k (Nogar) | 42k (Fullgar)
+
+▪ CapCut Standar (Sharing 2U | Private)
+• 7 Hari : 9k | 11k
+• 14 Hari : 12k | 20k
+• 1 Bulan : 20k | 37k
+
+▪ Link Trial 7 Hari : 13k/link (Hit sendiri)
+
+📌 Ketentuan:
+✅ Garansi Backfree (BF)
+⚠️ Akses di PC/Laptop wajib via Website (bukan aplikasi desktop)`
+            },
+            {
+                id: 27, cat: "CREATIVE & EDITING", name: "Adobe Express", shortcut: "adobeexpress", icon: "✨", badges: [],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Sharing (5 Hari)", price: "5.000" },
+                    { name: "Private (7 Hari)", price: "6.000" },
+                    { name: "Sharing (1 Bln)", price: "14.000" },
+                    { name: "Private (1 Bln)", price: "17.000" }
+                ],
+                details: `▪ Sharing
+• 5 Hari : 5k | 7 Hari : 6k | 1 Bulan : 14k
+
+▪ Private
+• 7 Hari : 6k | 14 Hari : 9k | 1 Bulan : 17k
+
+📌 Ketentuan:
+✅ Sistem pinjam akun Adobe (Support iOS & Android)
+✅ Sertakan email saat order untuk pengiriman akun`
+            },
+            {
+                id: 28, cat: "CREATIVE & EDITING", name: "Alight Motion", shortcut: "am", icon: "🎞️", badges: [],
+                startPrice: "1.800",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "1.800" },
+                    { name: "Sharing (1 Bln)", price: "6.000" },
+                    { name: "Private (1 Bln)", price: "10.000" },
+                    { name: "Sharing 1 Thn (Link)", price: "11.000" },
+                    { name: "Private 1 Thn (Gar 6B)", price: "17.000" }
+                ],
+                details: `▪ Sharing
+• 1 Hari : 1.8k | 2 Hari : 2k | 3 Hari : 2.5k
+• 5 Hari : 3.5k | 7 Hari : 4.5k | 1 Bulan : 6k
+• 1 Tahun (Link - Gar 6B) : 11k
+
+▪ Private
+• 1 Bulan : 10k | 1 Tahun (Gar 6B) : 17k (Private pakai akun seller +2k)
+
+📌 Ketentuan:
+✅ Support iOS & Android`
+            },
+            {
+                id: 29, cat: "CREATIVE & EDITING", name: "InShot Pro", shortcut: "inshot", icon: "📱", badges: [],
+                startPrice: "15.000",
+                variants: [
+                    { name: "Lifetime Android", price: "15.000" }
+                ],
+                details: `▪ Sharing Lifetime
+• Android : 15k
+• iOS : (Stok Kosong)
+
+📌 Ketentuan:
+✅ Garansi 6 Bulan
+✅ Sistem pinjam akun Google (Standby OTP)`
+            },
+            {
+                id: 30, cat: "CREATIVE & EDITING", name: "Lightroom", shortcut: "lightroom", icon: "📸", badges: [],
+                startPrice: "5.000",
+                variants: [
+                    { name: "Sharing (5 Hari)", price: "5.000" },
+                    { name: "Sharing (7 Hari)", price: "6.000" },
+                    { name: "Private (7 Hari)", price: "8.000" },
+                    { name: "Sharing (1 Thn)", price: "15.000" }
+                ],
+                details: `▪ Sharing
+• 5 Hari : 5k | 7 Hari : 6k | 1 Tahun : 15k
+
+▪ Private
+• 7 Hari : 8k
+
+📌 Ketentuan:
+✅ Sistem pinjam akun Adobe (Support iOS & Android)
+✅ Bonus 2.000+ Preset (via Link)`
+            },
+            {
+                id: 31, cat: "CREATIVE & EDITING", name: "PicsArt Pro", shortcut: "picsart", icon: "🖼️", badges: [],
+                startPrice: "1.800",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "1.800" },
+                    { name: "Sharing (1 Bln)", price: "7.000" },
+                    { name: "Private (1 Bln)", price: "12.000" },
+                    { name: "Head (1 Bln)", price: "17.000" }
+                ],
+                details: `▪ Sharing Harian & Bulanan
+• 1 Hari : 1.8k | 3 Hari : 2.2k | 5 Hari : 2.5k
+• 7 Hari : 3k | 14 Hari : 5k | 1 Bulan : 7k
+• 2 Bulan : 11k | 3 Bulan : 13k | 6 Bulan : 20k
+
+▪ Private
+• 1 Hari : 2.5k | 3 Hari : 3k | 5 Hari : 3.5k
+• 7 Hari : 4k | 14 Hari : 6k | 1 Bulan : 12k
+
+▪ Head (1 Bulan) : 17k
+
+📌 Ketentuan:
+✅ Private/Head bisa menggunakan akun cust atau seller`
+            },
+            {
+                id: 32, cat: "CREATIVE & EDITING", name: "Remini Pro (App)", shortcut: "reminiapp", icon: "✨", badges: [],
+                startPrice: "3.200",
+                variants: [
+                    { name: "Sharing Andro (1 Hari)", price: "3.200" },
+                    { name: "Private (1 Hari)", price: "4.000" },
+                    { name: "Sharing Andro (1 Bln)", price: "15.000" },
+                    { name: "Sharing 1 Thn (Nogar)", price: "20.000" },
+                    { name: "Sharing 1 Thn (Gar 6B)", price: "29.000" }
+                ],
+                details: `▪ Sharing Android
+• 1 Hari : 3.2k | 3 Hari : 3.5k | 5 Hari : 4.5k
+• 7 Hari : 5.5k | 14 Hari : 9k | 1 Bulan : 15k
+• 2 Bulan : 19k | 3 Bulan : 21k | 6 Bulan : 25k
+• 1 Tahun : 20k (Nogar) | 29k (Fullgar 6B) | 45k (Fullgar 12B)
+
+▪ Private
+• 1 Hari : 4k | 3 Hari : 6k | 5 Hari : 8k | 7 Hari : 10k
+
+📌 Ketentuan:
+✅ Sistem pinjam akun Google seller (Maks 1 device)`
+            },
+            {
+                id: 33, cat: "CREATIVE & EDITING", name: "Remini Web", shortcut: "reminiweb", icon: "💻", badges: [],
+                startPrice: "3.000",
+                variants: [
+                    { name: "Sharing Web (1 Hari)", price: "3.000" },
+                    { name: "Private Web (1 Hari)", price: "4.000" },
+                    { name: "Sharing Web (7 Hari)", price: "5.000" },
+                    { name: "Sharing Web (1 Bln)", price: "9.000" },
+                    { name: "Private Web (7 Hari)", price: "10.000" }
+                ],
+                details: `▪ Sharing
+• 1 Hari : 3k | 3 Hari : 3.5k | 5 Hari : 4k
+• 7 Hari : 5k | 14 Hari : 7k | 1 Bulan : 9k
+
+▪ Private
+• 1 Hari : 4k | 3 Hari : 6k | 5 Hari : 8k | 7 Hari : 10k
+
+📌 Ketentuan:
+✅ Login akun Google via website Remini (Maks 1 device)`
+            },
+
+            // 34-39: PRODUCTIVITY & EDU
+            {
+                id: 34, cat: "PRODUCTIVITY & EDU", name: "Microsoft 365", shortcut: "m365", icon: "📊", badges: ["PROMO"],
+                startPrice: "2.000",
+                variants: [
+                    { name: "Sharing Seller (1 Hari)", price: "2.000" },
+                    { name: "Sharing Seller (1 Bln)", price: "4.000" },
+                    { name: "Invite Cust (1 Bln)", price: "6.000" },
+                    { name: "Private Indplan (1 Bln)", price: "14.000" },
+                    { name: "Private Famhead (1 Bln)", price: "22.000" }
+                ],
+                details: `▪ Member Invite (Akun Cust) | Sharing (Akun Seller)
+• 1 Hari : 2.5k | 2k
+• 3 Hari : 3.5k | 2.3k
+• 5 Hari : 4k | 2.5k
+• 7 Hari : 4.5k | 2.8k
+• 1 Bulan : 6k | 4k
+• 2 Bulan : 9k | 6k
+• 3 Bulan : 12k | 7.5k
+
+▪ Private Indplan
+• 1 Bulan : 14k | 2 Bulan : 20k
+
+▪ Private Famhead (Bisa Invite 5 Member)
+• 1 Bulan : 22k
+
+📌 Ketentuan:
+✅ Member Invite cukup kirimkan email ke admin`
+            },
+            {
+                id: 35, cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", shortcut: "zoom", icon: "📹", badges: ["🔥 HOT"],
+                startPrice: "4.000",
+                variants: [
+                    { name: "Room Link 100p (1 Jam)", price: "4.000" },
+                    { name: "Sewa Akun 100p (1 Jam)", price: "5.000" },
+                    { name: "Room Link 100p (1 Hari)", price: "9.000" },
+                    { name: "Sewa Akun 100p (1 Hari)", price: "11.000" },
+                    { name: "Private 100p (14 Hari)", price: "22.000" },
+                    { name: "Private 100p (1 Bln)", price: "42.000" }
+                ],
+                details: `▪ Sewa Room Zoom via Link (100p | 300p | 500p)
+• 1 Jam : 4k | 8k | 23k
+• 1 Hari : 9k | 23k | 44k
+• 2 Hari : 13k | 35k | 71k
+• 3 Hari : 16k | 38k | 101k
+• 7 Hari : 21k | 48k | 201k
+
+▪ Sewa Akun Email+Pass (100p | 300p)
+• 1 Jam : 5k | 9k
+• 2 Jam : 7k | 13k
+• 1 Hari : 11k | 21k
+• 3 Hari : 18k | 36k
+• 7 Hari : 23k | 46k
+
+▪ Zoom Private Bulanan (100p | 300p | 500p)
+• 14 Hari : 22k | 102k | 252k
+• 1 Bulan : 42k | 152k | 352k
+
+📌 Ketentuan:
+✅ Order minimal 1-2 jam sebelum acara dimulai`
+            },
+            {
+                id: 36, cat: "PRODUCTIVITY & EDU", name: "CamScanner", shortcut: "camscanner", icon: "📄", badges: [],
+                startPrice: "4.000",
+                variants: [
+                    { name: "Sharing Prem (3 Hari)", price: "4.000" },
+                    { name: "Sharing Edu (1 Bln)", price: "7.000" },
+                    { name: "Sharing Prem (1 Bln)", price: "10.000" },
+                    { name: "Private Edu (1 Bln)", price: "12.000" },
+                    { name: "Private Prem (1 Bln)", price: "17.000" }
+                ],
+                details: `▪ Sharing Premium
+• 3 Hari : 4k | 7 Hari : 6k | 14 Hari : 9k
+• 1 Bulan : 10k | 6 Bulan : 15k | 1 Tahun : 17k
+
+▪ Sharing Education
+• 1 Bulan : 7k | 3 Bulan : 9k | 6 Bulan : 12k | 1 Tahun : 14k
+
+▪ Private Premium
+• 3 Hari : 6k | 7 Hari : 8k | 14 Hari : 12k | 1 Bulan : 17k
+
+▪ Private Education
+• 1 Bulan : 12k | 6 Bulan : 20k | 1 Tahun : 25k
+
+📌 Ketentuan:
+✅ Akun dari seller, Garansi Backfree (Tahunan garansi 6B)`
+            },
+            {
+                id: 37, cat: "PRODUCTIVITY & EDU", name: "GetContact Premium", shortcut: "getcontact", icon: "📞", badges: [],
+                startPrice: "2.000",
+                variants: [
+                    { name: "Private Nogar (1 Hari)", price: "2.000" },
+                    { name: "Private Fullgar (1 Hari)", price: "3.000" },
+                    { name: "Private Fullgar (7 Hari)", price: "6.000" },
+                    { name: "Private Nogar (1 Bln)", price: "7.000" },
+                    { name: "Private Fullgar (1 Bln)", price: "12.000" }
+                ],
+                details: `▪ Private (Nomor HP Customer)
+• 1 Hari : 2k (Nogar) | 3k (Fullgar)
+• 3 Hari : 4k (Fullgar) | 5 Hari : 5k (Fullgar)
+• 7 Hari : 3.8k (Nogar) | 6k (Fullgar)
+• 1 Bulan : 7k (Nogar) | 12k (Fullgar)
+
+📌 Keuntungan & Ketentuan:
+✅ Bebas iklan, lihat siapa yang mengecek tag nomor Anda, & lencana premium
+✅ Wajib standby OTP saat proses aktivasi`
+            },
+            {
+                id: 38, cat: "PRODUCTIVITY & EDU", name: "GoodNotes 6", shortcut: "goodnotes", icon: "📓", badges: [],
+                startPrice: "19.000",
+                variants: [
+                    { name: "Lifetime iOS / iPadOS", price: "19.000" }
+                ],
+                details: `▪ Sharing iOS / iPadOS
+• Lifetime : 19k
+
+📌 Ketentuan:
+✅ Garansi 6 Bulan
+✅ Sistem pinjam Apple ID seller`
+            },
+            {
+                id: 39, cat: "PRODUCTIVITY & EDU", name: "Wattpad Premium", shortcut: "wattpad", icon: "📖", badges: [],
+                startPrice: "2.800",
+                variants: [
+                    { name: "Sharing (1 Hari)", price: "2.800" },
+                    { name: "Sharing (7 Hari)", price: "6.000" },
+                    { name: "Sharing (1 Bln)", price: "8.000" },
+                    { name: "Sharing (1 Thn)", price: "17.000" }
+                ],
+                details: `▪ Sharing (Tanpa Iklan)
+• 1 Hari : 2.8k | 3 Hari : 3.5k | 5 Hari : 4.5k | 7 Hari : 6k
+• 1 Bulan : 8k | 3 Bulan : 11k | 6 Bulan : 15k | 1 Tahun : 17k
+
+📌 Ketentuan:
+✅ Bebas iklan (Tidak termasuk Paid Story/Koin)
+✅ Akun dari seller (1 Tahun garansi 6 bulan)`
+            }
         ];
 
         const container = document.getElementById('catalogContainer');
-        
-        // Render Produk berdasarkan filter & keyword
+        const countText = document.getElementById('productCountText');
+
         function renderProducts(filterCat = 'all', searchQuery = '') {
             container.innerHTML = '';
             
             const filtered = products.filter(p => {
                 const matchCat = filterCat === 'all' || p.cat === filterCat;
-                const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+                const q = searchQuery.toLowerCase();
+                const matchSearch = p.name.toLowerCase().includes(q) || p.shortcut.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q);
                 return matchCat && matchSearch;
             });
 
-            if(filtered.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 30px;">Produk tidak ditemukan.</p>';
+            countText.innerText = `Menampilkan ${filtered.length} produk`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color: var(--text-muted); padding: 30px;">Produk tidak ditemukan. Coba kata kunci lain.</p>';
                 return;
             }
 
@@ -420,18 +1482,14 @@
                 card.className = "product-card";
                 
                 let badgesHTML = '';
-                if(p.badges && p.badges.length > 0) {
+                if (p.badges && p.badges.length > 0) {
                     badgesHTML = '<div class="badges-container">';
                     p.badges.forEach(b => {
-                        let bClass = b.includes('HOT') || b.includes('BEST') ? 'hot' : (b.includes('STOK') ? 'limit' : 'promo');
+                        let bClass = b.includes('HOT') || b.includes('BEST') ? 'hot' : 'promo';
                         badgesHTML += `<span class="badge ${bClass}">${b}</span>`;
                     });
                     badgesHTML += '</div>';
                 }
-
-                const statusColor = p.status === 'ready' ? 'ready' : 'limited';
-                const statusText = p.status === 'ready' ? 'Ready' : 'Stok Terbatas';
-                const startPrice = p.variants[0].price; 
 
                 card.innerHTML = `
                     ${badgesHTML}
@@ -439,12 +1497,16 @@
                         <div class="product-icon">${p.icon}</div>
                         <div class="product-details">
                             <div class="product-name">${p.name}</div>
+                            <div class="product-sub">${p.cat}</div>
                             <div class="status">
-                                <span class="status-dot ${statusColor}"></span> ${statusText}
+                                <span class="status-dot ready"></span> Tersedia • Garansi S&K Berlaku
                             </div>
                         </div>
                     </div>
-                    <div class="price-tag">Rp ${startPrice}</div>
+                    <div class="price-col">
+                        <span class="price-label">Mulai dari</span>
+                        <div class="price-tag">Rp ${p.startPrice}</div>
+                    </div>
                 `;
 
                 card.onclick = () => openModal(p);
@@ -452,10 +1514,9 @@
             });
         }
 
-        // Initialize Render Pertama
         renderProducts();
 
-        // Tombol Filter Category Event Listener
+        // Filter Category Event
         const filterBtns = document.querySelectorAll('.filter-btn');
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -465,54 +1526,26 @@
             });
         });
 
-        // Search Input Event Listener
+        // Search Input Event
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
             renderProducts(activeFilter, e.target.value);
         });
 
-        // Modal Logic
         const modal = document.getElementById("productModal");
-        let currentSelectedVariant = null;
         let currentProduct = null;
 
-        // Muat gambar QRIS yang tersimpan dari localStorage jika ada
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedQris = localStorage.getItem('afiar_qris_custom');
-            if (savedQris) {
-                document.getElementById('qrisImage').src = savedQris;
-                document.getElementById('btnDownloadQris').href = savedQris;
-            }
-        });
-
         function handleImageError(img) {
-            // Jika file lokal tidak ditemukan di environment iFrame canvas, tampilkan SVG QRIS resmi placeholder
             img.onerror = null;
-            img.src = 'https://placehold.co/400x500/ffffff/000000/png?text=QRIS+AFIAR+STORE%0ANMID:+ID1026544678653';
-        }
-
-        function uploadCustomQris(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const result = e.target.result;
-                    document.getElementById('qrisImage').src = result;
-                    document.getElementById('btnDownloadQris').href = result;
-                    try {
-                        localStorage.setItem('afiar_qris_custom', result);
-                    } catch (err) {
-                        console.log('LocalStorage limit exceeded');
-                    }
-                };
-                reader.readAsDataURL(file);
-            }
+            img.src = 'https://placehold.co/400x520/10141d/00f0ff/png?text=QRIS+AFIAR+STORE%0AAfiar+Store+-+Catering%0ANMID:+ID1026544678653';
         }
 
         function openModal(product) {
             currentProduct = product;
+            document.getElementById('productSection').style.display = 'block';
             document.getElementById('modalIcon').innerText = product.icon;
             document.getElementById('modalTitle').innerText = product.name;
+            document.getElementById('modalDetails').innerText = product.details;
             
             const variantGrid = document.getElementById('variantGrid');
             variantGrid.innerHTML = '';
@@ -520,30 +1553,45 @@
             product.variants.forEach((v, idx) => {
                 const btn = document.createElement('button');
                 btn.className = `variant-btn ${idx === 0 ? 'active' : ''}`;
-                btn.innerText = v.name;
+                btn.innerHTML = `<span class="v-name">${v.name}</span><span class="v-price">Rp ${v.price}</span>`;
                 btn.onclick = () => selectVariant(v, btn);
                 variantGrid.appendChild(btn);
             });
 
-            if(product.variants.length > 0) {
+            if (product.variants.length > 0) {
                 selectVariant(product.variants[0], variantGrid.firstChild);
             }
 
             modal.style.display = "flex";
-            document.body.style.overflow = "hidden"; 
+            document.body.style.overflow = "hidden";
+        }
+
+        function openPaymentModal() {
+            document.getElementById('productSection').style.display = 'none';
+            document.getElementById('modalIcon').innerText = '💳';
+            document.getElementById('modalTitle').innerText = 'Petunjuk Pembayaran Resmi';
+            const phone = "62882006216644";
+            const msg = encodeURIComponent("Halo Admin AFIAR STORE, saya ingin konfirmasi pembayaran / cek stok pesanan saya.");
+            document.getElementById('waLink').href = `https://wa.me/${phone}?text=${msg}`;
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden";
         }
 
         function selectVariant(variant, btnElement) {
-            currentSelectedVariant = variant;
-            
             document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
             
+            document.getElementById('selectedPkgName').innerText = `${currentProduct.name} — ${variant.name}`;
             document.getElementById('modalPrice').innerText = "Rp " + variant.price;
 
-            // Update Format Pesan WhatsApp Cek Stok & Order
             const phone = "62882006216644";
-            const message = encodeURIComponent(`Halo AFIAR STORE, saya ingin cek stok & order:\n\nProduk: *${currentProduct.name}*\nPaket/Durasi: *${variant.name}*\nHarga: *Rp ${variant.price}*\n\nApakah stok masih ready untuk diproses?`);
+            const message = encodeURIComponent(
+                `Halo Admin *AFIAR STORE* ⚡\nSaya ingin cek stok & order produk berikut:\n\n` +
+                `• *Produk:* ${currentProduct.name}\n` +
+                `• *Paket/Durasi:* ${variant.name}\n` +
+                `• *Estimasi Harga:* Rp ${variant.price}\n\n` +
+                `Apakah stok masih tersedia untuk diproses?`
+            );
             document.getElementById('waLink').href = `https://wa.me/${phone}?text=${message}`;
         }
 
@@ -556,17 +1604,17 @@
             if (event.target == modal) { closeModal(); }
         }
 
-        // Accordion FAQ Logic
-        var acc = document.getElementsByClassName("accordion");
-        for (var i = 0; i < acc.length; i++) {
+        // Accordion FAQ
+        const acc = document.getElementsByClassName("accordion");
+        for (let i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function() {
                 this.classList.toggle("active");
-                var panel = this.nextElementSibling;
+                const panel = this.nextElementSibling;
                 if (panel.style.maxHeight) {
                     panel.style.maxHeight = null;
                 } else {
                     panel.style.maxHeight = panel.scrollHeight + "px";
-                } 
+                }
             });
         }
     </script>
