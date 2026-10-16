@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AFIAR STORE - Digital Premium Accounts</title>
+    
+    <!-- Google tag (gtag.js) untuk Private Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTHDH889LG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PTHDH889LG');
+    </script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <!-- QRCode.js for crisp real QRIS rendering -->
+    <!-- QRCode.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
@@ -148,10 +158,11 @@
         
         .prod-name { font-size: 0.82rem; font-weight: 700; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 35px; line-height: 1.2; margin-bottom: 5px; text-align: center; }
         .prod-price { font-size: 0.85rem; font-weight: 900; color: var(--accent-gold); margin-top: auto; text-align: center; }
-        .prod-sold { font-size: 0.6rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 4px; }
+        .prod-sold { font-size: 0.6rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; flex-wrap: wrap;}
         .prod-sold .dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 5px var(--success); }
+        .view-badge { color: var(--accent-cyan); font-weight: 700; }
 
-        /* Bottom Sheet Modal (Marketplace Style) */
+        /* Bottom Sheet Modal */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.82); z-index: 999; backdrop-filter: blur(6px); align-items: flex-end; justify-content: center; }
         .modal-sheet { 
             background: var(--card-bg); width: 100%; max-width: 640px; 
@@ -204,85 +215,38 @@
         }
         .btn-buy:active { transform: scale(0.98); }
         .btn-quick-pay {
-            background: rgba(234, 179, 8, 0.15);
-            border: 1px solid rgba(234, 179, 8, 0.5);
-            color: #fde047;
-            padding: 13px 16px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.82rem;
-            cursor: pointer;
-            transition: 0.2s;
-            white-space: nowrap;
+            background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.5);
+            color: #fde047; padding: 13px 16px; border-radius: 10px;
+            font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: 0.2s; white-space: nowrap;
         }
         .btn-quick-pay:hover { background: rgba(234, 179, 8, 0.25); }
 
-        /* ==========================================
-           AFIAR PAYMENT PORTAL CUSTOM STYLES
-           ========================================== */
-        .font-graffiti {
-            font-family: 'Permanent Marker', cursive;
-            text-shadow: 
-                0 3px 0 #000,
-                0 0 18px rgba(168, 85, 247, 0.8),
-                0 0 35px rgba(168, 85, 247, 0.4);
-        }
-        .font-mono-num {
-            font-family: 'Space Grotesk', monospace;
-        }
+        /* AFIAR PAYMENT PORTAL CUSTOM STYLES */
+        .font-graffiti { font-family: 'Permanent Marker', cursive; text-shadow: 0 3px 0 #000, 0 0 18px rgba(168, 85, 247, 0.8), 0 0 35px rgba(168, 85, 247, 0.4); }
+        .font-mono-num { font-family: 'Space Grotesk', monospace; }
         .portal-card-bg {
             background-color: #130426;
-            background-image: 
-                radial-gradient(circle at 20% 20%, rgba(126, 34, 206, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.2) 0%, transparent 50%),
-                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h20l10 10h30M20 80h30l10-10h20M80 20v30l-10 10v20M30 40v20l10 10h20' stroke='%23a855f7' stroke-width='0.75' stroke-opacity='0.14' fill='none'/%3E%3C/svg%3E");
+            background-image: radial-gradient(circle at 20% 20%, rgba(126, 34, 206, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.2) 0%, transparent 50%), url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h20l10 10h30M20 80h30l10-10h20M80 20v30l-10 10v20M30 40v20l10 10h20' stroke='%23a855f7' stroke-width='0.75' stroke-opacity='0.14' fill='none'/%3E%3C/svg%3E");
             border: 1px solid rgba(234, 179, 8, 0.45);
             box-shadow: 0 0 25px rgba(147, 51, 234, 0.25), inset 0 0 15px rgba(234, 179, 8, 0.08);
         }
-        .gold-icon-bg {
-            background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #a16207 100%);
-            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
-        }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #fde047 0%, #eab308 50%, #ca8a04 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .gold-icon-bg { background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #a16207 100%); box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3); }
+        .gold-gradient-text { background: linear-gradient(135deg, #fde047 0%, #eab308 50%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .cyber-qr-frame {
-            position: relative;
-            background: linear-gradient(145deg, rgba(30, 15, 60, 0.92), rgba(15, 8, 35, 0.96));
-            border: 2px solid rgba(56, 189, 248, 0.55);
-            box-shadow: 
-                0 0 25px rgba(56, 189, 248, 0.3),
-                inset 0 0 20px rgba(168, 85, 247, 0.3);
+            position: relative; background: linear-gradient(145deg, rgba(30, 15, 60, 0.92), rgba(15, 8, 35, 0.96));
+            border: 2px solid rgba(56, 189, 248, 0.55); box-shadow: 0 0 25px rgba(56, 189, 248, 0.3), inset 0 0 20px rgba(168, 85, 247, 0.3);
         }
         .cyber-corner-tl { position: absolute; top: -5px; left: -5px; width: 24px; height: 24px; border-top: 4px solid #38bdf8; border-left: 4px solid #38bdf8; border-top-left-radius: 8px; filter: drop-shadow(0 0 6px #38bdf8); }
         .cyber-corner-tr { position: absolute; top: -5px; right: -5px; width: 24px; height: 24px; border-top: 4px solid #c084fc; border-right: 4px solid #c084fc; border-top-right-radius: 8px; filter: drop-shadow(0 0 6px #c084fc); }
         .cyber-corner-bl { position: absolute; bottom: -5px; left: -5px; width: 24px; height: 24px; border-bottom: 4px solid #c084fc; border-left: 4px solid #c084fc; border-bottom-left-radius: 8px; filter: drop-shadow(0 0 6px #c084fc); }
         .cyber-corner-br { position: absolute; bottom: -5px; right: -5px; width: 24px; height: 24px; border-bottom: 4px solid #38bdf8; border-right: 4px solid #38bdf8; border-bottom-right-radius: 8px; filter: drop-shadow(0 0 6px #38bdf8); }
-
-        @keyframes scanline {
-            0% { top: 6%; opacity: 0; }
-            20% { opacity: 1; }
-            80% { opacity: 1; }
-            100% { top: 92%; opacity: 0; }
-        }
+        @keyframes scanline { 0% { top: 6%; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { top: 92%; opacity: 0; } }
         .qr-scanner-line {
-            position: absolute;
-            left: 5%; right: 5%; height: 3px;
+            position: absolute; left: 5%; right: 5%; height: 3px;
             background: linear-gradient(90deg, transparent, #38bdf8, #a855f7, #38bdf8, transparent);
-            box-shadow: 0 0 12px #38bdf8;
-            animation: scanline 2.8s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 10;
+            box-shadow: 0 0 12px #38bdf8; animation: scanline 2.8s ease-in-out infinite; pointer-events: none; z-index: 10;
         }
-        #qrcode img, #qrcode canvas {
-            margin: 0 auto;
-            display: block;
-            width: 100% !important;
-            height: auto !important;
-            max-width: 210px;
-        }
+        #qrcode img, #qrcode canvas { margin: 0 auto; display: block; width: 100% !important; height: auto !important; max-width: 210px; }
     </style>
 </head>
 <body>
@@ -357,7 +321,7 @@
             <button class="close-modal" onclick="closeModal()">×</button>
             
             <div class="modal-body" id="modalBodyContent">
-                <!-- Product Header (Hidden when viewing Payment Portal) -->
+                <!-- Product Header -->
                 <div id="modalHeaderInfo" class="modal-head-info">
                     <img id="modalLogo" src="" alt="Logo">
                     <div class="modal-head-text">
@@ -378,102 +342,58 @@
                 <!-- INTEGRATED AFIAR PAYMENT PORTAL SECTION -->
                 <div id="qrisSection" style="display: none;">
                     <div class="portal-card-bg rounded-2xl overflow-hidden text-white relative">
-                        
-                        <!-- Portal Header -->
                         <div class="pt-5 pb-4 px-4 text-center border-b border-yellow-500/30 relative">
-                            <h2 class="font-graffiti text-3xl sm:text-4xl tracking-wider text-white mb-1 select-none transform -rotate-1">
-                                "AFIAR STORE"
-                            </h2>
-                            <p class="text-xs sm:text-sm font-extrabold tracking-[0.25em] text-amber-200 uppercase mb-2.5">
-                                SCAN TO PAY
-                            </p>
+                            <h2 class="font-graffiti text-3xl sm:text-4xl tracking-wider text-white mb-1 select-none transform -rotate-1">"AFIAR STORE"</h2>
+                            <p class="text-xs sm:text-sm font-extrabold tracking-[0.25em] text-amber-200 uppercase mb-2.5">SCAN TO PAY</p>
                             <div class="inline-flex items-center justify-center px-4 py-1 rounded-full bg-purple-950/90 border border-yellow-500/60 shadow">
                                 <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-2"></span>
-                                <span class="text-[10px] sm:text-xs font-bold tracking-[0.16em] text-white uppercase">
-                                    AFIAR PAYMENT PORTAL
-                                </span>
+                                <span class="text-[10px] sm:text-xs font-bold tracking-[0.16em] text-white uppercase">AFIAR PAYMENT PORTAL</span>
                             </div>
                         </div>
 
-                        <!-- Portal Content -->
                         <div class="p-4 sm:p-5 space-y-5">
-                            
-                            <!-- Futuristic QRIS Box -->
                             <div class="flex flex-col items-center">
                                 <div class="cyber-qr-frame rounded-2xl p-4 sm:p-5 w-full max-w-[290px] text-center relative">
-                                    <div class="cyber-corner-tl"></div>
-                                    <div class="cyber-corner-tr"></div>
-                                    <div class="cyber-corner-bl"></div>
-                                    <div class="cyber-corner-br"></div>
-
+                                    <div class="cyber-corner-tl"></div><div class="cyber-corner-tr"></div><div class="cyber-corner-bl"></div><div class="cyber-corner-br"></div>
                                     <div class="flex items-center justify-between mb-3 px-1">
                                         <div class="flex items-center gap-1.5">
                                             <span class="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
                                             <span class="text-[10px] font-bold tracking-widest uppercase text-sky-300">QRIS ALL PAYMENT</span>
                                         </div>
-                                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-purple-900/80 border border-purple-400/30 text-purple-200">
-                                            INSTANT
-                                        </span>
+                                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-purple-900/80 border border-purple-400/30 text-purple-200">INSTANT</span>
                                     </div>
-
-                                    <!-- Dynamic QR Code Container -->
                                     <div class="relative bg-white p-3.5 rounded-xl shadow-inner mx-auto flex items-center justify-center overflow-hidden border-2 border-amber-400/90">
                                         <div class="qr-scanner-line"></div>
                                         <div id="qrcode" class="w-full flex items-center justify-center"></div>
                                     </div>
-
                                     <div class="mt-3.5 space-y-0.5">
-                                        <p class="text-sm sm:text-base font-extrabold tracking-wider gold-gradient-text uppercase">
-                                            AFIAR STORE - Catering
-                                        </p>
-                                        <p class="text-[11px] font-medium text-sky-300/90">
-                                            AFIAR_PAYMENT @digital.wallet
-                                        </p>
-                                        <div class="pt-1.5">
-                                            <span class="inline-block text-[10px] text-purple-200/90 bg-purple-950/90 border border-purple-500/30 px-2.5 py-0.5 rounded-full">
-                                                NMID: ID1026544678653
-                                            </span>
-                                        </div>
+                                        <p class="text-sm sm:text-base font-extrabold tracking-wider gold-gradient-text uppercase">AFIAR STORE - Catering</p>
+                                        <p class="text-[11px] font-medium text-sky-300/90">AFIAR_PAYMENT @digital.wallet</p>
+                                        <div class="pt-1.5"><span class="inline-block text-[10px] text-purple-200/90 bg-purple-950/90 border border-purple-500/30 px-2.5 py-0.5 rounded-full">NMID: ID1026544678653</span></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- E-Wallet Numbers List -->
                             <div class="p-4 rounded-xl bg-purple-950/50 border border-yellow-500/40 space-y-3">
                                 <div class="flex items-center gap-2.5">
                                     <div class="w-8 h-8 rounded-lg gold-icon-bg flex items-center justify-center shrink-0 text-purple-950">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
                                     </div>
                                     <div>
                                         <span class="text-[10px] font-bold uppercase tracking-wider text-yellow-400 block">Transfer Manual</span>
                                         <h4 class="text-xs sm:text-sm font-bold text-white">Daftar Nomor E-Wallet Resmi</h4>
                                     </div>
                                 </div>
-
-                                <!-- DANA: 088983430977 -->
                                 <div class="p-3 rounded-xl bg-[#0e031c]/95 border border-sky-500/30 flex items-center justify-between gap-2 hover:border-sky-400/60 transition-all">
                                     <div class="flex items-center gap-2.5">
-                                        <span class="px-2.5 py-1 rounded-md bg-[#118EEA] text-white font-extrabold text-[11px] tracking-wide shadow">
-                                            DANA
-                                        </span>
+                                        <span class="px-2.5 py-1 rounded-md bg-[#118EEA] text-white font-extrabold text-[11px] tracking-wide shadow">DANA</span>
                                         <div>
                                             <p class="text-[10px] text-purple-300">Nomor DANA</p>
-                                            <p class="font-mono-num text-sm sm:text-base font-bold text-amber-300 tracking-wider">
-                                                0889 8343 0977
-                                            </p>
+                                            <p class="font-mono-num text-sm sm:text-base font-bold text-amber-300 tracking-wider">0889 8343 0977</p>
                                         </div>
                                     </div>
-                                    <button onclick="copyNumber('088983430977', 'btn-dana')" id="btn-dana" class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-200 text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                        </svg>
-                                        <span>Salin</span>
-                                    </button>
+                                    <button onclick="copyNumber('088983430977', 'btn-dana')" id="btn-dana" class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-200 text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg><span>Salin</span></button>
                                 </div>
-
-                                <!-- ShopeePay, OVO, GoPay: 082149992412 -->
                                 <div class="p-3 rounded-xl bg-[#0e031c]/95 border border-purple-500/30 flex items-center justify-between gap-2 hover:border-amber-400/60 transition-all">
                                     <div class="space-y-1">
                                         <div class="flex flex-wrap items-center gap-1">
@@ -481,34 +401,12 @@
                                             <span class="px-2 py-0.5 rounded bg-[#4C3494] text-white font-bold text-[10px]">OVO</span>
                                             <span class="px-2 py-0.5 rounded bg-[#00AED6] text-white font-bold text-[10px]">GoPay</span>
                                         </div>
-                                        <p class="font-mono-num text-sm sm:text-base font-bold text-amber-300 tracking-wider">
-                                            0821 4999 2412
-                                        </p>
+                                        <p class="font-mono-num text-sm sm:text-base font-bold text-amber-300 tracking-wider">0821 4999 2412</p>
                                     </div>
-                                    <button onclick="copyNumber('082149992412', 'btn-multi')" id="btn-multi" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shrink-0">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                        </svg>
-                                        <span>Salin</span>
-                                    </button>
+                                    <button onclick="copyNumber('082149992412', 'btn-multi')" id="btn-multi" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg><span>Salin</span></button>
                                 </div>
                             </div>
-
-                            <!-- 3 Quick Steps Summary -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-                                <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/20 flex items-center gap-2.5">
-                                    <span class="w-6 h-6 rounded-full gold-icon-bg text-purple-950 font-extrabold flex items-center justify-center shrink-0 text-xs">1</span>
-                                    <span class="text-purple-100">Konfirmasi stok pesanan ke Admin terlebih dahulu.</span>
-                                </div>
-                                <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-500/20 flex items-center gap-2.5">
-                                    <span class="w-6 h-6 rounded-full gold-icon-bg text-purple-950 font-extrabold flex items-center justify-center shrink-0 text-xs">2</span>
-                                    <span class="text-purple-100">Scan QRIS / transfer E-Wallet & kirim bukti ke WA.</span>
-                                </div>
-                            </div>
-
                         </div>
-
-                        <!-- Portal Footer Contact -->
                         <div class="bg-[#1a0b2e] border-t border-yellow-500/30 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-[11px] text-purple-200">
                             <span class="font-mono-num font-bold text-white">📞 +62-882-0062-16644</span>
                             <span class="font-bold text-amber-300">📸 @afiar_business</span>
@@ -519,16 +417,14 @@
 
             <!-- Sticky Order Button -->
             <div class="sticky-action-bar">
-                <button id="quickPayBtn" onclick="openPaymentModal()" class="btn-quick-pay" title="Lihat QRIS & Nomor E-Wallet">
-                    💳 QRIS
-                </button>
+                <button id="quickPayBtn" onclick="openPaymentModal()" class="btn-quick-pay" title="Lihat QRIS & Nomor E-Wallet">💳 QRIS</button>
                 <a href="#" id="waLink" class="btn-buy" target="_blank">BELI SEKARANG</a>
             </div>
         </div>
     </div>
 
+    <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
-        // Exact QRIS Payload decoded from Afiar Store QR image
         const qrisPayload = "00020101021126570011ID.DANA.WWW011893600915399044903902099904490390303UMI51440014ID.CO.QRIS.WWW0215ID10265446786530303UMI5204581253033605802ID5922AFIAR STORE - Catering6010Kab. Tegal61055246263042C2B";
         let qrGenerated = false;
 
@@ -537,20 +433,12 @@
                 const qrContainer = document.getElementById("qrcode");
                 if (qrContainer && typeof QRCode !== "undefined") {
                     qrContainer.innerHTML = "";
-                    new QRCode(qrContainer, {
-                        text: qrisPayload,
-                        width: 220,
-                        height: 220,
-                        colorDark: "#000000",
-                        colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.M
-                    });
+                    new QRCode(qrContainer, { text: qrisPayload, width: 220, height: 220, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
                     qrGenerated = true;
                 }
             }
         }
 
-        // Clipboard Copy Helper compatible with iframe environments
         function copyNumber(numberText, btnId) {
             const tempInput = document.createElement("textarea");
             tempInput.value = numberText;
@@ -561,269 +449,52 @@
 
             const btn = document.getElementById(btnId);
             if (!btn) return;
-
             const originalHTML = btn.innerHTML;
-            btn.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-                <span class="text-emerald-200">Tersalin!</span>
-            `;
-
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-            }, 2000);
+            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg><span class="text-emerald-200">Tersalin!</span>`;
+            setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
         }
 
-        // Database 40 Produk menggunakan CDN SimpleIcons dan UI Avatars
         const products = [
-            // AI & INTELLIGENCE
-            { 
-                id: 1, cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", shortcut: "chatgpt", 
-                logo: "https://cdn.simpleicons.org/openai/00f0ff", badges: ["BEST SELLER"], startPrice: "5.000", 
-                variants: [ {name: "Sharing 8U (1H)", price: "5.000"}, {name: "Sharing 5U (1H)", price: "8.000"}, {name: "Sharing 8U (1B)", price: "49.000"}, {name: "Private Legal (1B)", price: "377.000"} ], 
-                details: "▪ Sharing Legal (8U | 5U | 3U)\n- 1 Hari : 5k | 8k | 11k\n- 7 Hari : 15k | 36k | 41k\n- 1 Bulan : 49k | 92k | 127k\n\n▪ Sharing Trik (Nogar)\n- 1 Bulan (5U) : 24k | (3U) : 37k\n\n▪ Private 1 Bulan\n- Legal (Garansi) : 377k | Trik (Nogar) : 102k\n\n📌 Ketentuan:\n✅ Akun dari seller & standby OTP\n✅ Paid legal bergaransi Backfree (BF)" 
-            },
-            { 
-                id: 2, cat: "AI & INTELLIGENCE", name: "ChatGPT Go", shortcut: "chatgptgo", 
-                logo: "https://cdn.simpleicons.org/openai/00f0ff", badges: ["PROMO"], startPrice: "3.500", 
-                variants: [ {name: "Sharing 8U (1H)", price: "3.500"}, {name: "Sharing 8U (1B)", price: "17.000"}, {name: "Sharing 4U (1B)", price: "27.000"}, {name: "Link Redeem", price: "37.000"} ], 
-                details: "▪ Sharing Legal (8U | 4U | 2U)\n- 1 Hari : 3.5k | 5k | 9k\n- 7 Hari : 6.5k | 11k | 21k\n- 1 Bulan : 17k | 27k | 52k\n\n▪ Private / Lainnya\n- Jaspay Legal (Akun Cust) : Harga GPlay + 7k\n- Link Redeem (Tanpa Method) : 37k\n\n📌 Ketentuan:\n✅ Sharing akun dari seller (Paid Legal)\n⚠️ Membeli sharing = paham risiko limit" 
-            },
-            { 
-                id: 3, cat: "AI & INTELLIGENCE", name: "Claude AI", shortcut: "claude", 
-                logo: "https://cdn.simpleicons.org/anthropic/e2e8f0", badges: ["HOT"], startPrice: "6.000", 
-                variants: [ {name: "Sharing 10U (1H)", price: "6.000"}, {name: "Sharing 4U (1H)", price: "11.000"}, {name: "Sharing 10U (1B)", price: "54.000"}, {name: "Private Legal (1B)", price: "402.000"} ], 
-                details: "▪ Sharing Legal (10U | 4U Less Limit)\n- 1 Hari : 6k | 11k\n- 7 Hari : 21k | 41k\n- 1 Bulan : 54k | 102k\n\n▪ Private Legal\n- 1 Bulan : 402k\n\n📌 Ketentuan:\n✅ Akun dari seller, wajib standby OTP\n✅ Paid legal bergaransi Backfree (BF)" 
-            },
-            { 
-                id: 4, cat: "AI & INTELLIGENCE", name: "Gemini Pro + G.One", shortcut: "gemini", 
-                logo: "https://cdn.simpleicons.org/googlegemini/8E75B2", badges: ["BUNDLE"], startPrice: "2.200", 
-                variants: [ {name: "Sharing (1 Hari)", price: "2.200"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Private Invite (1B)", price: "20.000"}, {name: "Head Gemini (1B)", price: "27.000"} ], 
-                details: "(Include VEO3, GDrive 2-5 TB, GMeet)\n▪ Sharing (Akun Seller)\n- 1 Hari : 2.2k | 1 Bulan : 8k\n\n▪ Private Invite (Akun Cust)\n- 1 Hari : 3.5k | 1 Bulan : 20k\n\n▪ Head Gemini (Invite 5 Member)\n- 1 Bulan : 27k (Fullgar)\n\n📌 Ketentuan:\n✅ Penyimpanan 2-5 TB & Garansi Backfree" 
-            },
-            { 
-                id: 5, cat: "AI & INTELLIGENCE", name: "Perplexity Pro", shortcut: "perplexity", 
-                logo: "https://cdn.simpleicons.org/perplexity/22B8CD", badges: [], startPrice: "4.500", 
-                variants: [ {name: "Sharing (1 Hari)", price: "4.500"}, {name: "Sharing (1 Bln)", price: "40.000"}, {name: "Private (1 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "452.000"} ], 
-                details: "▪ Sharing Legal\n- 1 Hari : 4.5k | 7 Hari : 16k | 1 Bulan : 40k\n\n▪ Private Legal\n- 1 Hari : 16k | 7 Hari : 46k | 1 Bulan : 452k\n\n📌 Ketentuan:\n✅ Akun dari seller (Login Google)\n✅ Paid legal, bukan trik" 
-            },
-            { 
-                id: 6, cat: "AI & INTELLIGENCE", name: "GPTZero", shortcut: "gptzero", 
-                logo: "https://ui-avatars.com/api/?name=GZ&background=1a202c&color=00f0ff", badges: [], startPrice: "3.000", 
-                variants: [ {name: "Jasa Cek Plagiasi/AI", price: "3.000"}, {name: "Cek Plagiasi + AI", price: "4.500"}, {name: "Sharing Prem (1B)", price: "27.000"}, {name: "Private Prem (1B)", price: "42.000"} ], 
-                details: "▪ Jasa Cek File (Per 1x Cek)\n- Cek Plagiasi/AI : 3k | Cek Plagiasi + AI : 4.5k\n\n▪ Sharing (Premium | Profesional)\n- 1 Hari : 8k | 11k\n- 1 Bulan : 27k | 47k\n\n▪ Private (Premium | Profesional)\n- 1 Bulan : 42k | 87k\n\n📌 Ketentuan: Maks 50k karakter/cek (Premium)." 
-            },
-            { 
-                id: 7, cat: "AI & INTELLIGENCE", name: "Grammarly", shortcut: "grammarly", 
-                logo: "https://cdn.simpleicons.org/grammarly/15C39A", badges: [], startPrice: "2.500", 
-                variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (1 Bln)", price: "11.000"}, {name: "Private (7 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "47.000"} ], 
-                details: "▪ Sharing\n- 1 Hari : 2.5k | 7 Hari : 8k | 1 Bulan : 11k\n\n▪ Private (Maks 5 Device)\n- 7 Hari : 16k | 1 Bulan : 47k\n\n📌 Ketentuan:\n✅ Akun dari seller, Full garansi Backfree (BF)" 
-            },
-            { 
-                id: 8, cat: "AI & INTELLIGENCE", name: "Quillbot", shortcut: "quillbot", 
-                logo: "https://cdn.simpleicons.org/quillbot/49A94D", badges: [], startPrice: "3.000", 
-                variants: [ {name: "Sharing 5U (1 Hari)", price: "3.000"}, {name: "Sharing 5U (7 Hari)", price: "9.000"}, {name: "Sharing 5U (1 Bln)", price: "12.000"}, {name: "Private (1 Bln)", price: "47.000"} ], 
-                details: "▪ Sharing (5 User)\n- 1 Hari : 3k | 7 Hari : 9k | 1 Bulan : 12k\n\n▪ Private\n- 1 Bulan : 47k\n\n📌 Ketentuan:\n✅ Akun dari seller, Full garansi Backfree (BF)" 
-            },
-
-            // STREAMING & HIBURAN
-            { 
-                id: 9, cat: "STREAMING & HIBURAN", name: "Netflix Harian", shortcut: "netflix", 
-                logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["HOT"], startPrice: "3.000", 
-                variants: [ {name: "1P2U (1 Hari)", price: "3.000"}, {name: "1P1U (1 Hari)", price: "3.500"}, {name: "Anti Limit (1 Hari)", price: "4.500"}, {name: "Semi Private (1 Hari)", price: "5.000"} ], 
-                details: "▪ Sharing 1P2U (1 Profil 2 User)\n- 1 Hari : 3k | 3 Hari : 7k | 7 Hari : 14k\n\n▪ Anti Limit (Bebas Limit Screen)\n- 1 Hari : 4.5k | 3 Hari : 11k | 7 Hari : 23k\n\n▪ Semi Private (Bisa Login 2 Device)\n- 1 Hari : 5k | 7 Hari : 24k\n\n📌 Ketentuan: Akun dari seller, dilarang ganti device." 
-            },
-            { 
-                id: 10, cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", shortcut: "netflix", 
-                logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["BEST SELLER"], startPrice: "20.000", 
-                variants: [ {name: "1P2U Luar (1 Bln)", price: "20.000"}, {name: "1P2U Indo (1 Bln)", price: "23.000"}, {name: "Semi Private (1 Bln)", price: "44.000"}, {name: "Anti Limit (1 Bln)", price: "52.000"} ], 
-                details: "▪ Sharing 1P2U\n- Reg Luar (1 Bulan) : 20k\n- Legal Indo (1 Bulan) : 23k\n\n▪ Semi Private / Anti Limit\n- Semi Private (1 Bulan) : 44k\n- Anti Limit Indo (1 Bulan) : 52k\n\n📌 Ketentuan: Pengguna iOS sangat disarankan pilih Legal Indo." 
-            },
-            { 
-                id: 11, cat: "STREAMING & HIBURAN", name: "Spotify Premium", shortcut: "spotify", 
-                logo: "https://cdn.simpleicons.org/spotify/1DB954", badges: [], startPrice: "4.000", 
-                variants: [ {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "12.000"}, {name: "Famhead (1 Bln)", price: "32.000"} ], 
-                details: "▪ Private (Akun Seller)\n- 1 Hari : 4k | 7 Hari : 9k | 1 Bulan : 12k\n\n▪ Famhead (Bisa Invite 3 Member)\n- 1 Bulan : 32k\n\n📌 Ketentuan: Bebas iklan, download lagu offline." 
-            },
-            { 
-                id: 12, cat: "STREAMING & HIBURAN", name: "YouTube Premium", shortcut: "youtube", 
-                logo: "https://cdn.simpleicons.org/youtube/FF0000", badges: [], startPrice: "5.000", 
-                variants: [ {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Famplan (1 Bln)", price: "7.000"}, {name: "Indplan Cust (1 Bln)", price: "9.000"}, {name: "Indplan Seller (1 Bln)", price: "14.000"} ], 
-                details: "(Sudah termasuk YouTube Music)\n▪ Akun Sharing (Akun Seller)\n- 1 Bulan : 5k (Fullgar)\n\n▪ Famplan Invite Akun Cust\n- 1 Bulan : 7k (Fullgar)\n\n▪ Indplan / Famhead Renew\n- 1 Bulan Akun Cust : 9k (Fullgar)\n- 1 Bulan Akun Seller : 14k (Fullgar)" 
-            },
-            { 
-                id: 13, cat: "STREAMING & HIBURAN", name: "Apple Music", shortcut: "applemusic", 
-                logo: "https://cdn.simpleicons.org/applemusic/FA243C", badges: [], startPrice: "3.000", 
-                variants: [ {name: "Fam Link (5 Hari)", price: "3.000"}, {name: "Fam Link (1 Bln)", price: "9.000"}, {name: "Indplan Andro (1 Bln)", price: "10.000"}, {name: "Famhead (1 Bln)", price: "27.000"} ], 
-                details: "▪ Family Link / iMessage (Akun Cust - All Device)\n- 5 Hari : 3k | 1 Bulan : 9k\n\n▪ Indplan (Akun Seller - Khusus Android)\n- 1 Bulan : 10k\n\n▪ Famhead (Khusus Andro / Bisa Invite iOS)\n- 1 Bulan : 27k (Fullgar)" 
-            },
-            { 
-                id: 14, cat: "STREAMING & HIBURAN", name: "Joox VIP", shortcut: "joox", 
-                logo: "https://ui-avatars.com/api/?name=JX&background=1a202c&color=00ff66", badges: [], startPrice: "5.000", 
-                variants: [ {name: "Private (1 Hari)", price: "5.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "17.000"} ], 
-                details: "▪ Private (Akun Seller)\n- 1 Hari : 5k | 7 Hari : 9k | 1 Bulan : 17k\n\n📌 Ketentuan: Akun dari seller, bebas iklan & bisa unduh lagu offline." 
-            },
-            { 
-                id: 15, cat: "STREAMING & HIBURAN", name: "Prime Video", shortcut: "prime", 
-                logo: "https://cdn.simpleicons.org/primevideo/00A8E1", badges: [], startPrice: "2.800", 
-                variants: [ {name: "Sharing 3U (1 Hari)", price: "2.800"}, {name: "Sharing 3U (1 Bln)", price: "9.000"}, {name: "Private Fullgar (1 Bln)", price: "17.000"} ], 
-                details: "▪ Sharing Harian (3U Anti Limit)\n- 1 Hari : 2.8k | 7 Hari : 5k\n\n▪ Sharing Bulanan (3U Anti Limit)\n- 1 Bulan : 9k\n\n▪ Private Full Garansi\n- 1 Bulan : 17k\n\n📌 Ketentuan: Maks login 1 device." 
-            },
-            { 
-                id: 16, cat: "STREAMING & HIBURAN", name: "Bstation", shortcut: "bstation", 
-                logo: "https://ui-avatars.com/api/?name=Bs&background=ff0055&color=fff", badges: [], startPrice: "3.000", 
-                variants: [ {name: "Sharing (7 Hari)", price: "3.000"}, {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Private AllDev (7 Hari)", price: "11.000"}, {name: "Private AllDev (1 Bln)", price: "30.000"} ], 
-                details: "▪ Sharing (Non-TV / Maks 1 Device)\n- 7 Hari : 3k | 1 Bulan : 5k\n\n▪ Private (All Device - Bisa Login TV)\n- 7 Hari : 11k | 1 Bulan : 30k\n\n📌 Ketentuan: Ingin login di TV wajib ambil paket Private." 
-            },
-            { 
-                id: 17, cat: "STREAMING & HIBURAN", name: "Crunchyroll", shortcut: "crunchyroll", 
-                logo: "https://cdn.simpleicons.org/crunchyroll/F47521", badges: [], startPrice: "2.500", 
-                variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (1 Bln)", price: "7.000"}, {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"} ], 
-                details: "▪ Sharing\n- 1 Hari : 2.5k | 1 Bulan : 7k\n\n▪ Private\n- 1 Hari : 4k | 7 Hari : 9k\n\n📌 Ketentuan: Private sistem renew per minggu." 
-            },
-            { 
-                id: 18, cat: "STREAMING & HIBURAN", name: "Disney+ Hotstar", shortcut: "disney", 
-                logo: "https://cdn.simpleicons.org/disneyplus/113CCF", badges: ["HOT"], startPrice: "3.000", 
-                variants: [ {name: "Basic 3U (1 Hari)", price: "3.000"}, {name: "Prem 10U (1 Hari)", price: "4.000"}, {name: "Prem 10U (1 Bln)", price: "17.000"}, {name: "Private Prem (1 Bln)", price: "127.000"} ], 
-                details: "(Khusus Region Indonesia)\n▪ Harian Basic (Sharing 3U)\n- 1 Hari : 3k | 7 Hari : 9k\n\n▪ Bulanan Premium\n- Sharing (10U) : 17k | Sharing (8U) : 20k\n- Less Limit (6U) : 25k | Anti Limit (3U) : 47k\n- Private : 127k\n\n📌 Ketentuan: Login via OTP (janjian terlebih dahulu)." 
-            },
-            { 
-                id: 19, cat: "STREAMING & HIBURAN", name: "Drakor ID", shortcut: "drakorid", 
-                logo: "https://ui-avatars.com/api/?name=DK&background=ff0055&color=fff", badges: [], startPrice: "2.000", 
-                variants: [ {name: "Sharing (1 Hari)", price: "2.000"}, {name: "Sharing (7 Hari)", price: "6.000"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "17.000"} ], 
-                details: "▪ Sharing (Maks 1 Device)\n- 1 Hari : 2k | 7 Hari : 6k\n- 1 Bulan : 8k | 1 Tahun : 17k\n\n📌 Ketentuan: Akun dari seller, dilarang gonta-ganti device." 
-            },
-            { 
-                id: 20, cat: "STREAMING & HIBURAN", name: "HBO Max", shortcut: "hbomax", 
-                logo: "https://cdn.simpleicons.org/hbo/ffffff", badges: [], startPrice: "3.500", 
-                variants: [ {name: "Trik 4U (1 Hari)", price: "3.500"}, {name: "Legal Std (1 Hari)", price: "4.000"}, {name: "Legal Std (1 Bln)", price: "14.000"}, {name: "Legal Ult (1 Bln)", price: "19.000"} ], 
-                details: "▪ HBO Legal Paid — Sharing\n- 1 Hari Std : 4k | Ult : 5.5k\n- 1 Bulan Std : 14k | Ult : 19k\n\n▪ HBO Trik Paid (No Garansi)\n- Sharing 4U (1 Hari) : 3.5k\n- Private (1 Bulan) : 27k" 
-            },
-            { 
-                id: 21, cat: "STREAMING & HIBURAN", name: "iQIYI", shortcut: "iqiyi", 
-                logo: "https://cdn.simpleicons.org/iqiyi/00CC00", badges: [], startPrice: "2.000", 
-                variants: [ {name: "Sharing Std (1 Hari)", price: "2.000"}, {name: "Sharing Std (1 Bln)", price: "6.000"}, {name: "Sharing Prem (1 Bln)", price: "7.000"}, {name: "Private Prem (1 Bln)", price: "37.000"} ], 
-                details: "▪ Sharing Standar\n- 1 Hari : 2k | 1 Bulan : 6k\n\n▪ Sharing Premium\n- 1 Hari : 2.5k | 1 Bulan : 7k\n\n▪ Private Premium\n- 1 Bulan : 37k\n\n📌 Ketentuan: Sharing maks 1 device (Harian login TV wajib beli 2 slot)." 
-            },
-            { 
-                id: 22, cat: "STREAMING & HIBURAN", name: "Vidio Platinum", shortcut: "vidio", 
-                logo: "https://ui-avatars.com/api/?name=Vidio&background=E50914&color=fff", badges: ["HOT"], startPrice: "5.000", 
-                variants: [ {name: "Private TV (1 Hari)", price: "5.000"}, {name: "Sharing 2U (1 Bln)", price: "17.000"}, {name: "Private TV (1 Bln)", price: "17.000"}, {name: "Private AllDev (1 Bln)", price: "39.000"} ], 
-                details: "▪ Sharing 2U (Mobile | All Device)\n- 1 Bulan : 17k | 23k\n\n▪ Private (TV Only | Mobile | All Device)\n- 1 Hari : 5k | 5k | 6k\n- 1 Bulan : 17k | 29k | 39k\n\n📌 Ketentuan: TV = Khusus Smart TV (Unlock Platinum, ada iklan)." 
-            },
-            { 
-                id: 23, cat: "STREAMING & HIBURAN", name: "VIU Premium", shortcut: "viu", 
-                logo: "https://ui-avatars.com/api/?name=Viu&background=ffd700&color=000", badges: [], startPrice: "2.000", 
-                variants: [ {name: "Anti Limit (1 Hari)", price: "2.000"}, {name: "Biasa (1 Bln)", price: "4.000"}, {name: "Anti Limit (1 Bln)", price: "6.000"} ], 
-                details: "(Semua akun VIU adalah Private / 1 User)\n▪ Harian Anti Limit\n- 1 Hari : 2k | 7 Hari : 5k\n\n▪ Bulanan Anti Limit\n- 1 Bulan : 6k\n\n▪ Private Biasa\n- 1 Bulan : 4k | 1 Tahun (Gar 6B) : 13k" 
-            },
-            { 
-                id: 24, cat: "STREAMING & HIBURAN", name: "WeTV VIP", shortcut: "wetv", 
-                logo: "https://ui-avatars.com/api/?name=WeTV&background=0055ff&color=fff", badges: [], startPrice: "3.000", 
-                variants: [ {name: "Harian (1 Hari)", price: "3.000"}, {name: "Sharing 6U (1 Bln)", price: "9.000"}, {name: "Sharing 3U TV (1 Bln)", price: "14.000"}, {name: "Private (1 Bln)", price: "32.000"} ], 
-                details: "▪ Harian\n- 1 Hari : 3k | 7 Hari : 5k\n\n▪ Sharing Bulanan\n- 1 Bulan (6U) : 9k\n- 1 Bulan Less Limit TV (3U) : 14k\n\n▪ Private\n- 1 Bulan : 32k\n\n📌 Ketentuan: Login TV wajib pilih Less Limit (3U) / Private." 
-            },
-
-            // CREATIVE & EDITING
-            { 
-                id: 25, cat: "CREATIVE & EDITING", name: "Canva Pro / Edu", shortcut: "canva", 
-                logo: "https://cdn.simpleicons.org/canva/00C4CC", badges: ["BEST SELLER"], startPrice: "1.500", 
-                variants: [ {name: "Member Pro (1 Hari)", price: "1.500"}, {name: "Member Pro (1 Bln)", price: "4.000"}, {name: "Edu Private (1 Bln)", price: "6.000"}, {name: "Edu Private (Life)", price: "20.000"} ], 
-                details: "▪ Canva Member Pro (Invite Email Cust)\n- 1 Hari : 1.5k | 1 Bulan : 4k\n\n▪ Canva Education (Private | Sharing)\n- 1 Bulan : 6k | 4k\n- Lifetime (Gar 12B) : 20k | 13k\n\n▪ Team Pro Business\n- Admin 1 Bln : 34k (Fullgar)" 
-            },
-            { 
-                id: 26, cat: "CREATIVE & EDITING", name: "CapCut Pro", shortcut: "capcut", 
-                logo: "https://cdn.simpleicons.org/capcut/ffffff", badges: ["HOT"], startPrice: "5.000", 
-                variants: [ {name: "Sharing 2U (1 Hari)", price: "5.000"}, {name: "Private (1 Hari)", price: "7.000"}, {name: "Sharing 2U (1 Bln)", price: "22.000"}, {name: "Private (1 Bln)", price: "42.000"} ], 
-                details: "▪ CapCut Pro — Sharing 2U (Andro/iOS/Web)\n- 1 Hari : 5k | 1 Bulan : 22k\n\n▪ CapCut Pro — Private\n- 1 Hari : 7k | 1 Bulan : 42k (Fullgar)\n\n📌 Ketentuan: Garansi Backfree (BF). Akses di PC/Laptop wajib via Website." 
-            },
-            { 
-                id: 27, cat: "CREATIVE & EDITING", name: "Adobe Express", shortcut: "adobe", 
-                logo: "https://cdn.simpleicons.org/adobe/FF0000", badges: [], startPrice: "5.000", 
-                variants: [ {name: "Sharing (5 Hari)", price: "5.000"}, {name: "Sharing (1 Bln)", price: "14.000"}, {name: "Private (1 Bln)", price: "17.000"} ], 
-                details: "▪ Sharing\n- 5 Hari : 5k | 1 Bulan : 14k\n\n▪ Private\n- 7 Hari : 6k | 1 Bulan : 17k\n\n📌 Ketentuan: Sistem pinjam akun Adobe (Support iOS & Android)." 
-            },
-            { 
-                id: 28, cat: "CREATIVE & EDITING", name: "Alight Motion", shortcut: "am", 
-                logo: "https://ui-avatars.com/api/?name=AM&background=1a202c&color=fff", badges: [], startPrice: "1.800", 
-                variants: [ {name: "Sharing (1 Hari)", price: "1.800"}, {name: "Sharing (1 Bln)", price: "6.000"}, {name: "Private (1 Bln)", price: "10.000"}, {name: "Private (1 Thn)", price: "17.000"} ], 
-                details: "▪ Sharing\n- 1 Hari : 1.8k | 1 Bulan : 6k | 1 Tahun (Link) : 11k\n\n▪ Private\n- 1 Bulan : 10k | 1 Tahun (Gar 6B) : 17k\n\n📌 Ketentuan: Support iOS & Android." 
-            },
-            { 
-                id: 29, cat: "CREATIVE & EDITING", name: "InShot Pro", shortcut: "inshot", 
-                logo: "https://ui-avatars.com/api/?name=IS&background=ff0055&color=fff", badges: [], startPrice: "15.000", 
-                variants: [ {name: "Lifetime Android", price: "15.000"} ], 
-                details: "▪ Sharing Lifetime\n- Android : 15k\n- iOS : (Stok Kosong)\n\n📌 Ketentuan: Garansi 6 Bulan, Sistem pinjam akun Google (Standby OTP)." 
-            },
-            { 
-                id: 30, cat: "CREATIVE & EDITING", name: "Lightroom", shortcut: "lightroom", 
-                logo: "https://cdn.simpleicons.org/adobelightroom/31A8FF", badges: [], startPrice: "5.000", 
-                variants: [ {name: "Sharing (5 Hari)", price: "5.000"}, {name: "Private (7 Hari)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "15.000"} ], 
-                details: "▪ Sharing\n- 5 Hari : 5k | 1 Tahun : 15k\n\n▪ Private\n- 7 Hari : 8k\n\n📌 Ketentuan: Sistem pinjam akun Adobe. Bonus 2.000+ Preset (via Link)." 
-            },
-            { 
-                id: 31, cat: "CREATIVE & EDITING", name: "PicsArt Pro", shortcut: "picsart", 
-                logo: "https://ui-avatars.com/api/?name=PA&background=b026ff&color=fff", badges: [], startPrice: "1.800", 
-                variants: [ {name: "Sharing (1 Hari)", price: "1.800"}, {name: "Sharing (1 Bln)", price: "7.000"}, {name: "Private (1 Bln)", price: "12.000"}, {name: "Head (1 Bln)", price: "17.000"} ], 
-                details: "▪ Sharing Harian & Bulanan\n- 1 Hari : 1.8k | 1 Bulan : 7k | 6 Bulan : 20k\n\n▪ Private\n- 1 Hari : 2.5k | 1 Bulan : 12k\n\n▪ Head (1 Bulan) : 17k\n\n📌 Ketentuan: Private/Head bisa menggunakan akun cust atau seller." 
-            },
-            { 
-                id: 32, cat: "CREATIVE & EDITING", name: "Remini Pro (App)", shortcut: "reminiapp", 
-                logo: "https://ui-avatars.com/api/?name=Re&background=ff0055&color=fff", badges: [], startPrice: "3.200", 
-                variants: [ {name: "Sharing Andro (1H)", price: "3.200"}, {name: "Private (1 Hari)", price: "4.000"}, {name: "Sharing Andro (1B)", price: "15.000"}, {name: "Sharing 1T (Gar 6B)", price: "29.000"} ], 
-                details: "▪ Sharing Android\n- 1 Hari : 3.2k | 1 Bulan : 15k\n- 1 Tahun (Fullgar 6B) : 29k\n\n▪ Private\n- 1 Hari : 4k | 7 Hari : 10k\n\n📌 Ketentuan: Sistem pinjam akun Google seller (Maks 1 device)." 
-            },
-            { 
-                id: 33, cat: "CREATIVE & EDITING", name: "Remini Web", shortcut: "reminiweb", 
-                logo: "https://ui-avatars.com/api/?name=RW&background=ff0055&color=fff", badges: [], startPrice: "3.000", 
-                variants: [ {name: "Sharing Web (1 Hari)", price: "3.000"}, {name: "Private Web (1 Hari)", price: "4.000"}, {name: "Sharing Web (1 Bln)", price: "9.000"}, {name: "Private Web (7 Hari)", price: "10.000"} ], 
-                details: "▪ Sharing\n- 1 Hari : 3k | 1 Bulan : 9k\n\n▪ Private\n- 1 Hari : 4k | 7 Hari : 10k\n\n📌 Ketentuan: Login akun Google via website Remini (Maks 1 device)." 
-            },
-
-            // PRODUCTIVITY & EDU
-            { 
-                id: 34, cat: "PRODUCTIVITY & EDU", name: "Microsoft 365", shortcut: "m365", 
-                logo: "https://cdn.simpleicons.org/microsoft/00a4ef", badges: ["PROMO"], startPrice: "2.000", 
-                variants: [ {name: "Sharing Seller (1H)", price: "2.000"}, {name: "Invite Cust (1 Bln)", price: "6.000"}, {name: "Private Indplan (1B)", price: "14.000"}, {name: "Private Famhead (1B)", price: "22.000"} ], 
-                details: "▪ Member Invite (Akun Cust) | Sharing (Akun Seller)\n- 1 Hari : 2.5k | 2k\n- 1 Bulan : 6k | 4k\n\n▪ Private Indplan\n- 1 Bulan : 14k\n\n▪ Private Famhead (Bisa Invite 5 Member)\n- 1 Bulan : 22k\n\n📌 Ketentuan: Member Invite cukup kirimkan email ke admin." 
-            },
-            { 
-                id: 35, cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", shortcut: "zoom", 
-                logo: "https://cdn.simpleicons.org/zoom/0B5CFF", badges: ["HOT"], startPrice: "4.000", 
-                variants: [ {name: "Room Link 100p (1 Jam)", price: "4.000"}, {name: "Sewa Akun 100p (1 Jam)", price: "5.000"}, {name: "Room Link 100p (1 Hari)", price: "9.000"}, {name: "Private 100p (1 Bln)", price: "42.000"} ], 
-                details: "▪ Sewa Room Zoom via Link (100p | 300p | 500p)\n- 1 Jam : 4k | 8k | 23k\n- 1 Hari : 9k | 23k | 44k\n\n▪ Sewa Akun Email+Pass (100p | 300p)\n- 1 Jam : 5k | 9k\n- 1 Hari : 11k | 21k\n\n▪ Zoom Private Bulanan (100p)\n- 1 Bulan : 42k\n\n📌 Ketentuan: Order minimal 1-2 jam sebelum acara dimulai." 
-            },
-            { 
-                id: 36, cat: "PRODUCTIVITY & EDU", name: "CamScanner", shortcut: "camscanner", 
-                logo: "https://ui-avatars.com/api/?name=CS&background=00ff66&color=000", badges: [], startPrice: "4.000", 
-                variants: [ {name: "Sharing Prem (3 Hari)", price: "4.000"}, {name: "Sharing Edu (1 Bln)", price: "7.000"}, {name: "Private Edu (1 Bln)", price: "12.000"}, {name: "Private Prem (1 Bln)", price: "17.000"} ], 
-                details: "▪ Sharing Premium\n- 3 Hari : 4k | 1 Bulan : 10k\n\n▪ Sharing Education\n- 1 Bulan : 7k | 1 Tahun : 14k\n\n▪ Private Premium\n- 1 Bulan : 17k\n\n▪ Private Education\n- 1 Bulan : 12k\n\n📌 Ketentuan: Akun dari seller, Garansi Backfree." 
-            },
-            { 
-                id: 37, cat: "PRODUCTIVITY & EDU", name: "GetContact Premium", shortcut: "getcontact", 
-                logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: [], startPrice: "2.000", 
-                variants: [ {name: "Private Nogar (1 Hari)", price: "2.000"}, {name: "Private Fullgar (1 Hari)", price: "3.000"}, {name: "Private Nogar (1 Bln)", price: "7.000"}, {name: "Private Fullgar (1 Bln)", price: "12.000"} ], 
-                details: "▪ Private (Nomor HP Customer)\n- 1 Hari : 2k (Nogar) | 3k (Fullgar)\n- 7 Hari : 3.8k (Nogar) | 6k (Fullgar)\n- 1 Bulan : 7k (Nogar) | 12k (Fullgar)\n\n📌 Keuntungan & Ketentuan:\n✅ Bebas iklan, lihat siapa yang mengecek tag nomor Anda, & lencana premium\n✅ Wajib standby OTP saat proses aktivasi." 
-            },
-            { 
-                id: 38, cat: "PRODUCTIVITY & EDU", name: "GoodNotes 6", shortcut: "goodnotes", 
-                logo: "https://ui-avatars.com/api/?name=GN&background=00f0ff&color=000", badges: [], startPrice: "19.000", 
-                variants: [ {name: "Lifetime iOS / iPadOS", price: "19.000"} ], 
-                details: "▪ Sharing iOS / iPadOS\n- Lifetime : 19k\n\n📌 Ketentuan:\n✅ Garansi 6 Bulan\n✅ Sistem pinjam Apple ID seller." 
-            },
-            { 
-                id: 39, cat: "PRODUCTIVITY & EDU", name: "Wattpad Premium", shortcut: "wattpad", 
-                logo: "https://cdn.simpleicons.org/wattpad/FF500A", badges: [], startPrice: "2.800", 
-                variants: [ {name: "Sharing (1 Hari)", price: "2.800"}, {name: "Sharing (7 Hari)", price: "6.000"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "17.000"} ], 
-                details: "▪ Sharing (Tanpa Iklan)\n- 1 Hari : 2.8k | 7 Hari : 6k\n- 1 Bulan : 8k | 1 Tahun : 17k\n\n📌 Ketentuan:\n✅ Bebas iklan (Tidak termasuk Paid Story/Koin)\n✅ Akun dari seller (1 Tahun garansi 6 bulan)." 
-            },
-            { 
-                id: 40, cat: "PRODUCTIVITY & EDU", name: "Jasa Cek GTC", shortcut: "gtc", 
-                logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: ["NEW"], startPrice: "1.000", 
-                variants: [ {name: "1 Cek Nomor", price: "1.000"}, {name: "3 Cek Nomor", price: "2.700"}, {name: "5 Cek Nomor", price: "4.500"} ], 
-                details: "▪ Jasa Cek GetContact (GTC)\n- 1 Cek Nomor : 1.000p\n- 3 Cek Nomor : 2.7k\n- 5 Cek Nomor : 4.5k\n\n📌 Catatan:\n✅ Dikirim hasil screenshot/video record tag nomor.\n✅ Jika melebihi 50 tag maka akan direcord!\n⚠️ Tidak ada refund apabila dicek nomor diprivate atau tidak ada tag (slot akun tetap berkurang)." 
-            }
+            { id: 1, cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", shortcut: "chatgpt", logo: "https://cdn.simpleicons.org/openai/00f0ff", badges: ["BEST SELLER"], startPrice: "5.000", variants: [ {name: "Sharing 8U (1H)", price: "5.000"}, {name: "Sharing 5U (1H)", price: "8.000"}, {name: "Sharing 8U (1B)", price: "49.000"}, {name: "Private Legal (1B)", price: "377.000"} ], details: "▪ Sharing Legal (8U | 5U | 3U)\n- 1 Hari : 5k | 8k | 11k\n- 7 Hari : 15k | 36k | 41k\n- 1 Bulan : 49k | 92k | 127k\n\n▪ Sharing Trik (Nogar)\n- 1 Bulan (5U) : 24k | (3U) : 37k\n\n▪ Private 1 Bulan\n- Legal (Garansi) : 377k | Trik (Nogar) : 102k\n\n📌 Ketentuan:\n✅ Akun dari seller & standby OTP\n✅ Paid legal bergaransi Backfree (BF)" },
+            { id: 2, cat: "AI & INTELLIGENCE", name: "ChatGPT Go", shortcut: "chatgptgo", logo: "https://cdn.simpleicons.org/openai/00f0ff", badges: ["PROMO"], startPrice: "3.500", variants: [ {name: "Sharing 8U (1H)", price: "3.500"}, {name: "Sharing 8U (1B)", price: "17.000"}, {name: "Sharing 4U (1B)", price: "27.000"}, {name: "Link Redeem", price: "37.000"} ], details: "▪ Sharing Legal (8U | 4U | 2U)\n- 1 Hari : 3.5k | 5k | 9k\n- 7 Hari : 6.5k | 11k | 21k\n- 1 Bulan : 17k | 27k | 52k\n\n▪ Private / Lainnya\n- Jaspay Legal (Akun Cust) : Harga GPlay + 7k\n- Link Redeem (Tanpa Method) : 37k\n\n📌 Ketentuan:\n✅ Sharing akun dari seller (Paid Legal)\n⚠️ Membeli sharing = paham risiko limit" },
+            { id: 3, cat: "AI & INTELLIGENCE", name: "Claude AI", shortcut: "claude", logo: "https://cdn.simpleicons.org/anthropic/e2e8f0", badges: ["HOT"], startPrice: "6.000", variants: [ {name: "Sharing 10U (1H)", price: "6.000"}, {name: "Sharing 4U (1H)", price: "11.000"}, {name: "Sharing 10U (1B)", price: "54.000"}, {name: "Private Legal (1B)", price: "402.000"} ], details: "▪ Sharing Legal (10U | 4U Less Limit)\n- 1 Hari : 6k | 11k\n- 7 Hari : 21k | 41k\n- 1 Bulan : 54k | 102k\n\n▪ Private Legal\n- 1 Bulan : 402k\n\n📌 Ketentuan:\n✅ Akun dari seller, wajib standby OTP\n✅ Paid legal bergaransi Backfree (BF)" },
+            { id: 4, cat: "AI & INTELLIGENCE", name: "Gemini Pro + G.One", shortcut: "gemini", logo: "https://cdn.simpleicons.org/googlegemini/8E75B2", badges: ["BUNDLE"], startPrice: "2.200", variants: [ {name: "Sharing (1 Hari)", price: "2.200"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Private Invite (1B)", price: "20.000"}, {name: "Head Gemini (1B)", price: "27.000"} ], details: "(Include VEO3, GDrive 2-5 TB, GMeet)\n▪ Sharing (Akun Seller)\n- 1 Hari : 2.2k | 1 Bulan : 8k\n\n▪ Private Invite (Akun Cust)\n- 1 Hari : 3.5k | 1 Bulan : 20k\n\n▪ Head Gemini (Invite 5 Member)\n- 1 Bulan : 27k (Fullgar)\n\n📌 Ketentuan:\n✅ Penyimpanan 2-5 TB & Garansi Backfree" },
+            { id: 5, cat: "AI & INTELLIGENCE", name: "Perplexity Pro", shortcut: "perplexity", logo: "https://cdn.simpleicons.org/perplexity/22B8CD", badges: [], startPrice: "4.500", variants: [ {name: "Sharing (1 Hari)", price: "4.500"}, {name: "Sharing (1 Bln)", price: "40.000"}, {name: "Private (1 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "452.000"} ], details: "▪ Sharing Legal\n- 1 Hari : 4.5k | 7 Hari : 16k | 1 Bulan : 40k\n\n▪ Private Legal\n- 1 Hari : 16k | 7 Hari : 46k | 1 Bulan : 452k\n\n📌 Ketentuan:\n✅ Akun dari seller (Login Google)\n✅ Paid legal, bukan trik" },
+            { id: 6, cat: "AI & INTELLIGENCE", name: "GPTZero", shortcut: "gptzero", logo: "https://ui-avatars.com/api/?name=GZ&background=1a202c&color=00f0ff", badges: [], startPrice: "3.000", variants: [ {name: "Jasa Cek Plagiasi/AI", price: "3.000"}, {name: "Cek Plagiasi + AI", price: "4.500"}, {name: "Sharing Prem (1B)", price: "27.000"}, {name: "Private Prem (1B)", price: "42.000"} ], details: "▪ Jasa Cek File (Per 1x Cek)\n- Cek Plagiasi/AI : 3k | Cek Plagiasi + AI : 4.5k\n\n▪ Sharing (Premium | Profesional)\n- 1 Hari : 8k | 11k\n- 1 Bulan : 27k | 47k\n\n▪ Private (Premium | Profesional)\n- 1 Bulan : 42k | 87k\n\n📌 Ketentuan: Maks 50k karakter/cek (Premium)." },
+            { id: 7, cat: "AI & INTELLIGENCE", name: "Grammarly", shortcut: "grammarly", logo: "https://cdn.simpleicons.org/grammarly/15C39A", badges: [], startPrice: "2.500", variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (1 Bln)", price: "11.000"}, {name: "Private (7 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "47.000"} ], details: "▪ Sharing\n- 1 Hari : 2.5k | 7 Hari : 8k | 1 Bulan : 11k\n\n▪ Private (Maks 5 Device)\n- 7 Hari : 16k | 1 Bulan : 47k\n\n📌 Ketentuan:\n✅ Akun dari seller, Full garansi Backfree (BF)" },
+            { id: 8, cat: "AI & INTELLIGENCE", name: "Quillbot", shortcut: "quillbot", logo: "https://cdn.simpleicons.org/quillbot/49A94D", badges: [], startPrice: "3.000", variants: [ {name: "Sharing 5U (1 Hari)", price: "3.000"}, {name: "Sharing 5U (7 Hari)", price: "9.000"}, {name: "Sharing 5U (1 Bln)", price: "12.000"}, {name: "Private (1 Bln)", price: "47.000"} ], details: "▪ Sharing (5 User)\n- 1 Hari : 3k | 7 Hari : 9k | 1 Bulan : 12k\n\n▪ Private\n- 1 Bulan : 47k\n\n📌 Ketentuan:\n✅ Akun dari seller, Full garansi Backfree (BF)" },
+            { id: 9, cat: "STREAMING & HIBURAN", name: "Netflix Harian", shortcut: "netflix", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["HOT"], startPrice: "3.000", variants: [ {name: "1P2U (1 Hari)", price: "3.000"}, {name: "1P1U (1 Hari)", price: "3.500"}, {name: "Anti Limit (1 Hari)", price: "4.500"}, {name: "Semi Private (1 Hari)", price: "5.000"} ], details: "▪ Sharing 1P2U (1 Profil 2 User)\n- 1 Hari : 3k | 3 Hari : 7k | 7 Hari : 14k\n\n▪ Anti Limit (Bebas Limit Screen)\n- 1 Hari : 4.5k | 3 Hari : 11k | 7 Hari : 23k\n\n▪ Semi Private (Bisa Login 2 Device)\n- 1 Hari : 5k | 7 Hari : 24k\n\n📌 Ketentuan: Akun dari seller, dilarang ganti device." },
+            { id: 10, cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", shortcut: "netflix", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["BEST SELLER"], startPrice: "20.000", variants: [ {name: "1P2U Luar (1 Bln)", price: "20.000"}, {name: "1P2U Indo (1 Bln)", price: "23.000"}, {name: "Semi Private (1 Bln)", price: "44.000"}, {name: "Anti Limit (1 Bln)", price: "52.000"} ], details: "▪ Sharing 1P2U\n- Reg Luar (1 Bulan) : 20k\n- Legal Indo (1 Bulan) : 23k\n\n▪ Semi Private / Anti Limit\n- Semi Private (1 Bulan) : 44k\n- Anti Limit Indo (1 Bulan) : 52k\n\n📌 Ketentuan: Pengguna iOS sangat disarankan pilih Legal Indo." },
+            { id: 11, cat: "STREAMING & HIBURAN", name: "Spotify Premium", shortcut: "spotify", logo: "https://cdn.simpleicons.org/spotify/1DB954", badges: [], startPrice: "4.000", variants: [ {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "12.000"}, {name: "Famhead (1 Bln)", price: "32.000"} ], details: "▪ Private (Akun Seller)\n- 1 Hari : 4k | 7 Hari : 9k | 1 Bulan : 12k\n\n▪ Famhead (Bisa Invite 3 Member)\n- 1 Bulan : 32k\n\n📌 Ketentuan: Bebas iklan, download lagu offline." },
+            { id: 12, cat: "STREAMING & HIBURAN", name: "YouTube Premium", shortcut: "youtube", logo: "https://cdn.simpleicons.org/youtube/FF0000", badges: [], startPrice: "5.000", variants: [ {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Famplan (1 Bln)", price: "7.000"}, {name: "Indplan Cust (1 Bln)", price: "9.000"}, {name: "Indplan Seller (1 Bln)", price: "14.000"} ], details: "(Sudah termasuk YouTube Music)\n▪ Akun Sharing (Akun Seller)\n- 1 Bulan : 5k (Fullgar)\n\n▪ Famplan Invite Akun Cust\n- 1 Bulan : 7k (Fullgar)\n\n▪ Indplan / Famhead Renew\n- 1 Bulan Akun Cust : 9k (Fullgar)\n- 1 Bulan Akun Seller : 14k (Fullgar)" },
+            { id: 13, cat: "STREAMING & HIBURAN", name: "Apple Music", shortcut: "applemusic", logo: "https://cdn.simpleicons.org/applemusic/FA243C", badges: [], startPrice: "3.000", variants: [ {name: "Fam Link (5 Hari)", price: "3.000"}, {name: "Fam Link (1 Bln)", price: "9.000"}, {name: "Indplan Andro (1 Bln)", price: "10.000"}, {name: "Famhead (1 Bln)", price: "27.000"} ], details: "▪ Family Link / iMessage (Akun Cust - All Device)\n- 5 Hari : 3k | 1 Bulan : 9k\n\n▪ Indplan (Akun Seller - Khusus Android)\n- 1 Bulan : 10k\n\n▪ Famhead (Khusus Andro / Bisa Invite iOS)\n- 1 Bulan : 27k (Fullgar)" },
+            { id: 14, cat: "STREAMING & HIBURAN", name: "Joox VIP", shortcut: "joox", logo: "https://ui-avatars.com/api/?name=JX&background=1a202c&color=00ff66", badges: [], startPrice: "5.000", variants: [ {name: "Private (1 Hari)", price: "5.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "17.000"} ], details: "▪ Private (Akun Seller)\n- 1 Hari : 5k | 7 Hari : 9k | 1 Bulan : 17k\n\n📌 Ketentuan: Akun dari seller, bebas iklan & bisa unduh lagu offline." },
+            { id: 15, cat: "STREAMING & HIBURAN", name: "Prime Video", shortcut: "prime", logo: "https://cdn.simpleicons.org/primevideo/00A8E1", badges: [], startPrice: "2.800", variants: [ {name: "Sharing 3U (1 Hari)", price: "2.800"}, {name: "Sharing 3U (1 Bln)", price: "9.000"}, {name: "Private Fullgar (1 Bln)", price: "17.000"} ], details: "▪ Sharing Harian (3U Anti Limit)\n- 1 Hari : 2.8k | 7 Hari : 5k\n\n▪ Sharing Bulanan (3U Anti Limit)\n- 1 Bulan : 9k\n\n▪ Private Full Garansi\n- 1 Bulan : 17k\n\n📌 Ketentuan: Maks login 1 device." },
+            { id: 16, cat: "STREAMING & HIBURAN", name: "Bstation", shortcut: "bstation", logo: "https://ui-avatars.com/api/?name=Bs&background=ff0055&color=fff", badges: [], startPrice: "3.000", variants: [ {name: "Sharing (7 Hari)", price: "3.000"}, {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Private AllDev (7 Hari)", price: "11.000"}, {name: "Private AllDev (1 Bln)", price: "30.000"} ], details: "▪ Sharing (Non-TV / Maks 1 Device)\n- 7 Hari : 3k | 1 Bulan : 5k\n\n▪ Private (All Device - Bisa Login TV)\n- 7 Hari : 11k | 1 Bulan : 30k\n\n📌 Ketentuan: Ingin login di TV wajib ambil paket Private." },
+            { id: 17, cat: "STREAMING & HIBURAN", name: "Crunchyroll", shortcut: "crunchyroll", logo: "https://cdn.simpleicons.org/crunchyroll/F47521", badges: [], startPrice: "2.500", variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (1 Bln)", price: "7.000"}, {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"} ], details: "▪ Sharing\n- 1 Hari : 2.5k | 1 Bulan : 7k\n\n▪ Private\n- 1 Hari : 4k | 7 Hari : 9k\n\n📌 Ketentuan: Private sistem renew per minggu." },
+            { id: 18, cat: "STREAMING & HIBURAN", name: "Disney+ Hotstar", shortcut: "disney", logo: "https://cdn.simpleicons.org/disneyplus/113CCF", badges: ["HOT"], startPrice: "3.000", variants: [ {name: "Basic 3U (1 Hari)", price: "3.000"}, {name: "Prem 10U (1 Hari)", price: "4.000"}, {name: "Prem 10U (1 Bln)", price: "17.000"}, {name: "Private Prem (1 Bln)", price: "127.000"} ], details: "(Khusus Region Indonesia)\n▪ Harian Basic (Sharing 3U)\n- 1 Hari : 3k | 7 Hari : 9k\n\n▪ Bulanan Premium\n- Sharing (10U) : 17k | Sharing (8U) : 20k\n- Less Limit (6U) : 25k | Anti Limit (3U) : 47k\n- Private : 127k\n\n📌 Ketentuan: Login via OTP (janjian terlebih dahulu)." },
+            { id: 19, cat: "STREAMING & HIBURAN", name: "Drakor ID", shortcut: "drakorid", logo: "https://ui-avatars.com/api/?name=DK&background=ff0055&color=fff", badges: [], startPrice: "2.000", variants: [ {name: "Sharing (1 Hari)", price: "2.000"}, {name: "Sharing (7 Hari)", price: "6.000"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "17.000"} ], details: "▪ Sharing (Maks 1 Device)\n- 1 Hari : 2k | 7 Hari : 6k\n- 1 Bulan : 8k | 1 Tahun : 17k\n\n📌 Ketentuan: Akun dari seller, dilarang gonta-ganti device." },
+            { id: 20, cat: "STREAMING & HIBURAN", name: "HBO Max", shortcut: "hbomax", logo: "https://cdn.simpleicons.org/hbo/ffffff", badges: [], startPrice: "3.500", variants: [ {name: "Trik 4U (1 Hari)", price: "3.500"}, {name: "Legal Std (1 Hari)", price: "4.000"}, {name: "Legal Std (1 Bln)", price: "14.000"}, {name: "Legal Ult (1 Bln)", price: "19.000"} ], details: "▪ HBO Legal Paid — Sharing\n- 1 Hari Std : 4k | Ult : 5.5k\n- 1 Bulan Std : 14k | Ult : 19k\n\n▪ HBO Trik Paid (No Garansi)\n- Sharing 4U (1 Hari) : 3.5k\n- Private (1 Bulan) : 27k" },
+            { id: 21, cat: "STREAMING & HIBURAN", name: "iQIYI", shortcut: "iqiyi", logo: "https://cdn.simpleicons.org/iqiyi/00CC00", badges: [], startPrice: "2.000", variants: [ {name: "Sharing Std (1 Hari)", price: "2.000"}, {name: "Sharing Std (1 Bln)", price: "6.000"}, {name: "Sharing Prem (1 Bln)", price: "7.000"}, {name: "Private Prem (1 Bln)", price: "37.000"} ], details: "▪ Sharing Standar\n- 1 Hari : 2k | 1 Bulan : 6k\n\n▪ Sharing Premium\n- 1 Hari : 2.5k | 1 Bulan : 7k\n\n▪ Private Premium\n- 1 Bulan : 37k\n\n📌 Ketentuan: Sharing maks 1 device (Harian login TV wajib beli 2 slot)." },
+            { id: 22, cat: "STREAMING & HIBURAN", name: "Vidio Platinum", shortcut: "vidio", logo: "https://ui-avatars.com/api/?name=Vidio&background=E50914&color=fff", badges: ["HOT"], startPrice: "5.000", variants: [ {name: "Private TV (1 Hari)", price: "5.000"}, {name: "Sharing 2U (1 Bln)", price: "17.000"}, {name: "Private TV (1 Bln)", price: "17.000"}, {name: "Private AllDev (1 Bln)", price: "39.000"} ], details: "▪ Sharing 2U (Mobile | All Device)\n- 1 Bulan : 17k | 23k\n\n▪ Private (TV Only | Mobile | All Device)\n- 1 Hari : 5k | 5k | 6k\n- 1 Bulan : 17k | 29k | 39k\n\n📌 Ketentuan: TV = Khusus Smart TV (Unlock Platinum, ada iklan)." },
+            { id: 23, cat: "STREAMING & HIBURAN", name: "VIU Premium", shortcut: "viu", logo: "https://ui-avatars.com/api/?name=Viu&background=ffd700&color=000", badges: [], startPrice: "2.000", variants: [ {name: "Anti Limit (1 Hari)", price: "2.000"}, {name: "Biasa (1 Bln)", price: "4.000"}, {name: "Anti Limit (1 Bln)", price: "6.000"} ], details: "(Semua akun VIU adalah Private / 1 User)\n▪ Harian Anti Limit\n- 1 Hari : 2k | 7 Hari : 5k\n\n▪ Bulanan Anti Limit\n- 1 Bulan : 6k\n\n▪ Private Biasa\n- 1 Bulan : 4k | 1 Tahun (Gar 6B) : 13k" },
+            { id: 24, cat: "STREAMING & HIBURAN", name: "WeTV VIP", shortcut: "wetv", logo: "https://ui-avatars.com/api/?name=WeTV&background=0055ff&color=fff", badges: [], startPrice: "3.000", variants: [ {name: "Harian (1 Hari)", price: "3.000"}, {name: "Sharing 6U (1 Bln)", price: "9.000"}, {name: "Sharing 3U TV (1 Bln)", price: "14.000"}, {name: "Private (1 Bln)", price: "32.000"} ], details: "▪ Harian\n- 1 Hari : 3k | 7 Hari : 5k\n\n▪ Sharing Bulanan\n- 1 Bulan (6U) : 9k\n- 1 Bulan Less Limit TV (3U) : 14k\n\n▪ Private\n- 1 Bulan : 32k\n\n📌 Ketentuan: Login TV wajib pilih Less Limit (3U) / Private." },
+            { id: 25, cat: "CREATIVE & EDITING", name: "Canva Pro / Edu", shortcut: "canva", logo: "https://cdn.simpleicons.org/canva/00C4CC", badges: ["BEST SELLER"], startPrice: "1.500", variants: [ {name: "Member Pro (1 Hari)", price: "1.500"}, {name: "Member Pro (1 Bln)", price: "4.000"}, {name: "Edu Private (1 Bln)", price: "6.000"}, {name: "Edu Private (Life)", price: "20.000"} ], details: "▪ Canva Member Pro (Invite Email Cust)\n- 1 Hari : 1.5k | 1 Bulan : 4k\n\n▪ Canva Education (Private | Sharing)\n- 1 Bulan : 6k | 4k\n- Lifetime (Gar 12B) : 20k | 13k\n\n▪ Team Pro Business\n- Admin 1 Bln : 34k (Fullgar)" },
+            { id: 26, cat: "CREATIVE & EDITING", name: "CapCut Pro", shortcut: "capcut", logo: "https://cdn.simpleicons.org/capcut/ffffff", badges: ["HOT"], startPrice: "5.000", variants: [ {name: "Sharing 2U (1 Hari)", price: "5.000"}, {name: "Private (1 Hari)", price: "7.000"}, {name: "Sharing 2U (1 Bln)", price: "22.000"}, {name: "Private (1 Bln)", price: "42.000"} ], details: "▪ CapCut Pro — Sharing 2U (Andro/iOS/Web)\n- 1 Hari : 5k | 1 Bulan : 22k\n\n▪ CapCut Pro — Private\n- 1 Hari : 7k | 1 Bulan : 42k (Fullgar)\n\n📌 Ketentuan: Garansi Backfree (BF). Akses di PC/Laptop wajib via Website." },
+            { id: 27, cat: "CREATIVE & EDITING", name: "Adobe Express", shortcut: "adobe", logo: "https://cdn.simpleicons.org/adobe/FF0000", badges: [], startPrice: "5.000", variants: [ {name: "Sharing (5 Hari)", price: "5.000"}, {name: "Sharing (1 Bln)", price: "14.000"}, {name: "Private (1 Bln)", price: "17.000"} ], details: "▪ Sharing\n- 5 Hari : 5k | 1 Bulan : 14k\n\n▪ Private\n- 7 Hari : 6k | 1 Bulan : 17k\n\n📌 Ketentuan: Sistem pinjam akun Adobe (Support iOS & Android)." },
+            { id: 28, cat: "CREATIVE & EDITING", name: "Alight Motion", shortcut: "am", logo: "https://ui-avatars.com/api/?name=AM&background=1a202c&color=fff", badges: [], startPrice: "1.800", variants: [ {name: "Sharing (1 Hari)", price: "1.800"}, {name: "Sharing (1 Bln)", price: "6.000"}, {name: "Private (1 Bln)", price: "10.000"}, {name: "Private (1 Thn)", price: "17.000"} ], details: "▪ Sharing\n- 1 Hari : 1.8k | 1 Bulan : 6k | 1 Tahun (Link) : 11k\n\n▪ Private\n- 1 Bulan : 10k | 1 Tahun (Gar 6B) : 17k\n\n📌 Ketentuan: Support iOS & Android." },
+            { id: 29, cat: "CREATIVE & EDITING", name: "InShot Pro", shortcut: "inshot", logo: "https://ui-avatars.com/api/?name=IS&background=ff0055&color=fff", badges: [], startPrice: "15.000", variants: [ {name: "Lifetime Android", price: "15.000"} ], details: "▪ Sharing Lifetime\n- Android : 15k\n- iOS : (Stok Kosong)\n\n📌 Ketentuan: Garansi 6 Bulan, Sistem pinjam akun Google (Standby OTP)." },
+            { id: 30, cat: "CREATIVE & EDITING", name: "Lightroom", shortcut: "lightroom", logo: "https://cdn.simpleicons.org/adobelightroom/31A8FF", badges: [], startPrice: "5.000", variants: [ {name: "Sharing (5 Hari)", price: "5.000"}, {name: "Private (7 Hari)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "15.000"} ], details: "▪ Sharing\n- 5 Hari : 5k | 1 Tahun : 15k\n\n▪ Private\n- 7 Hari : 8k\n\n📌 Ketentuan: Sistem pinjam akun Adobe. Bonus 2.000+ Preset (via Link)." },
+            { id: 31, cat: "CREATIVE & EDITING", name: "PicsArt Pro", shortcut: "picsart", logo: "https://ui-avatars.com/api/?name=PA&background=b026ff&color=fff", badges: [], startPrice: "1.800", variants: [ {name: "Sharing (1 Hari)", price: "1.800"}, {name: "Sharing (1 Bln)", price: "7.000"}, {name: "Private (1 Bln)", price: "12.000"}, {name: "Head (1 Bln)", price: "17.000"} ], details: "▪ Sharing Harian & Bulanan\n- 1 Hari : 1.8k | 1 Bulan : 7k | 6 Bulan : 20k\n\n▪ Private\n- 1 Hari : 2.5k | 1 Bulan : 12k\n\n▪ Head (1 Bulan) : 17k\n\n📌 Ketentuan: Private/Head bisa menggunakan akun cust atau seller." },
+            { id: 32, cat: "CREATIVE & EDITING", name: "Remini Pro (App)", shortcut: "reminiapp", logo: "https://ui-avatars.com/api/?name=Re&background=ff0055&color=fff", badges: [], startPrice: "3.200", variants: [ {name: "Sharing Andro (1H)", price: "3.200"}, {name: "Private (1 Hari)", price: "4.000"}, {name: "Sharing Andro (1B)", price: "15.000"}, {name: "Sharing 1T (Gar 6B)", price: "29.000"} ], details: "▪ Sharing Android\n- 1 Hari : 3.2k | 1 Bulan : 15k\n- 1 Tahun (Fullgar 6B) : 29k\n\n▪ Private\n- 1 Hari : 4k | 7 Hari : 10k\n\n📌 Ketentuan: Sistem pinjam akun Google seller (Maks 1 device)." },
+            { id: 33, cat: "CREATIVE & EDITING", name: "Remini Web", shortcut: "reminiweb", logo: "https://ui-avatars.com/api/?name=RW&background=ff0055&color=fff", badges: [], startPrice: "3.000", variants: [ {name: "Sharing Web (1 Hari)", price: "3.000"}, {name: "Private Web (1 Hari)", price: "4.000"}, {name: "Sharing Web (1 Bln)", price: "9.000"}, {name: "Private Web (7 Hari)", price: "10.000"} ], details: "▪ Sharing\n- 1 Hari : 3k | 1 Bulan : 9k\n\n▪ Private\n- 1 Hari : 4k | 7 Hari : 10k\n\n📌 Ketentuan: Login akun Google via website Remini (Maks 1 device)." },
+            { id: 34, cat: "PRODUCTIVITY & EDU", name: "Microsoft 365", shortcut: "m365", logo: "https://cdn.simpleicons.org/microsoft/00a4ef", badges: ["PROMO"], startPrice: "2.000", variants: [ {name: "Sharing Seller (1H)", price: "2.000"}, {name: "Invite Cust (1 Bln)", price: "6.000"}, {name: "Private Indplan (1B)", price: "14.000"}, {name: "Private Famhead (1B)", price: "22.000"} ], details: "▪ Member Invite (Akun Cust) | Sharing (Akun Seller)\n- 1 Hari : 2.5k | 2k\n- 1 Bulan : 6k | 4k\n\n▪ Private Indplan\n- 1 Bulan : 14k\n\n▪ Private Famhead (Bisa Invite 5 Member)\n- 1 Bulan : 22k\n\n📌 Ketentuan: Member Invite cukup kirimkan email ke admin." },
+            { id: 35, cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", shortcut: "zoom", logo: "https://cdn.simpleicons.org/zoom/0B5CFF", badges: ["HOT"], startPrice: "4.000", variants: [ {name: "Room Link 100p (1 Jam)", price: "4.000"}, {name: "Sewa Akun 100p (1 Jam)", price: "5.000"}, {name: "Room Link 100p (1 Hari)", price: "9.000"}, {name: "Private 100p (1 Bln)", price: "42.000"} ], details: "▪ Sewa Room Zoom via Link (100p | 300p | 500p)\n- 1 Jam : 4k | 8k | 23k\n- 1 Hari : 9k | 23k | 44k\n\n▪ Sewa Akun Email+Pass (100p | 300p)\n- 1 Jam : 5k | 9k\n- 1 Hari : 11k | 21k\n\n▪ Zoom Private Bulanan (100p)\n- 1 Bulan : 42k\n\n📌 Ketentuan: Order minimal 1-2 jam sebelum acara dimulai." },
+            { id: 36, cat: "PRODUCTIVITY & EDU", name: "CamScanner", shortcut: "camscanner", logo: "https://ui-avatars.com/api/?name=CS&background=00ff66&color=000", badges: [], startPrice: "4.000", variants: [ {name: "Sharing Prem (3 Hari)", price: "4.000"}, {name: "Sharing Edu (1 Bln)", price: "7.000"}, {name: "Private Edu (1 Bln)", price: "12.000"}, {name: "Private Prem (1 Bln)", price: "17.000"} ], details: "▪ Sharing Premium\n- 3 Hari : 4k | 1 Bulan : 10k\n\n▪ Sharing Education\n- 1 Bulan : 7k | 1 Tahun : 14k\n\n▪ Private Premium\n- 1 Bulan : 17k\n\n▪ Private Education\n- 1 Bulan : 12k\n\n📌 Ketentuan: Akun dari seller, Garansi Backfree." },
+            { id: 37, cat: "PRODUCTIVITY & EDU", name: "GetContact Premium", shortcut: "getcontact", logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: [], startPrice: "2.000", variants: [ {name: "Private Nogar (1 Hari)", price: "2.000"}, {name: "Private Fullgar (1 Hari)", price: "3.000"}, {name: "Private Nogar (1 Bln)", price: "7.000"}, {name: "Private Fullgar (1 Bln)", price: "12.000"} ], details: "▪ Private (Nomor HP Customer)\n- 1 Hari : 2k (Nogar) | 3k (Fullgar)\n- 7 Hari : 3.8k (Nogar) | 6k (Fullgar)\n- 1 Bulan : 7k (Nogar) | 12k (Fullgar)\n\n📌 Keuntungan & Ketentuan:\n✅ Bebas iklan, lihat siapa yang mengecek tag nomor Anda, & lencana premium\n✅ Wajib standby OTP saat proses aktivasi." },
+            { id: 38, cat: "PRODUCTIVITY & EDU", name: "GoodNotes 6", shortcut: "goodnotes", logo: "https://ui-avatars.com/api/?name=GN&background=00f0ff&color=000", badges: [], startPrice: "19.000", variants: [ {name: "Lifetime iOS / iPadOS", price: "19.000"} ], details: "▪ Sharing iOS / iPadOS\n- Lifetime : 19k\n\n📌 Ketentuan:\n✅ Garansi 6 Bulan\n✅ Sistem pinjam Apple ID seller." },
+            { id: 39, cat: "PRODUCTIVITY & EDU", name: "Wattpad Premium", shortcut: "wattpad", logo: "https://cdn.simpleicons.org/wattpad/FF500A", badges: [], startPrice: "2.800", variants: [ {name: "Sharing (1 Hari)", price: "2.800"}, {name: "Sharing (7 Hari)", price: "6.000"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "17.000"} ], details: "▪ Sharing (Tanpa Iklan)\n- 1 Hari : 2.8k | 7 Hari : 6k\n- 1 Bulan : 8k | 1 Tahun : 17k\n\n📌 Ketentuan:\n✅ Bebas iklan (Tidak termasuk Paid Story/Koin)\n✅ Akun dari seller (1 Tahun garansi 6 bulan)." },
+            { id: 40, cat: "PRODUCTIVITY & EDU", name: "Jasa Cek GTC", shortcut: "gtc", logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: ["NEW"], startPrice: "1.000", variants: [ {name: "1 Cek Nomor", price: "1.000"}, {name: "3 Cek Nomor", price: "2.700"}, {name: "5 Cek Nomor", price: "4.500"} ], details: "▪ Jasa Cek GetContact (GTC)\n- 1 Cek Nomor : 1.000p\n- 3 Cek Nomor : 2.7k\n- 5 Cek Nomor : 4.5k\n\n📌 Catatan:\n✅ Dikirim hasil screenshot/video record tag nomor.\n✅ Jika melebihi 50 tag maka akan direcord!\n⚠️ Tidak ada refund apabila dicek nomor diprivate atau tidak ada tag (slot akun tetap berkurang)." }
         ];
 
         const grid = document.getElementById('productGrid');
@@ -861,7 +532,11 @@
                     </div>
                     <div class="prod-name">${p.name}</div>
                     <div class="prod-price">Rp ${p.startPrice}</div>
-                    <div class="prod-sold"><span class="dot"></span> Garansi S&K</div>
+                    <div class="prod-sold">
+                        <span id="view-count-${p.id}" class="view-badge">👁 0</span> 
+                        <span style="margin: 0 4px; opacity: 0.5;">•</span> 
+                        <span class="dot"></span> Garansi S&K
+                    </div>
                 `;
                 card.onclick = () => openModal(p);
                 grid.appendChild(card);
@@ -881,7 +556,6 @@
             renderProducts(activeCat, e.target.value);
         });
 
-        // Bottom Sheet Logic
         const modal = document.getElementById('bottomSheet');
         let currentProd = null;
 
@@ -908,6 +582,20 @@
             });
             if(prod.variants.length > 0) selectVariant(prod.variants[0], vList.firstChild);
 
+            // Trigger penambahan angka view Firebase
+            if (typeof window.incrementProductView === "function") {
+                window.incrementProductView(prod.id);
+            }
+            
+            // Track Private Data ke Google Analytics (GA4)
+            if (typeof gtag === "function") {
+                gtag('event', 'view_item', {
+                    'item_id': prod.id,
+                    'item_name': prod.name,
+                    'item_category': prod.cat
+                });
+            }
+
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -915,7 +603,6 @@
         function selectVariant(variant, btn) {
             document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
-            
             document.getElementById('modalPrice').innerText = "Rp " + variant.price;
             
             const msg = encodeURIComponent(`Halo Admin *AFIAR STORE* ⚡\nSaya ingin order & cek stok produk berikut:\n\n• *Produk:* ${currentProd.name}\n• *Paket:* ${variant.name}\n• *Harga:* Rp ${variant.price}\n\nApakah ready?`);
@@ -927,13 +614,10 @@
             document.getElementById('variantSection').style.display = 'none';
             document.getElementById('qrisSection').style.display = 'block';
             document.getElementById('quickPayBtn').style.display = 'none';
-            
             ensureQRGenerated();
-            
             document.getElementById('waLink').innerText = "📲 KONFIRMASI BUKTI TRANSFER KE WA";
             const msg = encodeURIComponent("Halo Admin *AFIAR STORE* ⚡\nSaya sudah melakukan pembayaran melalui QRIS / E-Wallet. Berikut bukti transfer untuk pesanan saya:");
             document.getElementById('waLink').href = `https://wa.me/62882006216644?text=${msg}`;
-            
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -942,6 +626,48 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+    </script>
+
+    <!-- FIREBASE SDK UNTUK VIEW COUNTER PRODUK (REAL-TIME) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Konfigurasi dari Project Anda
+        const firebaseConfig = {
+            apiKey: "AIzaSyAXrRUX9bt9Mo07jYY4dFvW_iPr9GOdLyg",
+            authDomain: "afiar-store-web.firebaseapp.com",
+            databaseURL: "https://afiar-store-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "afiar-store-web",
+            storageBucket: "afiar-store-web.firebasestorage.app",
+            messagingSenderId: "332112428329",
+            appId: "1:332112428329:web:f11949dbddf2020efd4b38"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Pantau Perubahan Data secara Real-Time & Update UI
+        const viewsRef = ref(db, 'product_views');
+        onValue(viewsRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(id => {
+                    const viewElement = document.getElementById(`view-count-${id}`);
+                    if (viewElement) {
+                        viewElement.innerHTML = `👁 ${data[id]}`;
+                    }
+                });
+            }
+        });
+
+        // Fungsi Global untuk Menambah Angka Saat Modal Dibuka
+        window.incrementProductView = function(productId) {
+            const itemRef = ref(db, 'product_views/' + productId);
+            runTransaction(itemRef, (currentViews) => {
+                return (currentViews || 0) + 1;
+            });
+        };
     </script>
 </body>
 </html>
