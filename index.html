@@ -94,7 +94,7 @@
         }
         .btn-payment-top:active { transform: scale(0.96); }
 
-        /* Tombol Panduan Baru */
+        /* Tombol Panduan & IG Hub */
         .btn-guide-top { 
             background: rgba(30, 41, 59, 0.6); 
             border: 1px solid var(--border-color); 
@@ -112,7 +112,7 @@
         .btn-guide-top:hover { background: rgba(51, 65, 85, 0.8); color: #fff; border-color: var(--accent-cyan); }
         .btn-guide-top:active { transform: scale(0.96); }
 
-        /* Custom Scrollbar untuk Modal Panduan */
+        /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
@@ -125,10 +125,36 @@
             margin: 15px; border-radius: 14px; 
             background: linear-gradient(135deg, rgba(176,38,255,0.22), rgba(0,240,255,0.18)); 
             border: 1px solid rgba(0,240,255,0.3); 
-            padding: 20px; text-align: center; position: relative; overflow: hidden; 
+            padding: 18px 20px; text-align: center; position: relative; overflow: hidden; 
         }
-        .banner-container h2 { font-weight: 900; font-size: 1.2rem; color: #fff; margin-bottom: 5px; text-transform: uppercase; }
+        .banner-container h2 { font-weight: 900; font-size: 1.15rem; color: #fff; margin-bottom: 4px; text-transform: uppercase; }
         .banner-container p { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; }
+
+        /* Quick Filter Pills (IG Story Highlights Style) */
+        .story-highlights-bar {
+            display: flex; gap: 8px; overflow-x: auto; padding: 0 15px 12px; scrollbar-width: none;
+        }
+        .story-highlights-bar::-webkit-scrollbar { display: none; }
+        .highlight-pill {
+            background: rgba(21, 25, 34, 0.9);
+            border: 1px solid rgba(176, 38, 255, 0.4);
+            color: #e2e8f0;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.2s;
+        }
+        .highlight-pill:hover, .highlight-pill:active {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.12);
+            color: #fff;
+        }
 
         /* Circular Category Menu */
         .category-menu { display: flex; gap: 15px; overflow-x: auto; padding: 0 15px 15px; scrollbar-width: none; }
@@ -201,7 +227,7 @@
         .close-modal:hover { background: #ef4444; }
 
         .modal-body { padding: 0 20px 20px; overflow-y: auto; flex: 1; }
-        .modal-head-info { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
+        .modal-head-info { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
         .modal-head-info img { width: 65px; height: 65px; border-radius: 15px; background: #1a202c; padding: 6px; border: 1px solid rgba(255,255,255,0.05); }
         .modal-head-text h3 { font-size: 1.1rem; font-weight: 800; color: #fff; }
         .modal-head-text .price { font-size: 1.2rem; font-weight: 900; color: var(--accent-gold); margin-top: 2px; }
@@ -275,9 +301,32 @@
         
         /* Animasi Pop-up Timer */
         @keyframes shrink { from { width: 100%; } to { width: 0%; } }
+
+        /* Toast Notification */
+        #toastNotif {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: #130426; border: 1px solid var(--accent-cyan);
+            color: #fff; padding: 10px 18px; border-radius: 999px;
+            font-size: 0.78rem; font-weight: 700; z-index: 10000;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; align-items: center; gap: 8px; white-space: nowrap;
+        }
+        #toastNotif.show { transform: translateX(-50%) translateY(0); }
     </style>
 </head>
 <body>
+
+    <!-- Toast Notification untuk Copy Link / Story -->
+    <div id="toastNotif">
+        <span class="text-cyan-400">⚡</span>
+        <span id="toastText">Tautan berhasil disalin!</span>
+    </div>
+
+    <!-- IG Story Visitor Special Bar (Muncul otomatis jika pengunjung klik dari ?utm_source=igstory) -->
+    <div id="igVisitorBanner" class="hidden bg-gradient-to-r from-purple-950 via-[#130426] to-cyan-950 border-b border-cyan-400/40 px-4 py-2 text-center text-xs text-cyan-200 font-semibold flex items-center justify-center gap-2">
+        <span>📸 Selamat datang pengunjung <strong>@afiar_business</strong>! Pilih layanan & klik varian durasi untuk cek stok instan.</span>
+    </div>
 
     <!-- Welcome Pop-up Announcement -->
     <div id="welcomePopup" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity duration-500 opacity-0 pointer-events-none">
@@ -325,6 +374,56 @@
         </div>
     </div>
 
+    <!-- Modal Quick Links & Direct Access Portal -->
+    <div id="storyKitModal" class="modal-overlay" onclick="if(event.target === this) closeStoryKit()">
+        <div class="modal-sheet">
+            <div class="drag-handle"></div>
+            <button class="close-modal" onclick="closeStoryKit()">×</button>
+            <div class="modal-body pt-2">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-cyan-400 text-lg">🔗</span>
+                    <h3 class="text-white font-black text-base uppercase tracking-wider">Quick Links & Direct Access</h3>
+                </div>
+                <p class="text-slate-400 text-xs mb-4 leading-relaxed">
+                    Salin tautan akses cepat di bawah ini untuk membagikan halaman katalog resmi atau mengarahkan langsung ke rincian pricelist layanan tertentu.
+                </p>
+
+                <div class="space-y-3 mb-4">
+                    <div class="bg-black/50 border border-cyan-500/30 rounded-xl p-3.5">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-cyan-300 font-bold text-xs">⚡ Official Catalog Link</span>
+                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?utm_source=igstory&utm_medium=sticker', 'Tautan Katalog Resmi disalin!')" class="px-2.5 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-200 rounded text-[11px] font-bold transition-all active:scale-95">Copy Link</button>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-mono break-all">https://aryaarafiiarhmt.github.io/Store/?utm_source=igstory&utm_medium=sticker</p>
+                    </div>
+
+                    <div class="bg-black/50 border border-purple-500/30 rounded-xl p-3.5">
+                        <span class="text-amber-300 font-bold text-xs block mb-2">🎯 Direct Pricelist Links (Populer):</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=chatgpt&utm_source=igstory', 'Pricelist Link ChatGPT Plus disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
+                                <span class="text-xs font-bold text-white">🤖 ChatGPT Plus</span>
+                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
+                            </button>
+                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=netflix&utm_source=igstory', 'Pricelist Link Netflix disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
+                                <span class="text-xs font-bold text-white">🎬 Netflix Plan</span>
+                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
+                            </button>
+                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=canva&utm_source=igstory', 'Pricelist Link Canva Pro disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
+                                <span class="text-xs font-bold text-white">🎨 Canva Pro / Edu</span>
+                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
+                            </button>
+                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=gemini&utm_source=igstory', 'Pricelist Link Gemini Pro disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
+                                <span class="text-xs font-bold text-white">✨ Gemini Pro 2TB</span>
+                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
+                            </button>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-2.5">💡 <em>Anda juga dapat membagikan tautan rincian harga setiap layanan melalui tombol <strong>"Share Pricelist"</strong> di masing-masing produk.</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Sticky Header & Search -->
     <div class="header-sticky">
         <div class="top-bar">
@@ -332,10 +431,14 @@
                 <div class="af-logo">AF</div>
                 <div class="brand">AFIAR STORE</div>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-1.5 sm:gap-2">
+                <button class="btn-guide-top" onclick="openStoryKit()" title="Quick Links & Share">
+                    <span>🔗</span>
+                    <span class="hidden sm:inline">Quick Links</span>
+                </button>
                 <button class="btn-guide-top" onclick="openWelcomePopup(true)" title="Panduan Layanan">
                     <span>ℹ️</span>
-                    <span>Panduan Layanan</span>
+                    <span>Panduan</span>
                 </button>
                 <button class="btn-payment-top" onclick="openPaymentModal()">
                     <span>💳</span>
@@ -351,12 +454,22 @@
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="text-center sm:text-left">
                 <h2>⚡ AFIAR PORTAL 2026</h2>
-                <p>Akses 40+ Layanan Premium • Garansi S&K Berlaku</p>
+                <p>Akses 40+ Layanan Premium • Transparan & Garansi S&K Berlaku</p>
             </div>
             <button onclick="openPaymentModal()" class="px-4 py-2 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/60 text-amber-300 text-xs font-extrabold tracking-wider uppercase transition-all shrink-0">
                 ⚡ Buka QRIS & E-Wallet
             </button>
         </div>
+    </div>
+
+    <!-- Quick Highlights Bar (Memudahkan pengunjung dari Story langsung tap produk populer) -->
+    <div class="story-highlights-bar">
+        <button class="highlight-pill" onclick="openByShortcut('chatgpt')">🔥 ChatGPT Plus 5k</button>
+        <button class="highlight-pill" onclick="openByShortcut('gemini')">✨ Gemini + 2TB 2.2k</button>
+        <button class="highlight-pill" onclick="openByShortcut('netflix')">🎬 Netflix Harian 3k</button>
+        <button class="highlight-pill" onclick="openByShortcut('canva')">🎨 Canva Pro 1.5k</button>
+        <button class="highlight-pill" onclick="openByShortcut('capcut')">✂️ CapCut Pro 5k</button>
+        <button class="highlight-pill" onclick="openByShortcut('gtc')">🕵️ Cek Tag GTC 1k</button>
     </div>
 
     <!-- Circular Category Menu -->
@@ -402,12 +515,21 @@
 
             <div class="modal-body" id="modalBodyContent">
                 <!-- Product Header -->
-                <div id="modalHeaderInfo" class="modal-head-info">
-                    <img id="modalLogo" src="" alt="Logo">
-                    <div class="modal-head-text">
-                        <h3 id="modalTitle">Nama Produk</h3>
-                        <div class="price" id="modalPrice">Rp 0</div>
+                <div id="modalHeaderInfo" class="modal-head-info justify-between">
+                    <div class="flex items-center gap-3.5">
+                        <img id="modalLogo" src="" alt="Logo">
+                        <div class="modal-head-text">
+                            <h3 id="modalTitle">Nama Produk</h3>
+                            <div class="price" id="modalPrice">Rp 0</div>
+                        </div>
                     </div>
+                    <!-- Tombol Share Pricelist Link -->
+                    <button id="shareProdBtn" onclick="shareCurrentProduct()" class="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-cyan-300 text-[11px] font-bold flex items-center gap-1.5 shrink-0 transition-all active:scale-95" title="Bagikan tautan pricelist produk ini">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                        </svg>
+                        <span>Share Pricelist</span>
+                    </button>
                 </div>
 
                 <!-- Product Variants & Details Section -->
@@ -507,16 +629,38 @@
 
     <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
-        // Logika Welcome Pop-up dengan Session Storage
         let autoCloseTimer;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // Cek apakah user sudah melihat pop-up di sesi ini
-            if (!sessionStorage.getItem("afiarWelcomeSeen")) {
-                sessionStorage.setItem("afiarWelcomeSeen", "true");
-                setTimeout(() => openWelcomePopup(false), 300); // Delay sedikit agar smooth
-            }
-        });
+        function showToast(message) {
+            const toast = document.getElementById('toastNotif');
+            const text = document.getElementById('toastText');
+            if (!toast || !text) return;
+            text.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2600);
+        }
+
+        function openStoryKit() {
+            document.getElementById('storyKitModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStoryKit() {
+            document.getElementById('storyKitModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function copyStoryLink(textToCopy, toastMessage) {
+            const tempInput = document.createElement("textarea");
+            tempInput.value = textToCopy;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showToast(toastMessage || "Tautan berhasil disalin!");
+        }
 
         function openWelcomePopup(isManual = false) {
             const popup = document.getElementById("welcomePopup");
@@ -528,15 +672,13 @@
                 popup.firstElementChild.classList.add("scale-100");
 
                 if (isManual) {
-                    // Jika dibuka manual lewat tombol ℹ️, matikan timer dan hilangkan progress bar
                     if(progressBar) progressBar.style.display = 'none';
                     clearTimeout(autoCloseTimer);
                 } else {
-                    // Animasi auto-close 15 detik untuk tampilan awal pertama kali web dibuka
                     if(progressBar) {
                         progressBar.style.display = 'block';
                         progressBar.style.animation = 'none';
-                        void progressBar.offsetWidth; // trigger reflow
+                        void progressBar.offsetWidth;
                         progressBar.style.animation = 'shrink 15s linear forwards';
                     }
                     autoCloseTimer = setTimeout(() => {
@@ -595,7 +737,7 @@
             { id: 7, cat: "AI & INTELLIGENCE", name: "Grammarly", shortcut: "grammarly", logo: "https://cdn.simpleicons.org/grammarly/15C39A", badges: [], startPrice: "2.500", variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (7 Hari)", price: "8.000"}, {name: "Sharing (1 Bln)", price: "11.000"}, {name: "Private (7 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "47.000"} ], details: "▪ Sharing\n• 1 Hari : 2.5k\n• 3 Hari : 4k\n• 5 Hari : 6k\n• 7 Hari : 8k\n• 1 Bulan : 11k\n• 2 Bulan : 20k\n• 3 Bulan : 25k\n• 6 Bulan : 40k\n\n▪ Private (Maks 5 Device)\n• 7 Hari : 16k\n• 1 Bulan : 47k\n📌 Ketentuan:\n✅ Akun dari seller (Harian login Google, standby OTP)\n✅ Full garansi Backfree (BF)" },
             { id: 8, cat: "AI & INTELLIGENCE", name: "Quillbot", shortcut: "quillbot", logo: "https://ui-avatars.com/api/?name=QB&background=49A94D&color=fff&font-size=0.45", badges: [], startPrice: "3.000", variants: [ {name: "Sharing (1 Hari)", price: "3.000"}, {name: "Sharing (7 Hari)", price: "9.000"}, {name: "Sharing (1 Bln)", price: "12.000"}, {name: "Private (1 Bln)", price: "47.000"} ], details: "▪ Sharing (5 User)\n• 1 Hari : 3k\n• 3 Hari : 5k\n• 5 Hari : 7k\n• 7 Hari : 9k\n• 1 Bulan : 12k\n\n▪ Private\n• 1 Bulan : 47k\n📌 Ketentuan:\n✅ Akun dari seller\n✅ Full garansi Backfree (BF)" },
             { id: 9, cat: "STREAMING & HIBURAN", name: "Netflix Harian", shortcut: "netflix", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["HOT"], startPrice: "3.000", variants: [ {name: "1P2U (1 Hari)", price: "3.000"}, {name: "1P1U (1 Hari)", price: "3.500"}, {name: "Anti Limit (1 Hari)", price: "4.500"}, {name: "Semi Private (1 Hari)", price: "5.000"} ], details: "▪ Sharing 1P2U (1 Profil 2 User)\n• 1 Hari : 3k | 2 Hari : 5k\n• 3 Hari : 7k | 4 Hari : 9k\n• 5 Hari : 11k | 7 Hari : 14k\n\n▪ Sharing 1P1U (1 Profil 1 User)\n• 1 Hari : 3.5k | 2 Hari : 6k\n• 3 Hari : 8.5k | 4 Hari : 11k\n• 5 Hari : 13k | 7 Hari : 17k\n\n▪ Anti Limit (Bebas Limit Screen)\n• 1 Hari : 4.5k | 2 Hari : 8k\n• 3 Hari : 11k | 5 Hari : 18k\n• 7 Hari : 23k\n\n▪ Semi Private (Bisa Login 2 Device)\n• 1 Hari : 5k | 3 Hari : 12k\n• 5 Hari : 19k | 7 Hari : 24k\n\n▪ Private Trial (Nogar)\n• 30 Hari : 37k\n📌 Ketentuan:\n✅ Akun dari seller, login maks 1 device (kecuali Semi Private)\n✅ Login TV tambah fee +2k\n⚠️ Dilarang gonta-ganti device" },
-            { id: 10, cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", shortcut: "netflix", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["BEST SELLER"], startPrice: "20.000", variants: [ {name: "1P2U Luar (1 Bln)", price: "20.000"}, {name: "1P2U Indo (1 Bln)", price: "23.000"}, {name: "1P1U Indo (1 Bln)", price: "42.000"}, {name: "Semi Private (1 Bln)", price: "44.000"}, {name: "Anti Limit (1 Bln)", price: "52.000"} ], details: "▪ Sharing 1P2U\n• Reg Luar (1 Bulan) : 20k\n• Legal Indo : 1 Bln (23k) | 2 Bln (43k) | 3 Bln (62k)\n\n▪ Sharing 1P1U\n• Reg Luar (1 Bulan) : 39k\n• Legal Indo : 1 Bln (42k) | 2 Bln (81k)\n\n▪ Semi Private (Bisa 2 Device - Legal Indo)\n• 1 Bulan : 44k\n• 2 Bulan : 85k\n• 3 Bulan : 128k\n\n▪ Anti Limit (Legal Indo)\n• 1 Bulan : 52k\n• 2 Bulan : 101k\n📌 Ketentuan:\n✅ Pengguna iOS sangat disarankan pilih Legal Indo\n✅ Akun dari seller, khusus 1 device (dilarang ganti device)\n✅ Full garansi & support OTP Household" },
+            { id: 10, cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", shortcut: "netflixbulanan", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["BEST SELLER"], startPrice: "20.000", variants: [ {name: "1P2U Luar (1 Bln)", price: "20.000"}, {name: "1P2U Indo (1 Bln)", price: "23.000"}, {name: "1P1U Indo (1 Bln)", price: "42.000"}, {name: "Semi Private (1 Bln)", price: "44.000"}, {name: "Anti Limit (1 Bln)", price: "52.000"} ], details: "▪ Sharing 1P2U\n• Reg Luar (1 Bulan) : 20k\n• Legal Indo : 1 Bln (23k) | 2 Bln (43k) | 3 Bln (62k)\n\n▪ Sharing 1P1U\n• Reg Luar (1 Bulan) : 39k\n• Legal Indo : 1 Bln (42k) | 2 Bln (81k)\n\n▪ Semi Private (Bisa 2 Device - Legal Indo)\n• 1 Bulan : 44k\n• 2 Bulan : 85k\n• 3 Bulan : 128k\n\n▪ Anti Limit (Legal Indo)\n• 1 Bulan : 52k\n• 2 Bulan : 101k\n📌 Ketentuan:\n✅ Pengguna iOS sangat disarankan pilih Legal Indo\n✅ Akun dari seller, khusus 1 device (dilarang ganti device)\n✅ Full garansi & support OTP Household" },
             { id: 11, cat: "STREAMING & HIBURAN", name: "Spotify Premium", shortcut: "spotify", logo: "https://cdn.simpleicons.org/spotify/1DB954", badges: [], startPrice: "4.000", variants: [ {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "12.000"}, {name: "Famhead (1 Bln)", price: "32.000"} ], details: "▪ Private (Akun Seller)\n• 1 Hari : 4k\n• 3 Hari : 6k\n• 5 Hari : 7k\n• 7 Hari : 9k\n• 1 Bulan : 12k\n• 3 Bulan : 15k\n\n▪ Famhead (Bisa Invite 3 Member)\n• 1 Bulan : 32k\n📌 Ketentuan & Opsi Garansi:\n✅ Bebas iklan & bisa download lagu offline\n✅ Transfer playlist tambah +1k\n✅ Harga di atas No Garansi (Garansi login 1 jam)\n✅ Tambah Garansi Backfree: Harian (+1k) / Bulanan Garansi 1 Minggu (+5k)" },
             { id: 12, cat: "STREAMING & HIBURAN", name: "YouTube Premium", shortcut: "youtube", logo: "https://cdn.simpleicons.org/youtube/FF0000", badges: [], startPrice: "5.000", variants: [ {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Famplan (1 Bln)", price: "7.000"}, {name: "Indplan Cust (1 Bln)", price: "9.000"}, {name: "Indplan Seller (1 Bln)", price: "14.000"} ], details: "▶️ PRICELIST YOUTUBE PREMIUM — AFIAR STORE ▶️\n(Sudah termasuk YouTube Music)\n\n▪ Akun Sharing (Akun Seller - Fullgar)\n• 1 Bulan : 5k | 2 Bulan : 9k\n• 3 Bulan : 12k | 6 Bulan : 23k\n\n▪ Famplan Invite Akun Cust (Nogar | Fullgar)\n• 1 Bulan : 5k | 7k\n• 2 Bulan : 9k | 13k\n• 3 Bulan : 12k | 18k\n• 6 Bulan : 23k | 35k\n\n▪ Indplan / Famhead Renew (Akun Cust | Akun Seller)\n• 1 Bulan (Nogar) : 7k | 12k\n• 1 Bulan (Fullgar) : 9k | 14k\n• 2 Bulan (Fullgar) : 16k | 26k\n• 3 Bulan (Fullgar) : 23k | 38k\n• 6 Bulan (Fullgar) : 45k | 75k\n\n▪ Indplan Gsuite\n• 1 Bulan : 14k (Nogar) | 17k (Fullgar)\n📌 Ketentuan:\n✅ Fullgar = Garansi Backfree selama durasi\n✅ Durasi 1 bulan = 25-30 hari" },
             { id: 13, cat: "STREAMING & HIBURAN", name: "Apple Music", shortcut: "applemusic", logo: "https://cdn.simpleicons.org/applemusic/FA243C", badges: [], startPrice: "3.000", variants: [ {name: "Fam Link (5 Hari)", price: "3.000"}, {name: "Fam Link (1 Bln)", price: "9.000"}, {name: "Indplan Andro (1 Bln)", price: "10.000"}, {name: "Famhead (1 Bln)", price: "27.000"} ], details: "▪ Family Link / iMessage (Akun Cust - All Device)\n• 5 Hari : 3k\n• 7 Hari : 4k\n• 14 Hari : 7k\n• 1 Bulan : 9k\n• 2 Bulan : 15k\n• 3 Bulan : 23k\n\n▪ Indplan (Akun Seller - Khusus Android)\n• 1 Bulan : 10k\n• 2 Bulan : 15k\n• 3 Bulan : 21k\n\n▪ Famhead (Akun Seller - Khusus Andro / Bisa Invite iOS)\n• 1 Bulan (Nogar) : 22k\n• 1 Bulan (Fullgar) : 27k\n📌 Ketentuan:\n✅ Garansi Backfree (BF)\n✅ Durasi >1 bulan menggunakan sistem renewal" },
@@ -662,7 +804,7 @@
                         <img src="${p.logo}" class="prod-logo" alt="${p.name}" loading="lazy">
                     </div>
                     <div class="prod-name">${p.name}</div>
-                    <div class="prod-price">Rp ${p.startPrice}</div>
+                    <div class="prod-price">Mulai Rp ${p.startPrice}</div>
                     <div class="prod-sold">
                         <span id="view-count-${p.id}" class="view-badge">👁 0</span> 
                         <span style="margin: 0 4px; opacity: 0.5;">•</span> 
@@ -678,7 +820,7 @@
 
         function filterCat(cat, elem) {
             document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
-            elem.classList.add('active');
+            if (elem) elem.classList.add('active');
             renderProducts(cat, document.getElementById('searchInput').value);
         }
 
@@ -689,6 +831,19 @@
 
         const modal = document.getElementById('bottomSheet');
         let currentProd = null;
+
+        function openByShortcut(shortcutKey) {
+            const found = products.find(p => p.shortcut.toLowerCase() === shortcutKey.toLowerCase());
+            if (found) openModal(found);
+        }
+
+        // Fungsi Share Pricelist Link untuk dibagikan ke Story / WA / Teman
+        function shareCurrentProduct() {
+            if (!currentProd) return;
+            const deepLink = `https://aryaarafiiarhmt.github.io/Store/?item=${currentProd.shortcut}&utm_source=igstory`;
+            const shareText = `⚡ *${currentProd.name} — AFIAR STORE*\n\nTersedia pilihan paket Harian hingga Bulanan mulai *Rp ${currentProd.startPrice}* (Transparan & Garansi S&K Berlaku).\n\nCek rincian paket & ketersediaan stok langsung di portal resmi:\n🔗 ${deepLink}`;
+            copyStoryLink(shareText, `Pricelist Link ${currentProd.name} berhasil disalin!`);
+        }
 
         function openModal(prod) {
             currentProd = prod;
@@ -701,7 +856,6 @@
             document.getElementById('qrisSection').style.display = 'none';
             document.getElementById('quickPayBtn').style.display = 'block';
             
-            // Re-inject HTML for the button with WA icon and new text
             document.getElementById('waLink').innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                   <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
@@ -720,12 +874,10 @@
             });
             if(prod.variants.length > 0) selectVariant(prod.variants[0], vList.firstChild);
 
-            // Trigger penambahan angka view Firebase
             if (typeof window.incrementProductView === "function") {
                 window.incrementProductView(prod.id);
             }
             
-            // Track Private Data ke Google Analytics (GA4)
             if (typeof gtag === "function") {
                 gtag('event', 'view_item', {
                     'item_id': prod.id,
@@ -764,6 +916,38 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        // DETEKSI DEEP-LINK DARI INSTAGRAM STORY (?item=... atau ?utm_source=igstory)
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const itemParam = urlParams.get('item');
+            const utmSource = urlParams.get('utm_source');
+
+            // Tampilkan bar sambutan jika pengunjung datang dari IG Story
+            if (utmSource && utmSource.toLowerCase().includes('ig')) {
+                const igBanner = document.getElementById('igVisitorBanner');
+                if (igBanner) igBanner.classList.remove('hidden');
+                if (typeof gtag === "function") {
+                    gtag('event', 'ig_story_visit', { 'source': utmSource });
+                }
+            }
+
+            // Jika link memiliki ?item=chatgpt (dsb), langsung buka modal produk tersebut tanpa terhalang Welcome Popup
+            if (itemParam) {
+                const targetProduct = products.find(p => p.shortcut.toLowerCase() === itemParam.toLowerCase());
+                if (targetProduct) {
+                    sessionStorage.setItem("afiarWelcomeSeen", "true");
+                    setTimeout(() => openModal(targetProduct), 250);
+                    return;
+                }
+            }
+
+            // Jika kunjungan normal, tampilkan Welcome Popup seperti biasa
+            if (!sessionStorage.getItem("afiarWelcomeSeen")) {
+                sessionStorage.setItem("afiarWelcomeSeen", "true");
+                setTimeout(() => openWelcomePopup(false), 300);
+            }
+        });
     </script>
 
     <!-- FIREBASE SDK UNTUK VIEW COUNTER PRODUK (REAL-TIME) -->
@@ -771,7 +955,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Konfigurasi dari Project Anda
         const firebaseConfig = {
             apiKey: "AIzaSyAXrRUX9bt9Mo07jYY4dFvW_iPr9GOdLyg",
             authDomain: "afiar-store-web.firebaseapp.com",
@@ -785,7 +968,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Pantau Perubahan Data secara Real-Time & Update UI
         const viewsRef = ref(db, 'product_views');
         onValue(viewsRef, (snapshot) => {
             const data = snapshot.val();
@@ -799,7 +981,6 @@
             }
         });
 
-        // Fungsi Global untuk Menambah Angka Saat Modal Dibuka
         window.incrementProductView = function(productId) {
             const itemRef = ref(db, 'product_views/' + productId);
             runTransaction(itemRef, (currentViews) => {
