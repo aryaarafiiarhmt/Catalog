@@ -26,16 +26,16 @@
     <style>
         :root {
             --bg-color: #0b0c10;
-            --card-bg: #151922;
-            --card-hover: #1e2532;
-            --text-main: #e2e8f0;
+            --card-bg: #131720;
+            --card-hover: #191f2c;
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --accent-cyan: #00f0ff;
-            --accent-purple: #b026ff;
-            --accent-pink: #ff0055;
-            --accent-gold: #ffd700;
-            --border-color: #262f40;
-            --success: #00ff66;
+            --accent-purple: #9333ea;
+            --accent-pink: #e11d48;
+            --accent-gold: #facc15;
+            --border-color: #222938;
+            --success: #10b981;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -45,490 +45,991 @@
             line-height: 1.5; 
             overflow-x: hidden; 
             -webkit-tap-highlight-color: transparent; 
-            background-image: radial-gradient(circle at 50% 0%, rgba(176, 38, 255, 0.12), transparent 55%);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(147, 51, 234, 0.12), transparent 50%),
+                radial-gradient(circle at 90% 20%, rgba(0, 240, 255, 0.05), transparent 35%);
         }
 
-        /* Header & Search */
+        .app-shell {
+            max-width: 1080px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Clean Sticky Header */
         .header-sticky { 
             position: sticky; top: 0; z-index: 100; 
-            background: rgba(11, 12, 16, 0.95); 
-            backdrop-filter: blur(10px); 
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2); 
-            padding: 15px; 
+            background: rgba(11, 12, 16, 0.94); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 12px clamp(12px, 3vw, 20px); 
         }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; gap: 10px; }
+        .header-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+        .top-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 10px; 
+            gap: 8px; 
+        }
 
-        .brand-container { display: flex; align-items: center; gap: 8px; }
+        .brand-container { display: flex; align-items: center; gap: 8px; min-width: 0; }
         .af-logo {
-            width: 34px; height: 34px; border-radius: 8px;
+            width: 32px; height: 32px; border-radius: 8px;
             background: linear-gradient(135deg, #1a1025 0%, #0d1b2a 100%);
             border: 1px solid var(--accent-cyan);
             display: flex; align-items: center; justify-content: center;
-            font-family: Impact, sans-serif; font-size: 1.1rem; color: #fff;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-            transform: rotate(-3deg);
+            font-family: Impact, sans-serif; font-size: 1rem; color: #fff;
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.25);
+            flex-shrink: 0;
         }
-        .brand { font-family: Impact, sans-serif; font-size: 1.4rem; color: #fff; text-shadow: 2px 2px 0px var(--accent-pink); letter-spacing: 1px; transform: skew(-4deg); }
-
-        /* Upgraded Payment Portal Button */
-        .btn-payment-top { 
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.25) 0%, rgba(0, 240, 255, 0.2) 100%); 
-            border: 1px solid var(--accent-gold); 
-            color: #fde047; 
-            padding: 7px 14px; 
-            border-radius: 10px; 
-            font-size: 0.78rem; 
-            font-weight: 800; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.25);
-            transition: all 0.2s ease;
-        }
-        .btn-payment-top:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.45);
-            border-color: var(--accent-cyan);
-            color: #fff;
-        }
-        .btn-payment-top:active { transform: scale(0.96); }
-
-        /* Tombol Panduan & IG Hub */
-        .btn-guide-top { 
-            background: rgba(30, 41, 59, 0.6); 
-            border: 1px solid var(--border-color); 
-            color: #cbd5e1; 
-            padding: 7px 10px; 
-            border-radius: 10px; 
-            font-size: 0.78rem; 
-            font-weight: 800; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-guide-top:hover { background: rgba(51, 65, 85, 0.8); color: #fff; border-color: var(--accent-cyan); }
-        .btn-guide-top:active { transform: scale(0.96); }
-
-        /* Custom Scrollbar */
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
-
-        .search-box { width: 100%; padding: 12px 15px; background: #1a202c; border: 1px solid var(--border-color); border-radius: 10px; color: #fff; font-size: 0.9rem; outline: none; transition: 0.3s; }
-        .search-box:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
-
-        /* Banner Carousel (Promo) */
-        .banner-container { 
-            margin: 15px; border-radius: 14px; 
-            background: linear-gradient(135deg, rgba(176,38,255,0.22), rgba(0,240,255,0.18)); 
-            border: 1px solid rgba(0,240,255,0.3); 
-            padding: 18px 20px; text-align: center; position: relative; overflow: hidden; 
-        }
-        .banner-container h2 { font-weight: 900; font-size: 1.15rem; color: #fff; margin-bottom: 4px; text-transform: uppercase; }
-        .banner-container p { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; }
-
-        /* Quick Filter Pills (IG Story Highlights Style) */
-        .story-highlights-bar {
-            display: flex; gap: 8px; overflow-x: auto; padding: 0 15px 12px; scrollbar-width: none;
-        }
-        .story-highlights-bar::-webkit-scrollbar { display: none; }
-        .highlight-pill {
-            background: rgba(21, 25, 34, 0.9);
-            border: 1px solid rgba(176, 38, 255, 0.4);
-            color: #e2e8f0;
-            padding: 5px 12px;
-            border-radius: 999px;
-            font-size: 0.7rem;
-            font-weight: 700;
+        .brand { 
+            font-family: Impact, sans-serif; 
+            font-size: clamp(1.1rem, 3.8vw, 1.35rem); 
+            color: #fff; 
+            letter-spacing: 0.8px; 
             white-space: nowrap;
-            cursor: pointer;
+        }
+
+        .header-actions {
             display: flex;
             align-items: center;
-            gap: 5px;
-            transition: 0.2s;
+            gap: 6px;
+            flex-shrink: 0;
         }
-        .highlight-pill:hover, .highlight-pill:active {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 240, 255, 0.12);
+
+        .btn-top-link {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--border-color);
+            color: #cbd5e1;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: clamp(0.68rem, 2.2vw, 0.75rem);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .btn-top-link:hover {
+            border-color: #475569;
+            color: #fff;
+            background: rgba(51, 65, 85, 0.6);
+        }
+
+        .btn-payment-top { 
+            background: rgba(250, 204, 21, 0.12); 
+            border: 1px solid rgba(250, 204, 21, 0.5); 
+            color: var(--accent-gold); 
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            font-size: clamp(0.68rem, 2.2vw, 0.75rem); 
+            font-weight: 700; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .btn-payment-top:hover {
+            background: rgba(250, 204, 21, 0.2);
+            border-color: var(--accent-gold);
             color: #fff;
         }
 
-        /* Circular Category Menu */
-        .category-menu { display: flex; gap: 15px; overflow-x: auto; padding: 0 15px 15px; scrollbar-width: none; }
-        .category-menu::-webkit-scrollbar { display: none; }
-        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 65px; cursor: pointer; opacity: 0.6; transition: 0.2s; }
-        .cat-item.active { opacity: 1; transform: translateY(-2px); }
-        .cat-icon { 
-            width: 50px; height: 50px; border-radius: 50%; 
-            background: var(--card-bg); border: 1px solid var(--border-color); 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 1.2rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s;
+        /* Clean Search Box */
+        .search-wrapper { position: relative; width: 100%; }
+        .search-box { 
+            width: 100%; 
+            padding: 10px 34px 10px 34px; 
+            background: #131720; 
+            border: 1px solid var(--border-color); 
+            border-radius: 9px; 
+            color: #fff; 
+            font-size: clamp(0.8rem, 2.5vw, 0.86rem); 
+            outline: none; 
+            transition: 0.2s; 
         }
-        .cat-item.active .cat-icon { 
-            background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(176,38,255,0.2)); 
-            border-color: var(--accent-cyan); color: #000; 
-            box-shadow: 0 0 15px rgba(0,240,255,0.4); 
+        .search-box:focus { border-color: var(--accent-cyan); background: #161b26; }
+        .search-icon {
+            position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+            color: #64748b; pointer-events: none;
         }
-        .cat-text { font-size: 0.65rem; font-weight: 700; text-align: center; white-space: nowrap; color: var(--text-muted); }
-        .cat-item.active .cat-text { color: var(--accent-cyan); }
+        .search-clear-btn { 
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%); 
+            color: #64748b; background: none; border: none; font-size: 1.1rem; 
+            cursor: pointer; display: none; padding: 4px; 
+        }
 
-        /* Marketplace Grid Layout */
-        .catalog-container { padding: 0 15px 40px; }
-        .section-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; color: #fff; }
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        @media (min-width: 640px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
+        /* Hero Spotlight Carousel (Vidio Style) */
+        .hero-section-wrap {
+            margin: 14px clamp(12px, 3vw, 20px) 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .hero-carousel {
+            position: relative;
+            border-radius: 14px;
+            background: #0f131c;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            overflow: hidden;
+            min-height: clamp(230px, 34vw, 295px);
+            display: flex;
+            align-items: stretch;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            user-select: none;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.55s ease-in-out;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 2;
+        }
+        /* Visual Artwork Area (Right Side) */
+        .hero-visual {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 62%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+        @media (max-width: 639px) {
+            .hero-visual {
+                width: 100%;
+                justify-content: flex-end;
+                padding-right: 14px;
+                opacity: 0.42;
+            }
+        }
+        /* Smooth Dark Gradient Fade (Left to Right like Vidio) */
+        .hero-gradient-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, #0d111a 0%, #0d111a 42%, rgba(13, 17, 26, 0.82) 66%, rgba(13, 17, 26, 0.2) 100%);
+            z-index: 2;
+        }
+        @media (max-width: 639px) {
+            .hero-gradient-overlay {
+                background: linear-gradient(90deg, #0d111a 0%, rgba(13, 17, 26, 0.94) 58%, rgba(13, 17, 26, 0.68) 100%);
+            }
+        }
+        /* Top-Right Express/Promo Pill Badge */
+        .hero-top-tag {
+            position: absolute;
+            top: clamp(12px, 2.5vw, 18px);
+            right: clamp(12px, 2.5vw, 18px);
+            z-index: 5;
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+            color: #fff;
+            font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 999px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+        }
+        /* Left Content Area */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            max-width: 560px;
+            padding: clamp(18px, 4vw, 30px) clamp(16px, 4.5vw, 44px) clamp(36px, 5vw, 44px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        .hero-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            font-size: clamp(0.68rem, 2.1vw, 0.78rem);
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+        .hero-meta-cat {
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+        .hero-slide-title {
+            font-size: clamp(1.2rem, 4.2vw, 1.85rem);
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.3px;
+        }
+        .hero-slide-desc {
+            font-size: clamp(0.72rem, 2.2vw, 0.82rem);
+            color: #94a3b8;
+            line-height: 1.5;
+            max-width: 440px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+        .hero-price-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+        }
+        .hero-price-main {
+            font-size: clamp(0.78rem, 2.4vw, 0.9rem);
+            font-weight: 800;
+            color: var(--accent-gold);
+        }
+        .hero-price-strike {
+            font-size: clamp(0.65rem, 2vw, 0.74rem);
+            color: #64748b;
+            text-decoration: line-through;
+        }
+        .hero-btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-top: 2px;
+        }
+        .btn-hero-primary {
+            background: #ffffff;
+            color: #0b0c10;
+            font-size: clamp(0.74rem, 2.2vw, 0.82rem);
+            font-weight: 800;
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.18);
+        }
+        .btn-hero-primary:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            transform: translateY(-1px);
+        }
+        .btn-hero-secondary {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #f1f5f9;
+            font-size: clamp(0.72rem, 2.2vw, 0.8rem);
+            font-weight: 700;
+            padding: 8px 15px;
+            border-radius: 999px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-hero-secondary:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        /* Prev / Next Navigation Arrows (Vidio Style) */
+        .hero-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 6;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+        @media (min-width: 640px) {
+            .hero-nav-arrow { display: flex; }
+        }
+        .hero-nav-arrow:hover {
+            background: rgba(0, 240, 255, 0.2);
+            border-color: var(--accent-cyan);
+            color: #fff;
+        }
+        .hero-nav-prev { left: 10px; }
+        .hero-nav-next { right: 10px; }
+
+        /* Indicator Dots */
+        .hero-dots {
+            position: absolute;
+            bottom: 12px;
+            left: clamp(16px, 4.5vw, 44px);
+            z-index: 6;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hero-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.28);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .hero-dot.active {
+            width: 18px;
+            background: #ffffff;
+        }
+
+        /* Artwork Showcase Card inside Slide */
+        .showcase-card {
+            position: relative;
+            width: clamp(140px, 24vw, 220px);
+            height: clamp(140px, 24vw, 200px);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+            transform: rotate(-3deg);
+        }
+        .showcase-card img {
+            width: clamp(56px, 9vw, 80px);
+            height: clamp(56px, 9vw, 80px);
+            border-radius: 16px;
+            background: #131720;
+            padding: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        }
+        .showcase-card-label {
+            font-size: clamp(0.62rem, 1.8vw, 0.72rem);
+            font-weight: 800;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.55);
+            padding: 3px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            white-space: nowrap;
+        }
+
+        /* Slim Testimonial Strip under Hero */
+        .testimoni-strip {
+            background: rgba(19, 23, 32, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 9px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .testimoni-strip-text {
+            font-size: clamp(0.7rem, 2.2vw, 0.76rem);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .testimoni-strip-link {
+            font-size: clamp(0.7rem, 2.2vw, 0.76rem);
+            font-weight: 700;
+            color: #6ee7b7;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+        .testimoni-strip-link:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Clean Pill Category Tabs (No Cluttered Icons) */
+        .category-tabs { 
+            display: flex; 
+            gap: 8px; 
+            overflow-x: auto; 
+            padding: 2px clamp(12px, 3vw, 20px) 14px; 
+            scrollbar-width: none; 
+        }
+        .category-tabs::-webkit-scrollbar { display: none; }
+        .cat-tab { 
+            padding: 7px 14px;
+            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: clamp(0.72rem, 2.2vw, 0.78rem);
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .cat-tab:hover {
+            color: #fff;
+            border-color: #334155;
+        }
+        .cat-tab.active { 
+            background: rgba(0, 240, 255, 0.12); 
+            border-color: var(--accent-cyan); 
+            color: var(--accent-cyan); 
+            font-weight: 700;
+        }
+
+        /* Catalog Controls & Grid */
+        .catalog-container { padding: 0 clamp(12px, 3vw, 20px) 36px; }
+        .catalog-controls { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 8px; 
+            margin-bottom: 12px; 
+        }
+        .section-title { 
+            font-size: clamp(0.78rem, 2.4vw, 0.88rem); 
+            font-weight: 700; 
+            color: var(--text-muted); 
+        }
+        .sort-select {
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            color: #cbd5e1;
+            font-size: clamp(0.7rem, 2.2vw, 0.76rem); 
+            font-weight: 600; 
+            padding: 6px 10px; 
+            border-radius: 8px;
+            outline: none; 
+            cursor: pointer;
+        }
+        .sort-select:focus { border-color: var(--accent-cyan); }
+
+        /* Adaptive Product Grid */
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, minmax(0, 1fr)); 
+            gap: clamp(8px, 2.2vw, 14px); 
+        }
+        @media (max-width: 330px) { .product-grid { grid-template-columns: 1fr; } }
+        @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (min-width: 860px) { .product-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
         .product-card { 
-            background: var(--card-bg); border: 1px solid var(--border-color); 
-            border-radius: 12px; padding: 12px; position: relative; 
-            display: flex; flex-direction: column; cursor: pointer; transition: 0.2s;
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: clamp(12px, 2.5vw, 15px); 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            cursor: pointer; 
+            transition: all 0.2s ease;
+            height: 100%;
         }
-        .product-card:active { transform: scale(0.97); }
-        .product-card:hover { border-color: var(--accent-cyan); box-shadow: 0 4px 15px rgba(0, 240, 255, 0.1); }
+        .product-card:hover { 
+            border-color: rgba(0, 240, 255, 0.5); 
+            background: var(--card-hover);
+            transform: translateY(-2px); 
+        }
+        .product-card:active { transform: scale(0.98); }
 
+        /* Selective Promo / Best Seller Badge */
         .badge { 
-            position: absolute; top: 0; left: 0; 
-            background: var(--accent-pink); color: #fff; font-size: 0.55rem; 
-            font-weight: 900; padding: 3px 8px; border-radius: 10px 0 10px 0; 
-            text-transform: uppercase; z-index: 2; 
+            position: absolute; top: 8px; left: 8px; 
+            background: rgba(225, 29, 72, 0.15); 
+            border: 1px solid rgba(225, 29, 72, 0.4);
+            color: #fda4af; 
+            font-size: 0.55rem; 
+            font-weight: 800; 
+            padding: 2px 6px; 
+            border-radius: 5px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.4px;
         }
-        .badge.promo { background: var(--accent-cyan); color: #000; }
+        .badge.promo { 
+            background: rgba(0, 240, 255, 0.12); 
+            border-color: rgba(0, 240, 255, 0.35);
+            color: var(--accent-cyan); 
+        }
 
-        .prod-logo-wrapper { display: flex; justify-content: center; margin-bottom: 10px; margin-top: 5px; }
+        .prod-logo-wrapper { 
+            display: flex; 
+            justify-content: center; 
+            margin: 10px 0; 
+        }
         .prod-logo { 
-            width: 55px; height: 55px; object-fit: contain; border-radius: 12px; 
-            background: #1a202c; padding: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.5); 
-            border: 1px solid rgba(255,255,255,0.05);
+            width: clamp(46px, 11vw, 52px); 
+            height: clamp(46px, 11vw, 52px); 
+            object-fit: contain; 
+            border-radius: 11px; 
+            background: #1a202c; 
+            padding: 6px; 
+            border: 1px solid rgba(255,255,255,0.06);
         }
 
-        .prod-name { font-size: 0.82rem; font-weight: 700; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 35px; line-height: 1.2; margin-bottom: 5px; text-align: center; }
-        .prod-price { font-size: 0.85rem; font-weight: 900; color: var(--accent-gold); margin-top: auto; text-align: center; }
-        .prod-sold { font-size: 0.6rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; flex-wrap: wrap;}
-        .prod-sold .dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 5px var(--success); }
-        .view-badge { color: var(--accent-cyan); font-weight: 700; }
+        .prod-name { 
+            font-size: clamp(0.78rem, 2.4vw, 0.86rem); 
+            font-weight: 700; 
+            color: #fff; 
+            text-align: center;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            display: -webkit-box; 
+            -webkit-line-clamp: 1; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden; 
+        }
 
-        /* Bottom Sheet Modal */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.82); z-index: 999; backdrop-filter: blur(6px); align-items: flex-end; justify-content: center; }
+        /* Clean Price Display (With Selective Anchoring) */
+        .price-container {
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+        .price-anchor-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 2px;
+        }
+        .price-strike {
+            font-size: 0.62rem;
+            color: #64748b;
+            text-decoration: line-through;
+            font-weight: 500;
+        }
+        .disc-tag {
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: #fb7185;
+            background: rgba(225, 29, 72, 0.14);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .prod-price { 
+            font-size: clamp(0.78rem, 2.5vw, 0.88rem); 
+            font-weight: 800; 
+            color: var(--accent-gold); 
+        }
+
+        .prod-meta { 
+            font-size: 0.62rem; 
+            color: var(--text-muted); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin-top: 8px; 
+            padding-top: 6px;
+            border-top: 1px dashed rgba(255,255,255,0.05);
+        }
+        .meta-status {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .meta-status .dot { 
+            width: 5px; height: 5px; 
+            background: var(--success); 
+            border-radius: 50%; 
+        }
+
+        /* Modal Bottom Sheet */
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.8); z-index: 999; 
+            backdrop-filter: blur(4px); 
+            align-items: flex-end; justify-content: center; 
+        }
         .modal-sheet { 
-            background: var(--card-bg); width: 100%; max-width: 640px; 
-            border-radius: 22px 22px 0 0; display: flex; flex-direction: column; 
-            max-height: 92vh; animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); 
-            border-top: 1px solid var(--accent-cyan); position: relative; 
+            background: var(--card-bg); width: 100%; max-width: 580px; 
+            border-radius: 20px 20px 0 0; display: flex; flex-direction: column; 
+            max-height: 90vh; animation: slideUp 0.25s ease-out; 
+            border-top: 1px solid rgba(0, 240, 255, 0.35); position: relative; 
         }
-        @media (min-width: 640px) { .modal-sheet { border-radius: 18px; margin: 20px; max-height: 88vh; } .modal-overlay { align-items: center; } }
+        @media (min-width: 640px) { 
+            .modal-sheet { border-radius: 16px; border: 1px solid rgba(0, 240, 255, 0.3); margin: 20px; max-height: 86vh; } 
+            .modal-overlay { align-items: center; } 
+        }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        .drag-handle { width: 40px; height: 5px; background: #334155; border-radius: 5px; margin: 10px auto; shrink: 0; }
-        .close-modal { position: absolute; top: 12px; right: 15px; background: #334155; border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20; transition: 0.2s; }
-        .close-modal:hover { background: #ef4444; }
-
-        .modal-body { padding: 0 20px 20px; overflow-y: auto; flex: 1; }
-        .modal-head-info { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
-        .modal-head-info img { width: 65px; height: 65px; border-radius: 15px; background: #1a202c; padding: 6px; border: 1px solid rgba(255,255,255,0.05); }
-        .modal-head-text h3 { font-size: 1.1rem; font-weight: 800; color: #fff; }
-        .modal-head-text .price { font-size: 1.2rem; font-weight: 900; color: var(--accent-gold); margin-top: 2px; }
-
-        .section-label { font-size: 0.8rem; font-weight: 800; color: #fff; margin-bottom: 10px; text-transform: uppercase; }
-
-        .variant-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .variant-btn { 
-            background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); 
-            color: var(--text-main); padding: 8px 12px; border-radius: 8px; 
-            font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: 0.2s; 
+        .drag-handle { width: 36px; height: 4px; background: #334155; border-radius: 4px; margin: 10px auto; flex-shrink: 0; }
+        .close-modal { 
+            position: absolute; top: 12px; right: 14px; 
+            background: #1e293b; border: 1px solid #334155; color: #cbd5e1; 
+            width: 28px; height: 28px; border-radius: 50%; 
+            font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; 
+            z-index: 20; 
         }
-        .variant-btn.active { background: rgba(0, 240, 255, 0.15); border-color: var(--accent-cyan); color: var(--accent-cyan); box-shadow: 0 0 10px rgba(0,240,255,0.2); }
+        .close-modal:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+        .modal-body { padding: 0 clamp(14px, 4vw, 22px) 20px; overflow-y: auto; flex: 1; }
+        .modal-head-info { 
+            display: flex; gap: 12px; align-items: center; justify-content: space-between;
+            margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color); 
+            flex-wrap: wrap; 
+        }
+        .modal-head-info img { 
+            width: 52px; height: 52px; border-radius: 12px; 
+            background: #1a202c; padding: 6px; border: 1px solid rgba(255,255,255,0.08); flex-shrink: 0; 
+        }
+        .modal-head-text h3 { font-size: clamp(0.95rem, 3vw, 1.08rem); font-weight: 800; color: #fff; }
+        .modal-head-text .price-wrap { display: flex; align-items: center; gap: 6px; margin-top: 2px; }
+        .modal-head-text .price { font-size: clamp(0.98rem, 3.2vw, 1.12rem); font-weight: 800; color: var(--accent-gold); }
+        .modal-head-text .price-strike { font-size: 0.72rem; color: #64748b; text-decoration: line-through; }
+
+        .section-label { 
+            font-size: 0.72rem; font-weight: 700; color: #94a3b8; 
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; 
+        }
+
+        .variant-list { 
+            display: grid; 
+            grid-template-columns: repeat(2, minmax(0, 1fr)); 
+            gap: 8px; 
+            margin-bottom: 18px; 
+        }
+        @media (min-width: 480px) { .variant-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        .variant-btn { 
+            background: rgba(11, 12, 16, 0.6); 
+            border: 1px solid var(--border-color); 
+            color: var(--text-main); 
+            padding: 9px 10px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            transition: 0.15s;
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
+            text-align: left; 
+            gap: 3px;
+        }
+        .variant-btn .v-name { color: #e2e8f0; font-weight: 600; font-size: 0.72rem; line-height: 1.2; }
+        .variant-btn .v-price-row { display: flex; align-items: center; gap: 5px; }
+        .variant-btn .v-price { color: var(--accent-gold); font-size: 0.72rem; font-weight: 800; }
+        .variant-btn .v-strike { color: #64748b; font-size: 0.6rem; text-decoration: line-through; }
+        .variant-btn.active { 
+            background: rgba(0, 240, 255, 0.1); 
+            border-color: var(--accent-cyan); 
+        }
+        .variant-btn.active .v-name { color: var(--accent-cyan); font-weight: 700; }
 
         .details-box { 
-            background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; 
-            font-size: 0.75rem; color: #cbd5e1; white-space: pre-line; line-height: 1.6; 
-            border-left: 3px solid var(--accent-purple); margin-bottom: 20px; 
+            background: rgba(11, 12, 16, 0.6); 
+            padding: 14px; 
+            border-radius: 10px; 
+            font-size: 0.75rem; 
+            color: #cbd5e1; 
+            line-height: 1.65; 
+            border: 1px solid var(--border-color);
         }
 
         /* Sticky Bottom Action Bar */
         .sticky-action-bar { 
-            padding: 14px 20px; background: rgba(11,12,16,0.98); 
-            border-top: 1px solid var(--border-color); display: flex; gap: 10px; 
-            position: sticky; bottom: 0; backdrop-filter: blur(5px); 
+            padding: 12px clamp(14px, 4vw, 20px); 
+            background: rgba(11, 12, 16, 0.98); 
+            border-top: 1px solid var(--border-color); 
+            display: flex; 
+            gap: 8px; 
+            position: sticky; 
+            bottom: 0; 
         }
-        @media (min-width: 640px) { .sticky-action-bar { border-radius: 0 0 18px 18px; } }
+        @media (min-width: 640px) { .sticky-action-bar { border-radius: 0 0 16px 16px; } }
         .btn-buy { 
-            flex: 1; background: linear-gradient(90deg, #25D366 0%, #128C7E 100%); 
-            color: #fff; text-align: center; padding: 13px; border-radius: 10px; 
-            font-weight: 800; font-size: 0.88rem; text-decoration: none; 
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+            flex: 1; 
+            background: #10b981; 
+            color: #fff; 
+            text-align: center; 
+            padding: 11px 12px; 
+            border-radius: 9px; 
+            font-weight: 700; 
+            font-size: clamp(0.76rem, 2.5vw, 0.85rem); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 7px;
             transition: 0.2s ease;
         }
-        .btn-buy:active { transform: scale(0.98); }
-        .btn-buy svg { shrink: 0; }
+        .btn-buy:hover { background: #059669; }
         .btn-quick-pay {
-            background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.5);
-            color: #fde047; padding: 13px 16px; border-radius: 10px;
-            font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: 0.2s; white-space: nowrap;
+            background: rgba(250, 204, 21, 0.12); 
+            border: 1px solid rgba(250, 204, 21, 0.45);
+            color: var(--accent-gold); 
+            padding: 11px 14px; 
+            border-radius: 9px;
+            font-weight: 700; 
+            font-size: clamp(0.74rem, 2.4vw, 0.82rem); 
+            cursor: pointer; 
+            white-space: nowrap;
         }
-        .btn-quick-pay:hover { background: rgba(234, 179, 8, 0.25); }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
 
         /* AFIAR PAYMENT PORTAL CUSTOM STYLES */
-        .font-graffiti { font-family: 'Permanent Marker', cursive; text-shadow: 0 3px 0 #000, 0 0 18px rgba(168, 85, 247, 0.8), 0 0 35px rgba(168, 85, 247, 0.4); }
+        .font-graffiti { font-family: 'Permanent Marker', cursive; text-shadow: 0 3px 0 #000, 0 0 18px rgba(168, 85, 247, 0.8); }
         .font-mono-num { font-family: 'Space Grotesk', monospace; }
         .portal-card-bg {
             background-color: #130426;
-            background-image: radial-gradient(circle at 20% 20%, rgba(126, 34, 206, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.2) 0%, transparent 50%), url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 10h20l10 10h30M20 80h30l10-10h20M80 20v30l-10 10v20M30 40v20l10 10h20' stroke='%23a855f7' stroke-width='0.75' stroke-opacity='0.14' fill='none'/%3E%3C/svg%3E");
-            border: 1px solid rgba(234, 179, 8, 0.45);
-            box-shadow: 0 0 25px rgba(147, 51, 234, 0.25), inset 0 0 15px rgba(234, 179, 8, 0.08);
+            background-image: radial-gradient(circle at 20% 20%, rgba(126, 34, 206, 0.25) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 50%);
+            border: 1px solid rgba(234, 179, 8, 0.4);
         }
-        .gold-icon-bg { background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #a16207 100%); box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3); }
+        .gold-icon-bg { background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #a16207 100%); }
         .gold-gradient-text { background: linear-gradient(135deg, #fde047 0%, #eab308 50%, #ca8a04 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .cyber-qr-frame {
-            position: relative; background: linear-gradient(145deg, rgba(30, 15, 60, 0.92), rgba(15, 8, 35, 0.96));
-            border: 2px solid rgba(56, 189, 248, 0.55); box-shadow: 0 0 25px rgba(56, 189, 248, 0.3), inset 0 0 20px rgba(168, 85, 247, 0.3);
+            position: relative; background: rgba(15, 8, 35, 0.96);
+            border: 1px solid rgba(56, 189, 248, 0.5);
         }
-        .cyber-corner-tl { position: absolute; top: -5px; left: -5px; width: 24px; height: 24px; border-top: 4px solid #38bdf8; border-left: 4px solid #38bdf8; border-top-left-radius: 8px; filter: drop-shadow(0 0 6px #38bdf8); }
-        .cyber-corner-tr { position: absolute; top: -5px; right: -5px; width: 24px; height: 24px; border-top: 4px solid #c084fc; border-right: 4px solid #c084fc; border-top-right-radius: 8px; filter: drop-shadow(0 0 6px #c084fc); }
-        .cyber-corner-bl { position: absolute; bottom: -5px; left: -5px; width: 24px; height: 24px; border-bottom: 4px solid #c084fc; border-left: 4px solid #c084fc; border-bottom-left-radius: 8px; filter: drop-shadow(0 0 6px #c084fc); }
-        .cyber-corner-br { position: absolute; bottom: -5px; right: -5px; width: 24px; height: 24px; border-bottom: 4px solid #38bdf8; border-right: 4px solid #38bdf8; border-bottom-right-radius: 8px; filter: drop-shadow(0 0 6px #38bdf8); }
-        @keyframes scanline { 0% { top: 6%; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { top: 92%; opacity: 0; } }
-        .qr-scanner-line {
-            position: absolute; left: 5%; right: 5%; height: 3px;
-            background: linear-gradient(90deg, transparent, #38bdf8, #a855f7, #38bdf8, transparent);
-            box-shadow: 0 0 12px #38bdf8; animation: scanline 2.8s ease-in-out infinite; pointer-events: none; z-index: 10;
-        }
-        #qrcode img, #qrcode canvas { margin: 0 auto; display: block; width: 100% !important; height: auto !important; max-width: 210px; }
-        
-        /* Animasi Pop-up Timer */
+        #qrcode img, #qrcode canvas { margin: 0 auto; display: block; width: 100% !important; height: auto !important; max-width: 200px; }
+
         @keyframes shrink { from { width: 100%; } to { width: 0%; } }
 
         /* Toast Notification */
         #toastNotif {
             position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: #130426; border: 1px solid var(--accent-cyan);
-            color: #fff; padding: 10px 18px; border-radius: 999px;
-            font-size: 0.78rem; font-weight: 700; z-index: 10000;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; align-items: center; gap: 8px; white-space: nowrap;
+            background: #1e293b; border: 1px solid var(--accent-cyan);
+            color: #fff; padding: 9px 16px; border-radius: 8px;
+            font-size: 0.76rem; font-weight: 600; z-index: 10000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.25s ease;
         }
         #toastNotif.show { transform: translateX(-50%) translateY(0); }
+
+        /* Single Subtle Floating CS Button */
+        .floating-cs {
+            position: fixed; bottom: 16px; right: 16px; z-index: 90;
+            background: #131720;
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #f1f5f9; padding: 9px 14px; border-radius: 999px;
+            font-size: 0.74rem; font-weight: 700;
+            display: flex; align-items: center; gap: 7px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-decoration: none; transition: 0.2s;
+        }
+        .floating-cs:hover { border-color: var(--accent-cyan); color: #fff; }
     </style>
 </head>
 <body>
 
-    <!-- Toast Notification untuk Copy Link / Story -->
+    <!-- Toast Notification -->
     <div id="toastNotif">
-        <span class="text-cyan-400">⚡</span>
-        <span id="toastText">Tautan berhasil disalin!</span>
+        <span id="toastText">Tautan berhasil disalin</span>
     </div>
 
-    <!-- IG Story Visitor Special Bar (Muncul otomatis jika pengunjung klik dari ?utm_source=igstory) -->
-    <div id="igVisitorBanner" class="hidden bg-gradient-to-r from-purple-950 via-[#130426] to-cyan-950 border-b border-cyan-400/40 px-4 py-2 text-center text-xs text-cyan-200 font-semibold flex items-center justify-center gap-2">
-        <span>📸 Selamat datang pengunjung <strong>@afiar_business</strong>! Pilih layanan & klik varian durasi untuk cek stok instan.</span>
+    <!-- IG Visitor Bar -->
+    <div id="igVisitorBanner" class="hidden bg-[#130426] border-b border-cyan-500/30 px-4 py-2 text-center text-xs text-cyan-200 font-medium">
+        Selamat datang pengunjung <strong>@afiar_business</strong>. Pilih layanan di bawah untuk melihat rincian paket & cek stok ke Admin.
     </div>
 
-    <!-- Welcome Pop-up Announcement -->
-    <div id="welcomePopup" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity duration-500 opacity-0 pointer-events-none">
-        <div class="bg-[#130426] border border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.2)] rounded-xl p-6 max-w-md w-[90%] max-h-[85vh] overflow-y-auto mx-auto relative transform scale-95 transition-transform duration-500 custom-scrollbar">
-            <!-- Neon Accent Line -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-t-full"></div>
+    <!-- Welcome Pop-up Announcement (Clean & To-The-Point) -->
+    <div id="welcomePopup" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="bg-[#131720] border border-slate-700 rounded-xl p-5 sm:p-6 max-w-md w-[92%] max-h-[86vh] overflow-y-auto mx-auto relative transform scale-95 transition-transform duration-300 custom-scrollbar">
+            <button onclick="closeWelcomePopup()" class="absolute top-3 right-3 text-slate-400 hover:text-white font-bold text-xl leading-none">&times;</button>
             
-            <button onclick="closeWelcomePopup()" class="absolute top-3 right-3 text-slate-400 hover:text-red-500 font-bold text-2xl leading-none z-10">&times;</button>
+            <h3 class="text-white font-bold text-sm tracking-wide uppercase mb-2">Panduan Transaksi — AFIAR STORE</h3>
+            <p class="text-slate-400 text-xs mb-4 leading-relaxed">Selamat datang di katalog resmi AFIAR STORE. Berikut tata cara pemesanan layanan kami:</p>
             
-            <div class="flex items-center gap-2 mb-4 mt-2">
-                <span class="text-cyan-400 animate-pulse">⚡</span>
-                <h3 class="text-white font-black text-sm tracking-widest uppercase">SISTEM PANDUAN AFIAR</h3>
-            </div>
-            
-            <p class="text-slate-300 text-xs mb-4 font-semibold leading-relaxed">Selamat datang di portal resmi AFIAR STORE. Demi kenyamanan dan transparansi transaksi, silakan pahami tata cara berikut:</p>
-            
-            <div class="space-y-4 mb-6">
-                <div class="bg-black/40 border border-slate-700/50 rounded-lg p-3">
-                    <h4 class="text-cyan-300 text-xs font-bold mb-1">1. Eksplorasi Layanan</h4>
-                    <p class="text-slate-400 text-[11px] leading-relaxed">Tersedia 40+ layanan premium (AI Tools, Streaming, Editing & Edukasi). Klik pada produk untuk melihat varian durasi, harga, dan <strong>wajib baca Informasi Layanan & Ketentuan</strong>.</p>
+            <div class="space-y-2.5 mb-5 text-xs">
+                <div class="bg-[#0b0c10] border border-slate-800 rounded-lg p-3">
+                    <div class="text-cyan-400 font-bold mb-0.5">1. Pilih Layanan & Varian Durasi</div>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">Klik pada produk yang diinginkan untuk melihat rincian harga serta membaca <strong>Ketentuan Layanan (S&K)</strong>.</p>
                 </div>
                 
-                <div class="bg-black/40 border border-slate-700/50 rounded-lg p-3">
-                    <h4 class="text-cyan-300 text-xs font-bold mb-1">2. Inisiasi Pesanan</h4>
-                    <p class="text-slate-400 text-[11px] leading-relaxed">Gunakan tombol <span class="text-emerald-400 font-semibold">Cek Stok / Pesan via WA</span> di detail produk. Sistem akan mengarahkan Anda ke obrolan WhatsApp Admin beserta format order otomatis.</p>
+                <div class="bg-[#0b0c10] border border-slate-800 rounded-lg p-3">
+                    <div class="text-cyan-400 font-bold mb-0.5">2. Cek Stok & Order ke Admin</div>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">Klik tombol <strong>Cek Stok / Pesan via WA</strong>. Pesan otomatis akan diarahkan ke WhatsApp Admin kami untuk konfirmasi ketersediaan stok terkini.</p>
                 </div>
 
-                <div class="bg-black/40 border border-slate-700/50 rounded-lg p-3">
-                    <h4 class="text-cyan-300 text-xs font-bold mb-1">3. Transaksi Aman</h4>
-                    <p class="text-slate-400 text-[11px] leading-relaxed">Pembayaran dilakukan terpusat melalui menu <strong>💳 PAYMENT / QRIS</strong>. Kami menerima QRIS All Payment & E-Wallet Resmi. Wajib kirim bukti transfer ke WA Admin.</p>
-                </div>
-
-                <div class="bg-black/40 border border-slate-700/50 rounded-lg p-3">
-                    <h4 class="text-cyan-300 text-xs font-bold mb-1">4. Aktivasi & Garansi</h4>
-                    <p class="text-slate-400 text-[11px] leading-relaxed">Akun diproses setelah verifikasi pembayaran. Berlaku kebijakan <strong>Transparan & Garansi S&K</strong> selama masa aktif layanan, selama tidak melanggar aturan (seperti dilarang ganti device).</p>
+                <div class="bg-[#0b0c10] border border-slate-800 rounded-lg p-3">
+                    <div class="text-cyan-400 font-bold mb-0.5">3. Pembayaran & Bukti Transaksi</div>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">Pembayaran dilakukan melalui menu <strong>QRIS / Bayar</strong>. Jika Anda ingin melihat arsip bukti transaksi pelanggan sebelumnya, silakan kunjungi <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" class="text-emerald-400 underline font-semibold">Galeri Testimoni Saluran WA</a> (bebas dilihat tanpa harus bergabung).</p>
                 </div>
             </div>
             
-            <button onclick="closeWelcomePopup()" class="w-full py-2.5 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 rounded-lg text-xs font-bold tracking-wider uppercase transition-colors">
-                Saya Mengerti
+            <button onclick="closeWelcomePopup()" class="w-full py-2.5 bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 rounded-lg text-xs font-bold tracking-wide uppercase transition-colors">
+                Mengerti & Lanjutkan
             </button>
             
-            <!-- Progress Bar untuk indikator waktu 15 detik -->
-            <div id="popupProgress" class="absolute bottom-0 left-0 h-1 bg-cyan-500 rounded-b-xl" style="width: 100%;"></div>
-        </div>
-    </div>
-
-    <!-- Modal Quick Links & Direct Access Portal -->
-    <div id="storyKitModal" class="modal-overlay" onclick="if(event.target === this) closeStoryKit()">
-        <div class="modal-sheet">
-            <div class="drag-handle"></div>
-            <button class="close-modal" onclick="closeStoryKit()">×</button>
-            <div class="modal-body pt-2">
-                <div class="flex items-center gap-2 mb-2">
-                    <span class="text-cyan-400 text-lg">🔗</span>
-                    <h3 class="text-white font-black text-base uppercase tracking-wider">Quick Links & Direct Access</h3>
-                </div>
-                <p class="text-slate-400 text-xs mb-4 leading-relaxed">
-                    Salin tautan akses cepat di bawah ini untuk membagikan halaman katalog resmi atau mengarahkan langsung ke rincian pricelist layanan tertentu.
-                </p>
-
-                <div class="space-y-3 mb-4">
-                    <div class="bg-black/50 border border-cyan-500/30 rounded-xl p-3.5">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-cyan-300 font-bold text-xs">⚡ Official Catalog Link</span>
-                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?utm_source=igstory&utm_medium=sticker', 'Tautan Katalog Resmi disalin!')" class="px-2.5 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 text-cyan-200 rounded text-[11px] font-bold transition-all active:scale-95">Copy Link</button>
-                        </div>
-                        <p class="text-[11px] text-slate-400 font-mono break-all">https://aryaarafiiarhmt.github.io/Store/?utm_source=igstory&utm_medium=sticker</p>
-                    </div>
-
-                    <div class="bg-black/50 border border-purple-500/30 rounded-xl p-3.5">
-                        <span class="text-amber-300 font-bold text-xs block mb-2">🎯 Direct Pricelist Links (Populer):</span>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=chatgpt&utm_source=igstory', 'Pricelist Link ChatGPT Plus disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
-                                <span class="text-xs font-bold text-white">🤖 ChatGPT Plus</span>
-                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
-                            </button>
-                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=netflix&utm_source=igstory', 'Pricelist Link Netflix disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
-                                <span class="text-xs font-bold text-white">🎬 Netflix Plan</span>
-                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
-                            </button>
-                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=canva&utm_source=igstory', 'Pricelist Link Canva Pro disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
-                                <span class="text-xs font-bold text-white">🎨 Canva Pro / Edu</span>
-                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
-                            </button>
-                            <button onclick="copyStoryLink('https://aryaarafiiarhmt.github.io/Store/?item=gemini&utm_source=igstory', 'Pricelist Link Gemini Pro disalin!')" class="text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-700 flex items-center justify-between transition-all active:scale-95">
-                                <span class="text-xs font-bold text-white">✨ Gemini Pro 2TB</span>
-                                <span class="text-[10px] text-cyan-400 font-mono">Copy ↗</span>
-                            </button>
-                        </div>
-                        <p class="text-[10px] text-slate-400 mt-2.5">💡 <em>Anda juga dapat membagikan tautan rincian harga setiap layanan melalui tombol <strong>"Share Pricelist"</strong> di masing-masing produk.</em></p>
-                    </div>
-                </div>
-            </div>
+            <div id="popupProgress" class="absolute bottom-0 left-0 h-0.5 bg-cyan-400 rounded-b-xl" style="width: 100%;"></div>
         </div>
     </div>
 
     <!-- Sticky Header & Search -->
     <div class="header-sticky">
-        <div class="top-bar">
-            <div class="brand-container">
-                <div class="af-logo">AF</div>
-                <div class="brand">AFIAR STORE</div>
+        <div class="header-inner">
+            <div class="top-bar">
+                <div class="brand-container">
+                    <div class="af-logo">AF</div>
+                    <div class="brand">AFIAR STORE</div>
+                </div>
+                <div class="header-actions">
+                    <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" class="btn-top-link" title="Lihat Bukti Transaksi Pelanggan">
+                        Testimoni ↗
+                    </a>
+                    <button class="btn-top-link" onclick="openWelcomePopup(true)">
+                        Panduan
+                    </button>
+                    <button class="btn-payment-top" onclick="openPaymentModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                        <span>QRIS / Bayar</span>
+                    </button>
+                </div>
             </div>
-            <div class="flex gap-1.5 sm:gap-2">
-                <button class="btn-guide-top" onclick="openStoryKit()" title="Quick Links & Share">
-                    <span>🔗</span>
-                    <span class="hidden sm:inline">Quick Links</span>
-                </button>
-                <button class="btn-guide-top" onclick="openWelcomePopup(true)" title="Panduan Layanan">
-                    <span>ℹ️</span>
-                    <span>Panduan</span>
-                </button>
-                <button class="btn-payment-top" onclick="openPaymentModal()">
-                    <span>💳</span>
-                    <span>PAYMENT / QRIS</span>
-                </button>
+            <div class="search-wrapper">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" id="searchInput" class="search-box" placeholder="Cari layanan (Netflix, ChatGPT, Canva, Zoom, GTC)...">
+                <button id="clearSearchBtn" class="search-clear-btn" onclick="clearSearch()" title="Bersihkan">&times;</button>
             </div>
         </div>
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 Cari ChatGPT, Netflix, Canva, GTC...">
     </div>
 
-    <!-- Banner Promo -->
-    <div class="banner-container">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="text-center sm:text-left">
-                <h2>⚡ AFIAR PORTAL 2026</h2>
-                <p>Akses 40+ Layanan Premium • Transparan & Garansi S&K Berlaku</p>
+    <div class="app-shell">
+        <!-- Hero Spotlight Carousel (Produk Populer & Worth It) -->
+        <div class="hero-section-wrap">
+            <div class="hero-carousel" id="heroCarousel">
+                <!-- Slides injected via JS -->
+                <div id="heroSlidesContainer"></div>
+
+                <!-- Prev / Next Arrows -->
+                <button class="hero-nav-arrow hero-nav-prev" onclick="changeHeroSlide(-1)" aria-label="Slide Sebelumnya">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button class="hero-nav-arrow hero-nav-next" onclick="changeHeroSlide(1)" aria-label="Slide Selanjutnya">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+
+                <!-- Bottom Indicator Dots -->
+                <div class="hero-dots" id="heroDotsContainer"></div>
             </div>
-            <button onclick="openPaymentModal()" class="px-4 py-2 rounded-xl bg-amber-400/20 hover:bg-amber-400/30 border border-amber-400/60 text-amber-300 text-xs font-extrabold tracking-wider uppercase transition-all shrink-0">
-                ⚡ Buka QRIS & E-Wallet
-            </button>
+
+            <!-- Slim Testimonial & Trust Bar -->
+            <div class="testimoni-strip">
+                <div class="testimoni-strip-text">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+                    <span>40+ Layanan Resmi • Transparan & Garansi S&K Berlaku</span>
+                </div>
+                <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" class="testimoni-strip-link">
+                    <span>Lihat Bukti Transaksi (Saluran WA)</span>
+                    <span>↗</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Clean Pill Category Menu -->
+        <div class="category-tabs" id="catMenu">
+            <button class="cat-tab active" data-cat="all" onclick="filterCat('all', this)">Semua Layanan</button>
+            <button class="cat-tab" data-cat="AI & INTELLIGENCE" onclick="filterCat('AI & INTELLIGENCE', this)">AI Tools</button>
+            <button class="cat-tab" data-cat="STREAMING & HIBURAN" onclick="filterCat('STREAMING & HIBURAN', this)">Streaming</button>
+            <button class="cat-tab" data-cat="CREATIVE & EDITING" onclick="filterCat('CREATIVE & EDITING', this)">Editing & Desain</button>
+            <button class="cat-tab" data-cat="PRODUCTIVITY & EDU" onclick="filterCat('PRODUCTIVITY & EDU', this)">Produktivitas</button>
+        </div>
+
+        <!-- Marketplace Product Grid -->
+        <div class="catalog-container">
+            <div class="catalog-controls">
+                <div class="section-title" id="productCount">Menampilkan 40 Layanan</div>
+                <select id="sortSelect" class="sort-select" onchange="triggerRender()">
+                    <option value="default">Urutkan: Rekomendasi</option>
+                    <option value="popular">Urutkan: Terpopuler</option>
+                    <option value="price_asc">Urutkan: Harga Terendah</option>
+                    <option value="name_asc">Urutkan: Nama (A-Z)</option>
+                </select>
+            </div>
+
+            <div id="productGrid" class="product-grid">
+                <!-- Products injected via JS -->
+            </div>
+
+            <!-- Clean Footer Info -->
+            <div class="mt-10 pt-6 border-t border-slate-800/80">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs mb-6">
+                    <div class="bg-[#131720] border border-slate-800/90 rounded-xl p-3.5">
+                        <div class="font-bold text-white mb-1">Informasi Akun Sharing & Private</div>
+                        <p class="text-slate-400 text-[11px] leading-relaxed">Paket <strong>Sharing</strong> digunakan bersama pengguna lain sesuai batas slot dengan harga hemat. Paket <strong>Private</strong> dikhususkan untuk penggunaan pribadi sesuai deskripsi masing-masing layanan.</p>
+                    </div>
+                    <div class="bg-[#131720] border border-slate-800/90 rounded-xl p-3.5">
+                        <div class="font-bold text-white mb-1">Ketentuan Garansi S&K Berlaku</div>
+                        <p class="text-slate-400 text-[11px] leading-relaxed">Layanan berlabel <strong>Fullgar / Garansi Backfree (BF)</strong> dijamin selama masa aktif selama pelanggan mematuhi aturan pemakaian (tidak mengubah data akun & mematuhi batas perangkat).</p>
+                    </div>
+                </div>
+
+                <div class="text-center text-[11px] text-slate-500 pb-12">
+                    <p class="font-semibold text-slate-400">AFIAR STORE — Digital Premium Accounts</p>
+                    <p class="mt-0.5">WhatsApp Admin: +62 882-0062-16644 • Instagram: @afiar_business</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Quick Highlights Bar (Memudahkan pengunjung dari Story langsung tap produk populer) -->
-    <div class="story-highlights-bar">
-        <button class="highlight-pill" onclick="openByShortcut('chatgpt')">🔥 ChatGPT Plus 5k</button>
-        <button class="highlight-pill" onclick="openByShortcut('gemini')">✨ Gemini + 2TB 2.2k</button>
-        <button class="highlight-pill" onclick="openByShortcut('netflix')">🎬 Netflix Harian 3k</button>
-        <button class="highlight-pill" onclick="openByShortcut('canva')">🎨 Canva Pro 1.5k</button>
-        <button class="highlight-pill" onclick="openByShortcut('capcut')">✂️ CapCut Pro 5k</button>
-        <button class="highlight-pill" onclick="openByShortcut('gtc')">🕵️ Cek Tag GTC 1k</button>
-    </div>
+    <!-- Single Clean Floating Admin Button -->
+    <a href="https://wa.me/62882006216644?text=Halo%20Admin%20*AFIAR%20STORE*%2C%20saya%20ingin%20cek%20stok%20layanan%20di%20katalog." target="_blank" class="floating-cs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Chat Admin (Cek Stok)</span>
+    </a>
 
-    <!-- Circular Category Menu -->
-    <div class="category-menu" id="catMenu">
-        <div class="cat-item active" data-cat="all" onclick="filterCat('all', this)">
-            <div class="cat-icon">⚡</div>
-            <div class="cat-text">Semua</div>
-        </div>
-        <div class="cat-item" data-cat="AI & INTELLIGENCE" onclick="filterCat('AI & INTELLIGENCE', this)">
-            <div class="cat-icon">🤖</div>
-            <div class="cat-text">AI Tools</div>
-        </div>
-        <div class="cat-item" data-cat="STREAMING & HIBURAN" onclick="filterCat('STREAMING & HIBURAN', this)">
-            <div class="cat-icon">🎬</div>
-            <div class="cat-text">Streaming</div>
-        </div>
-        <div class="cat-item" data-cat="CREATIVE & EDITING" onclick="filterCat('CREATIVE & EDITING', this)">
-            <div class="cat-icon">🎨</div>
-            <div class="cat-text">Editing</div>
-        </div>
-        <div class="cat-item" data-cat="PRODUCTIVITY & EDU" onclick="filterCat('PRODUCTIVITY & EDU', this)">
-            <div class="cat-icon">📊</div>
-            <div class="cat-text">Edukasi</div>
-        </div>
-    </div>
-
-    <!-- Marketplace Product Grid -->
-    <div class="catalog-container">
-        <div class="section-title">
-            <span id="productCount">Rekomendasi Produk</span>
-            <span style="color: var(--accent-cyan); font-size: 0.7rem;">Verified Seller ✓</span>
-        </div>
-        <div id="productGrid" class="product-grid">
-            <!-- Products will be injected here via JS -->
-        </div>
-    </div>
-
-    <!-- Bottom Sheet Modal (Product Details & Integrated Afiar Payment Portal) -->
+    <!-- Bottom Sheet Modal (Product Details & Payment Portal) -->
     <div id="bottomSheet" class="modal-overlay" onclick="if(event.target === this) closeModal()">
         <div class="modal-sheet">
             <div class="drag-handle"></div>
             <button class="close-modal" onclick="closeModal()">×</button>
 
-            <div class="modal-body" id="modalBodyContent">
+            <div class="modal-body custom-scrollbar" id="modalBodyContent">
                 <!-- Product Header -->
-                <div id="modalHeaderInfo" class="modal-head-info justify-between">
-                    <div class="flex items-center gap-3.5">
+                <div id="modalHeaderInfo" class="modal-head-info">
+                    <div class="flex items-center gap-3 min-w-0">
                         <img id="modalLogo" src="" alt="Logo">
-                        <div class="modal-head-text">
-                            <h3 id="modalTitle">Nama Produk</h3>
-                            <div class="price" id="modalPrice">Rp 0</div>
+                        <div class="modal-head-text min-w-0">
+                            <span id="modalCatBadge" class="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block">KATEGORI</span>
+                            <h3 id="modalTitle" class="truncate">Nama Produk</h3>
+                            <div class="price-wrap">
+                                <div class="price" id="modalPrice">Rp 0</div>
+                                <span id="modalPriceStrike" class="price-strike"></span>
+                                <span id="modalDiscBadge" class="disc-tag" style="display: none;"></span>
+                            </div>
                         </div>
                     </div>
-                    <!-- Tombol Share Pricelist Link -->
-                    <button id="shareProdBtn" onclick="shareCurrentProduct()" class="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-cyan-300 text-[11px] font-bold flex items-center gap-1.5 shrink-0 transition-all active:scale-95" title="Bagikan tautan pricelist produk ini">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                        </svg>
-                        <span>Share Pricelist</span>
+                    <button id="shareProdBtn" onclick="shareCurrentProduct()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-[11px] font-semibold flex items-center gap-1.5 shrink-0 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                        <span>Bagikan</span>
                     </button>
                 </div>
 
@@ -537,81 +1038,61 @@
                     <div class="section-label">Pilih Paket / Durasi:</div>
                     <div class="variant-list" id="variantList"></div>
 
-                    <div class="section-label">Informasi Layanan & Ketentuan:</div>
+                    <div class="section-label">Rincian Harga Lengkap & Ketentuan Layanan:</div>
                     <div class="details-box" id="modalDetails"></div>
+
+                    <div class="mt-3 p-3 rounded-lg bg-[#0b0c10] border border-slate-800 flex items-center justify-between gap-2 text-[11px]">
+                        <span class="text-slate-400">Ingin melihat bukti transaksi pelanggan kami?</span>
+                        <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" class="text-emerald-400 hover:underline font-bold shrink-0">
+                            Lihat Testimoni ↗
+                        </a>
+                    </div>
                 </div>
 
                 <!-- INTEGRATED AFIAR PAYMENT PORTAL SECTION -->
                 <div id="qrisSection" style="display: none;">
                     <div class="portal-card-bg rounded-2xl overflow-hidden text-white relative">
-                        <div class="pt-5 pb-4 px-4 text-center border-b border-yellow-500/30 relative">
-                            <h2 class="font-graffiti text-3xl sm:text-4xl tracking-wider text-white mb-1 select-none transform -rotate-1">"AFIAR STORE"</h2>
-                            <p class="text-xs sm:text-sm font-extrabold tracking-[0.25em] text-amber-200 uppercase mb-2.5">SCAN TO PAY</p>
-                            <div class="inline-flex items-center justify-center px-4 py-1 rounded-full bg-purple-950/90 border border-yellow-500/60 shadow">
-                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-2"></span>
-                                <span class="text-[10px] sm:text-xs font-bold tracking-[0.16em] text-white uppercase">AFIAR PAYMENT PORTAL</span>
-                            </div>
+                        <div class="pt-5 pb-4 px-4 text-center border-b border-yellow-500/30">
+                            <h2 class="font-graffiti text-2xl sm:text-3xl tracking-wider text-white mb-1">"AFIAR STORE"</h2>
+                            <p class="text-xs font-extrabold tracking-[0.2em] text-amber-200 uppercase">AFIAR PAYMENT PORTAL</p>
                         </div>
 
-                        <div class="p-4 sm:p-5 space-y-5">
+                        <div class="p-4 sm:p-5 space-y-4">
                             <div class="flex flex-col items-center">
-                                <div class="cyber-qr-frame rounded-2xl p-4 sm:p-5 w-full max-w-[290px] text-center relative">
-                                    <div class="cyber-corner-tl"></div><div class="cyber-corner-tr"></div><div class="cyber-corner-bl"></div><div class="cyber-corner-br"></div>
-                                    <div class="flex items-center justify-between mb-3 px-1">
-                                        <div class="flex items-center gap-1.5">
-                                            <span class="w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
-                                            <span class="text-[10px] font-bold tracking-widest uppercase text-sky-300">QRIS ALL PAYMENT</span>
-                                        </div>
-                                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-purple-900/80 border border-purple-400/30 text-purple-200">INSTANT</span>
+                                <div class="cyber-qr-frame rounded-xl p-4 w-full max-w-[270px] text-center">
+                                    <div class="flex items-center justify-between mb-2.5 text-[10px] font-bold text-sky-300">
+                                        <span>QRIS ALL PAYMENT</span>
+                                        <span class="px-2 py-0.5 rounded bg-purple-900/80 text-purple-200">INSTANT</span>
                                     </div>
-                                    <div class="relative bg-white p-3.5 rounded-xl shadow-inner mx-auto flex items-center justify-center overflow-hidden border-2 border-amber-400/90">
-                                        <div class="qr-scanner-line"></div>
+                                    <div class="bg-white p-3 rounded-lg mx-auto flex items-center justify-center border border-amber-400/80">
                                         <div id="qrcode" class="w-full flex items-center justify-center"></div>
                                     </div>
-                                    <div class="mt-3.5 space-y-0.5">
-                                        <p class="text-sm sm:text-base font-extrabold tracking-wider gold-gradient-text uppercase">AFIAR STORE - Catering</p>
-                                        <p class="text-[11px] font-medium text-sky-300/90">AFIAR_PAYMENT @digital.wallet</p>
-                                        <div class="pt-1.5"><span class="inline-block text-[10px] text-purple-200/90 bg-purple-950/90 border border-purple-500/30 px-2.5 py-0.5 rounded-full">NMID: ID1026544678653</span></div>
+                                    <div class="mt-3 space-y-0.5">
+                                        <p class="text-sm font-extrabold tracking-wide gold-gradient-text uppercase">AFIAR STORE - Catering</p>
+                                        <p class="text-[10px] text-purple-200/80">NMID: ID1026544678653</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="p-4 rounded-xl bg-purple-950/50 border border-yellow-500/40 space-y-3">
-                                <div class="flex items-center gap-2.5">
-                                    <div class="w-8 h-8 rounded-lg gold-icon-bg flex items-center justify-center shrink-0 text-purple-950">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
-                                    </div>
+                            <div class="p-3.5 rounded-xl bg-purple-950/40 border border-yellow-500/30 space-y-2.5">
+                                <div class="text-xs font-bold text-yellow-400 uppercase tracking-wider">Nomor E-Wallet Resmi (Transfer Manual)</div>
+                                
+                                <div class="p-2.5 rounded-lg bg-[#0e031c] border border-sky-500/30 flex items-center justify-between gap-2">
                                     <div>
-                                        <span class="text-[10px] font-bold uppercase tracking-wider text-yellow-400 block">Transfer Manual</span>
-                                        <h4 class="text-xs sm:text-sm font-bold text-white">Daftar Nomor E-Wallet Resmi</h4>
+                                        <span class="text-[10px] font-bold text-sky-300 block">DANA</span>
+                                        <p class="font-mono-num text-sm font-bold text-amber-300">0889 8343 0977</p>
                                     </div>
+                                    <button onclick="copyNumber('088983430977', 'btn-dana')" id="btn-dana" class="px-3 py-1.5 rounded bg-sky-500/20 border border-sky-400/40 text-sky-200 text-xs font-semibold">Salin</button>
                                 </div>
-                                <div class="p-3 rounded-xl bg-[#0e031c]/95 border border-sky-500/30 flex items-center justify-between gap-2 hover:border-sky-400/60 transition-all">
-                                    <div class="flex items-center gap-2.5">
-                                        <span class="px-2.5 py-1 rounded-md bg-[#118EEA] text-white font-extrabold text-[11px] tracking-wide shadow">DANA</span>
-                                        <div>
-                                            <p class="text-[10px] text-purple-300">Nomor DANA</p>
-                                            <p class="font-mono-num text-sm sm:text-base font-bold text-amber-300 tracking-wider">0889 8343 0977</p>
-                                        </div>
+
+                                <div class="p-2.5 rounded-lg bg-[#0e031c] border border-purple-500/30 flex items-center justify-between gap-2">
+                                    <div>
+                                        <span class="text-[10px] font-bold text-purple-300 block">ShopeePay / OVO / GoPay</span>
+                                        <p class="font-mono-num text-sm font-bold text-amber-300">0821 4999 2412</p>
                                     </div>
-                                    <button onclick="copyNumber('088983430977', 'btn-dana')" id="btn-dana" class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-200 text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg><span>Salin</span></button>
-                                </div>
-                                <div class="p-3 rounded-xl bg-[#0e031c]/95 border border-purple-500/30 flex items-center justify-between gap-2 hover:border-amber-400/60 transition-all">
-                                    <div class="space-y-1">
-                                        <div class="flex flex-wrap items-center gap-1">
-                                            <span class="px-2 py-0.5 rounded bg-[#EE4D2D] text-white font-bold text-[10px]">ShopeePay</span>
-                                            <span class="px-2 py-0.5 rounded bg-[#4C3494] text-white font-bold text-[10px]">OVO</span>
-                                            <span class="px-2 py-0.5 rounded bg-[#00AED6] text-white font-bold text-[10px]">GoPay</span>
-                                        </div>
-                                        <p class="font-mono-num text-sm sm:text-base font-bold text-amber-300 tracking-wider">0821 4999 2412</p>
-                                    </div>
-                                    <button onclick="copyNumber('082149992412', 'btn-multi')" id="btn-multi" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg><span>Salin</span></button>
+                                    <button onclick="copyNumber('082149992412', 'btn-multi')" id="btn-multi" class="px-3 py-1.5 rounded bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-semibold">Salin</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="bg-[#1a0b2e] border-t border-yellow-500/30 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-[11px] text-purple-200">
-                            <span class="font-mono-num font-bold text-white">📞 +62-882-0062-16644</span>
-                            <span class="font-bold text-amber-300">📸 @afiar_business</span>
                         </div>
                     </div>
                 </div>
@@ -619,10 +1100,8 @@
 
             <!-- Sticky Order Button -->
             <div class="sticky-action-bar">
-                <button id="quickPayBtn" onclick="openPaymentModal()" class="btn-quick-pay" title="Lihat QRIS & Nomor E-Wallet">💳 QRIS</button>
-                <a href="#" id="waLink" class="btn-buy" target="_blank">
-                    <!-- Icon & Text injected by JS -->
-                </a>
+                <button id="quickPayBtn" onclick="openPaymentModal()" class="btn-quick-pay">QRIS</button>
+                <a href="#" id="waLink" class="btn-buy" target="_blank"></a>
             </div>
         </div>
     </div>
@@ -630,6 +1109,56 @@
     <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
         let autoCloseTimer;
+        window.productViewsData = {};
+
+        /* 
+         * STRATEGI MARKETING: SELECTIVE PRICE ANCHORING
+         * Hanya 12 produk unggulan (High-Demand) yang diberi harga coret dengan persentase bervariasi (17% - 26%)
+         * agar terlihat realistis dan menjadi pusat perhatian (focal point) di katalog.
+         */
+        const strategicPromoMap = {
+            1:  { strike: "6.500", label: "Hemat 23%" },  // ChatGPT Plus
+            3:  { strike: "7.500", label: "Hemat 20%" },  // Claude AI
+            4:  { strike: "3.000", label: "Hemat 26%" },  // Gemini Pro + G.One
+            9:  { strike: "4.000", label: "Hemat 25%" },  // Netflix Harian
+            10: { strike: "25.000", label: "Hemat 20%" }, // Netflix Bulanan
+            12: { strike: "6.000", label: "Hemat 17%" },  // YouTube Premium
+            18: { strike: "4.000", label: "Hemat 25%" },  // Disney+ Hotstar
+            22: { strike: "6.500", label: "Hemat 23%" },  // Vidio Platinum
+            25: { strike: "2.000", label: "Hemat 25%" },  // Canva Pro / Edu
+            26: { strike: "6.500", label: "Hemat 23%" },  // CapCut Pro
+            34: { strike: "2.500", label: "Hemat 20%" },  // Microsoft 365
+            35: { strike: "5.000", label: "Hemat 20%" }   // Zoom Pro
+        };
+
+        /*
+         * Untuk di dalam pop-up varian produk:
+         * Harga coret hanya ditempatkan pada paket mingguan/bulanan/tahunan (Upselling)
+         * atau pada produk yang masuk daftar promo strategis.
+         */
+        function getSelectiveVariantStrike(prodId, variantName, priceStr) {
+            const cleanStr = String(priceStr).trim();
+            if (!/^[0-9.]+$/.test(cleanStr)) return null;
+            const actualPrice = parseInt(cleanStr.replace(/\./g, ''), 10);
+            if (isNaN(actualPrice) || actualPrice <= 0) return null;
+
+            const isHeroPromo = Boolean(strategicPromoMap[prodId]);
+            const isUpsellDuration = /bln|bulan|thn|tahun|life|7h|7 hari|14 hari/i.test(variantName);
+
+            // Jika bukan produk promo utama dan hanya paket 1 hari biasa, biarkan harga normal tanpa coretan
+            if (!isHeroPromo && !isUpsellDuration) return null;
+
+            let anchored = Math.round(actualPrice * 1.22);
+            if (actualPrice < 4000) {
+                anchored = Math.ceil(anchored / 500) * 500;
+                if (anchored <= actualPrice) anchored = actualPrice + 500;
+            } else if (actualPrice < 25000) {
+                anchored = Math.ceil(anchored / 500) * 500;
+            } else {
+                anchored = Math.ceil(anchored / 1000) * 1000;
+            }
+            return anchored.toLocaleString('id-ID');
+        }
 
         function showToast(message) {
             const toast = document.getElementById('toastNotif');
@@ -637,19 +1166,7 @@
             if (!toast || !text) return;
             text.innerText = message;
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2600);
-        }
-
-        function openStoryKit() {
-            document.getElementById('storyKitModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeStoryKit() {
-            document.getElementById('storyKitModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            setTimeout(() => { toast.classList.remove('show'); }, 2400);
         }
 
         function copyStoryLink(textToCopy, toastMessage) {
@@ -659,38 +1176,35 @@
             tempInput.select();
             document.execCommand("copy");
             document.body.removeChild(tempInput);
-            showToast(toastMessage || "Tautan berhasil disalin!");
+            showToast(toastMessage || "Tautan berhasil disalin");
         }
 
         function openWelcomePopup(isManual = false) {
             const popup = document.getElementById("welcomePopup");
             const progressBar = document.getElementById("popupProgress");
-            
-            if(popup) {
+            if (popup) {
                 popup.classList.remove("opacity-0", "pointer-events-none");
                 popup.firstElementChild.classList.remove("scale-95");
                 popup.firstElementChild.classList.add("scale-100");
 
                 if (isManual) {
-                    if(progressBar) progressBar.style.display = 'none';
+                    if (progressBar) progressBar.style.display = 'none';
                     clearTimeout(autoCloseTimer);
                 } else {
-                    if(progressBar) {
+                    if (progressBar) {
                         progressBar.style.display = 'block';
                         progressBar.style.animation = 'none';
                         void progressBar.offsetWidth;
-                        progressBar.style.animation = 'shrink 15s linear forwards';
+                        progressBar.style.animation = 'shrink 12s linear forwards';
                     }
-                    autoCloseTimer = setTimeout(() => {
-                        closeWelcomePopup();
-                    }, 15000);
+                    autoCloseTimer = setTimeout(() => { closeWelcomePopup(); }, 12000);
                 }
             }
         }
 
         function closeWelcomePopup() {
             const popup = document.getElementById("welcomePopup");
-            if(popup) {
+            if (popup) {
                 popup.classList.add("opacity-0", "pointer-events-none");
                 popup.firstElementChild.classList.remove("scale-100");
                 popup.firstElementChild.classList.add("scale-95");
@@ -706,7 +1220,7 @@
                 const qrContainer = document.getElementById("qrcode");
                 if (qrContainer && typeof QRCode !== "undefined") {
                     qrContainer.innerHTML = "";
-                    new QRCode(qrContainer, { text: qrisPayload, width: 220, height: 220, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
+                    new QRCode(qrContainer, { text: qrisPayload, width: 200, height: 200, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
                     qrGenerated = true;
                 }
             }
@@ -722,38 +1236,38 @@
 
             const btn = document.getElementById(btnId);
             if (!btn) return;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg><span class="text-emerald-200">Tersalin!</span>`;
-            setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+            const originalText = btn.innerText;
+            btn.innerText = "Tersalin";
+            setTimeout(() => { btn.innerText = originalText; }, 1800);
         }
 
         const products = [
             { id: 1, cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", shortcut: "chatgpt", logo: "https://ui-avatars.com/api/?name=CG&background=1a202c&color=00f0ff&font-size=0.45", badges: ["BEST SELLER"], startPrice: "5.000", variants: [ {name: "Sharing 8U (1H)", price: "5.000"}, {name: "Sharing 8U (3H)", price: "7.000"}, {name: "Sharing 8U (7H)", price: "15.000"}, {name: "Sharing 8U (1B)", price: "49.000"}, {name: "Sharing 5U (1H)", price: "8.000"}, {name: "Sharing 5U (7H)", price: "36.000"}, {name: "Sharing 5U (1B)", price: "92.000"}, {name: "Private Legal (1B)", price: "377.000"} ], details: "▪ Sharing Legal (8U | 5U | 3U)\n• 1 Hari : 5k | 8k | 11k\n• 2 Hari : 6k | 13k | 19k\n• 3 Hari : 7k | 17k | 23k\n• 4 Hari : 8.5k | 21k | 29k\n• 5 Hari : 11k | 26k | 33k\n• 7 Hari : 15k | 36k | 41k\n• 14 Hari : 27k | 52k | 72k\n• 1 Bulan : 49k | 92k | 127k\n\n▪ Sharing Trik (Nogar)\n• 1 Bulan (5U) : 24k\n• 1 Bulan (3U) : 37k\n\n▪ Private 1 Bulan\n• Legal (Garansi) : 377k\n• Trik (Nogar) : 102k\n📌 Ketentuan:\n✅ Akun dari seller & standby OTP\n✅ Paid legal bergaransi Backfree (BF)\n✅ Private bisa akun cust / perpanjang (PPJ)\n⚠️ Membeli sharing = paham risiko limit server" },
-            { id: 2, cat: "AI & INTELLIGENCE", name: "ChatGPT Go", shortcut: "chatgptgo", logo: "https://ui-avatars.com/api/?name=CG&background=1a202c&color=00f0ff&font-size=0.45", badges: ["PROMO"], startPrice: "3.500", variants: [ {name: "Sharing 8U (1H)", price: "3.500"}, {name: "Sharing 8U (7H)", price: "6.500"}, {name: "Sharing 8U (1B)", price: "17.000"}, {name: "Sharing 4U (1B)", price: "27.000"}, {name: "Jaspay Legal", price: "GPlay+7k"}, {name: "Link Redeem", price: "37.000"} ], details: "▪ Sharing Legal (8U | 4U | 2U)\n• 1 Hari : 3.5k | 5k | 9k\n• 3 Hari : 4.5k | 7k | 13k\n• 5 Hari : 5.5k | 9k | 17k\n• 7 Hari : 6.5k | 11k | 21k\n• 14 Hari : 12k | 20k | 32k\n• 1 Bulan : 17k | 27k | 52k\n\n▪ Private / Lainnya\n• Jaspay Legal (Akun Cust) : Harga GPlay + 7k\n• Jaspay Trik (Akun Cust, Nogar) : 52k\n• Link Redeem (Tanpa Method) : 37k\n📌 Ketentuan:\n✅ Sharing akun dari seller (Paid Legal, Garansi BF)\n✅ Durasi 1 bulan = 25-30 hari\n⚠️ Membeli sharing = paham risiko limit" },
-            { id: 3, cat: "AI & INTELLIGENCE", name: "Claude AI", shortcut: "claude", logo: "https://cdn.simpleicons.org/anthropic/e2e8f0", badges: ["HOT"], startPrice: "6.000", variants: [ {name: "Sharing 10U (1H)", price: "6.000"}, {name: "Sharing 10U (7H)", price: "21.000"}, {name: "Sharing 10U (1B)", price: "54.000"}, {name: "Sharing 4U (1H)", price: "11.000"}, {name: "Sharing 4U (1B)", price: "102.000"}, {name: "Private Legal (1B)", price: "402.000"} ], details: "▪ Sharing Legal (10U | 4U Less Limit)\n• 1 Hari : 6k | 11k\n• 2 Hari : 9k | 16k\n• 3 Hari : 11k | 21k\n• 5 Hari : 16k | 31k\n• 7 Hari : 21k | 41k\n• 14 Hari : 37k | 72k\n• 1 Bulan : 54k | 102k\n\n▪ Private Legal\n• 1 Bulan : 402k\n📌 Ketentuan:\n✅ Akun dari seller, wajib standby OTP saat login\n✅ Paid legal bergaransi Backfree (BF)\n✅ Private bisa akun cust & perpanjang tiap bulan\n⚠️ Durasi berjalan sejak akun dikirimkan" },
-            { id: 4, cat: "AI & INTELLIGENCE", name: "Gemini Pro + G.One", shortcut: "gemini", logo: "https://cdn.simpleicons.org/googlegemini/8E75B2", badges: ["BUNDLE"], startPrice: "2.200", variants: [ {name: "Sharing (1 Hari)", price: "2.200"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Private Invite (1B)", price: "20.000"}, {name: "Private Seller (1B)", price: "17.000"}, {name: "Head Gemini (1B)", price: "27.000"} ], details: "✨ PRICELIST GEMINI AI PRO + GOOGLE ONE ✨(Include VEO3, GDrive 2-5 TB, GMeet, Google Flow)\n\n▪ Sharing (Akun Seller)\n• 1 Hari : 2.2k\n• 3 Hari : 3k\n• 5 Hari : 4k\n• 7 Hari : 5k\n• 14 Hari : 7k\n• 1 Bulan : 8k\n• 2 Bulan : 13k\n• 3 Bulan : 18k\n\n▪ Private Invite (Akun Cust)\n• 1 Hari : 3.5k | 3 Hari : 4.5k\n• 7 Hari : 8k | 14 Hari : 13k\n• 1 Bulan : 20k | 2 Bulan : 28k\n• 3 Bulan : 38k | 4 Bulan : 49k\n\n▪ Private Akun Seller\n• 7 Hari : 11k | 14 Hari : 14k | 1 Bulan : 17k\n\n▪ Head Gemini (Bisa Invite 5 Member)\n• 1 Bulan : 22k (Nogar) | 27k (Fullgar)\n• 3 Bulan : 38k (Nogar) | 48k (Fullgar)\n📌 Ketentuan:\n✅ Penyimpanan 2-5 TB & Garansi Backfree" },
+            { id: 2, cat: "AI & INTELLIGENCE", name: "ChatGPT Go", shortcut: "chatgptgo", logo: "https://ui-avatars.com/api/?name=CG&background=1a202c&color=00f0ff&font-size=0.45", badges: [], startPrice: "3.500", variants: [ {name: "Sharing 8U (1H)", price: "3.500"}, {name: "Sharing 8U (7H)", price: "6.500"}, {name: "Sharing 8U (1B)", price: "17.000"}, {name: "Sharing 4U (1B)", price: "27.000"}, {name: "Jaspay Legal", price: "GPlay+7k"}, {name: "Link Redeem", price: "37.000"} ], details: "▪ Sharing Legal (8U | 4U | 2U)\n• 1 Hari : 3.5k | 5k | 9k\n• 3 Hari : 4.5k | 7k | 13k\n• 5 Hari : 5.5k | 9k | 17k\n• 7 Hari : 6.5k | 11k | 21k\n• 14 Hari : 12k | 20k | 32k\n• 1 Bulan : 17k | 27k | 52k\n\n▪ Private / Lainnya\n• Jaspay Legal (Akun Cust) : Harga GPlay + 7k\n• Jaspay Trik (Akun Cust, Nogar) : 52k\n• Link Redeem (Tanpa Method) : 37k\n📌 Ketentuan:\n✅ Sharing akun dari seller (Paid Legal, Garansi BF)\n✅ Durasi 1 bulan = 25-30 hari\n⚠️ Membeli sharing = paham risiko limit" },
+            { id: 3, cat: "AI & INTELLIGENCE", name: "Claude AI", shortcut: "claude", logo: "https://cdn.simpleicons.org/anthropic/e2e8f0", badges: ["POPULER"], startPrice: "6.000", variants: [ {name: "Sharing 10U (1H)", price: "6.000"}, {name: "Sharing 10U (7H)", price: "21.000"}, {name: "Sharing 10U (1B)", price: "54.000"}, {name: "Sharing 4U (1H)", price: "11.000"}, {name: "Sharing 4U (1B)", price: "102.000"}, {name: "Private Legal (1B)", price: "402.000"} ], details: "▪ Sharing Legal (10U | 4U Less Limit)\n• 1 Hari : 6k | 11k\n• 2 Hari : 9k | 16k\n• 3 Hari : 11k | 21k\n• 5 Hari : 16k | 31k\n• 7 Hari : 21k | 41k\n• 14 Hari : 37k | 72k\n• 1 Bulan : 54k | 102k\n\n▪ Private Legal\n• 1 Bulan : 402k\n📌 Ketentuan:\n✅ Akun dari seller, wajib standby OTP saat login\n✅ Paid legal bergaransi Backfree (BF)\n✅ Private bisa akun cust & perpanjang tiap bulan\n⚠️ Durasi berjalan sejak akun dikirimkan" },
+            { id: 4, cat: "AI & INTELLIGENCE", name: "Gemini Pro + G.One", shortcut: "gemini", logo: "https://cdn.simpleicons.org/googlegemini/8E75B2", badges: ["PROMO"], startPrice: "2.200", variants: [ {name: "Sharing (1 Hari)", price: "2.200"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Private Invite (1B)", price: "20.000"}, {name: "Private Seller (1B)", price: "17.000"}, {name: "Head Gemini (1B)", price: "27.000"} ], details: "PRICELIST GEMINI AI PRO + GOOGLE ONE (Include VEO3, GDrive 2-5 TB, GMeet, Google Flow)\n\n▪ Sharing (Akun Seller)\n• 1 Hari : 2.2k\n• 3 Hari : 3k\n• 5 Hari : 4k\n• 7 Hari : 5k\n• 14 Hari : 7k\n• 1 Bulan : 8k\n• 2 Bulan : 13k\n• 3 Bulan : 18k\n\n▪ Private Invite (Akun Cust)\n• 1 Hari : 3.5k | 3 Hari : 4.5k\n• 7 Hari : 8k | 14 Hari : 13k\n• 1 Bulan : 20k | 2 Bulan : 28k\n• 3 Bulan : 38k | 4 Bulan : 49k\n\n▪ Private Akun Seller\n• 7 Hari : 11k | 14 Hari : 14k | 1 Bulan : 17k\n\n▪ Head Gemini (Bisa Invite 5 Member)\n• 1 Bulan : 22k (Nogar) | 27k (Fullgar)\n• 3 Bulan : 38k (Nogar) | 48k (Fullgar)\n📌 Ketentuan:\n✅ Penyimpanan 2-5 TB & Garansi Backfree" },
             { id: 5, cat: "AI & INTELLIGENCE", name: "Perplexity Pro", shortcut: "perplexity", logo: "https://cdn.simpleicons.org/perplexity/22B8CD", badges: [], startPrice: "4.500", variants: [ {name: "Sharing (1 Hari)", price: "4.500"}, {name: "Sharing (7 Hari)", price: "16.000"}, {name: "Sharing (1 Bln)", price: "40.000"}, {name: "Private (1 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "452.000"} ], details: "▪ Sharing Legal\n• 1 Hari : 4.5k\n• 2 Hari : 7k\n• 3 Hari : 10k\n• 5 Hari : 13k\n• 7 Hari : 16k\n• 14 Hari : 27k\n• 1 Bulan : 40k\n• 2 Bulan : 78k\n\n▪ Private Legal\n• 1 Hari : 16k\n• 3 Hari : 26k\n• 5 Hari : 36k\n• 7 Hari : 46k\n• 1 Bulan : 452k\n📌 Ketentuan:\n✅ Akun dari seller (Login Google, wajib standby OTP)\n✅ Paid legal, bukan trik" },
             { id: 6, cat: "AI & INTELLIGENCE", name: "GPTZero", shortcut: "gptzero", logo: "https://ui-avatars.com/api/?name=GZ&background=1a202c&color=00f0ff", badges: [], startPrice: "3.000", variants: [ {name: "Cek Plagiasi/AI", price: "3.000"}, {name: "Cek Plagiasi+AI", price: "4.500"}, {name: "Sharing Prem (1B)", price: "27.000"}, {name: "Private Prem (1B)", price: "42.000"} ], details: "▪ Jasa Cek File (Per 1x Cek)\n• Cek Plagiasi / Similarity : 3k\n• Cek AI (Indo/Eng) : 3k\n• Cek Plagiasi + AI : 4.5k\n(Lebih dari 50k karakter +1.5k)\n\n▪ Sharing (Premium | Profesional)\n• 1 Hari : 8k | 11k\n• 3 Hari : 11k | 16k\n• 7 Hari : 16k | 21k\n• 14 Hari : 22k | 37k\n• 1 Bulan : 27k | 47k\n\n▪ Private (Premium | Profesional)\n• 1 Hari : 11k | 13k\n• 3 Hari : 16k | 19k\n• 7 Hari : 21k | 26k\n• 14 Hari : 32k | 47k\n• 1 Bulan : 42k | 87k\n📌 Ketentuan:\n✅ Maks 50.000 karakter/cek (Premium) & >50.000 (Profesional)\n✅ Size file maks 15 MB" },
             { id: 7, cat: "AI & INTELLIGENCE", name: "Grammarly", shortcut: "grammarly", logo: "https://cdn.simpleicons.org/grammarly/15C39A", badges: [], startPrice: "2.500", variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (7 Hari)", price: "8.000"}, {name: "Sharing (1 Bln)", price: "11.000"}, {name: "Private (7 Hari)", price: "16.000"}, {name: "Private (1 Bln)", price: "47.000"} ], details: "▪ Sharing\n• 1 Hari : 2.5k\n• 3 Hari : 4k\n• 5 Hari : 6k\n• 7 Hari : 8k\n• 1 Bulan : 11k\n• 2 Bulan : 20k\n• 3 Bulan : 25k\n• 6 Bulan : 40k\n\n▪ Private (Maks 5 Device)\n• 7 Hari : 16k\n• 1 Bulan : 47k\n📌 Ketentuan:\n✅ Akun dari seller (Harian login Google, standby OTP)\n✅ Full garansi Backfree (BF)" },
             { id: 8, cat: "AI & INTELLIGENCE", name: "Quillbot", shortcut: "quillbot", logo: "https://ui-avatars.com/api/?name=QB&background=49A94D&color=fff&font-size=0.45", badges: [], startPrice: "3.000", variants: [ {name: "Sharing (1 Hari)", price: "3.000"}, {name: "Sharing (7 Hari)", price: "9.000"}, {name: "Sharing (1 Bln)", price: "12.000"}, {name: "Private (1 Bln)", price: "47.000"} ], details: "▪ Sharing (5 User)\n• 1 Hari : 3k\n• 3 Hari : 5k\n• 5 Hari : 7k\n• 7 Hari : 9k\n• 1 Bulan : 12k\n\n▪ Private\n• 1 Bulan : 47k\n📌 Ketentuan:\n✅ Akun dari seller\n✅ Full garansi Backfree (BF)" },
-            { id: 9, cat: "STREAMING & HIBURAN", name: "Netflix Harian", shortcut: "netflix", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["HOT"], startPrice: "3.000", variants: [ {name: "1P2U (1 Hari)", price: "3.000"}, {name: "1P1U (1 Hari)", price: "3.500"}, {name: "Anti Limit (1 Hari)", price: "4.500"}, {name: "Semi Private (1 Hari)", price: "5.000"} ], details: "▪ Sharing 1P2U (1 Profil 2 User)\n• 1 Hari : 3k | 2 Hari : 5k\n• 3 Hari : 7k | 4 Hari : 9k\n• 5 Hari : 11k | 7 Hari : 14k\n\n▪ Sharing 1P1U (1 Profil 1 User)\n• 1 Hari : 3.5k | 2 Hari : 6k\n• 3 Hari : 8.5k | 4 Hari : 11k\n• 5 Hari : 13k | 7 Hari : 17k\n\n▪ Anti Limit (Bebas Limit Screen)\n• 1 Hari : 4.5k | 2 Hari : 8k\n• 3 Hari : 11k | 5 Hari : 18k\n• 7 Hari : 23k\n\n▪ Semi Private (Bisa Login 2 Device)\n• 1 Hari : 5k | 3 Hari : 12k\n• 5 Hari : 19k | 7 Hari : 24k\n\n▪ Private Trial (Nogar)\n• 30 Hari : 37k\n📌 Ketentuan:\n✅ Akun dari seller, login maks 1 device (kecuali Semi Private)\n✅ Login TV tambah fee +2k\n⚠️ Dilarang gonta-ganti device" },
+            { id: 9, cat: "STREAMING & HIBURAN", name: "Netflix Harian", shortcut: "netflix", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["POPULER"], startPrice: "3.000", variants: [ {name: "1P2U (1 Hari)", price: "3.000"}, {name: "1P1U (1 Hari)", price: "3.500"}, {name: "Anti Limit (1 Hari)", price: "4.500"}, {name: "Semi Private (1 Hari)", price: "5.000"} ], details: "▪ Sharing 1P2U (1 Profil 2 User)\n• 1 Hari : 3k | 2 Hari : 5k\n• 3 Hari : 7k | 4 Hari : 9k\n• 5 Hari : 11k | 7 Hari : 14k\n\n▪ Sharing 1P1U (1 Profil 1 User)\n• 1 Hari : 3.5k | 2 Hari : 6k\n• 3 Hari : 8.5k | 4 Hari : 11k\n• 5 Hari : 13k | 7 Hari : 17k\n\n▪ Anti Limit (Bebas Limit Screen)\n• 1 Hari : 4.5k | 2 Hari : 8k\n• 3 Hari : 11k | 5 Hari : 18k\n• 7 Hari : 23k\n\n▪ Semi Private (Bisa Login 2 Device)\n• 1 Hari : 5k | 3 Hari : 12k\n• 5 Hari : 19k | 7 Hari : 24k\n\n▪ Private Trial (Nogar)\n• 30 Hari : 37k\n📌 Ketentuan:\n✅ Akun dari seller, login maks 1 device (kecuali Semi Private)\n✅ Login TV tambah fee +2k\n⚠️ Dilarang gonta-ganti device" },
             { id: 10, cat: "STREAMING & HIBURAN", name: "Netflix Bulanan", shortcut: "netflixbulanan", logo: "https://cdn.simpleicons.org/netflix/E50914", badges: ["BEST SELLER"], startPrice: "20.000", variants: [ {name: "1P2U Luar (1 Bln)", price: "20.000"}, {name: "1P2U Indo (1 Bln)", price: "23.000"}, {name: "1P1U Indo (1 Bln)", price: "42.000"}, {name: "Semi Private (1 Bln)", price: "44.000"}, {name: "Anti Limit (1 Bln)", price: "52.000"} ], details: "▪ Sharing 1P2U\n• Reg Luar (1 Bulan) : 20k\n• Legal Indo : 1 Bln (23k) | 2 Bln (43k) | 3 Bln (62k)\n\n▪ Sharing 1P1U\n• Reg Luar (1 Bulan) : 39k\n• Legal Indo : 1 Bln (42k) | 2 Bln (81k)\n\n▪ Semi Private (Bisa 2 Device - Legal Indo)\n• 1 Bulan : 44k\n• 2 Bulan : 85k\n• 3 Bulan : 128k\n\n▪ Anti Limit (Legal Indo)\n• 1 Bulan : 52k\n• 2 Bulan : 101k\n📌 Ketentuan:\n✅ Pengguna iOS sangat disarankan pilih Legal Indo\n✅ Akun dari seller, khusus 1 device (dilarang ganti device)\n✅ Full garansi & support OTP Household" },
             { id: 11, cat: "STREAMING & HIBURAN", name: "Spotify Premium", shortcut: "spotify", logo: "https://cdn.simpleicons.org/spotify/1DB954", badges: [], startPrice: "4.000", variants: [ {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "12.000"}, {name: "Famhead (1 Bln)", price: "32.000"} ], details: "▪ Private (Akun Seller)\n• 1 Hari : 4k\n• 3 Hari : 6k\n• 5 Hari : 7k\n• 7 Hari : 9k\n• 1 Bulan : 12k\n• 3 Bulan : 15k\n\n▪ Famhead (Bisa Invite 3 Member)\n• 1 Bulan : 32k\n📌 Ketentuan & Opsi Garansi:\n✅ Bebas iklan & bisa download lagu offline\n✅ Transfer playlist tambah +1k\n✅ Harga di atas No Garansi (Garansi login 1 jam)\n✅ Tambah Garansi Backfree: Harian (+1k) / Bulanan Garansi 1 Minggu (+5k)" },
-            { id: 12, cat: "STREAMING & HIBURAN", name: "YouTube Premium", shortcut: "youtube", logo: "https://cdn.simpleicons.org/youtube/FF0000", badges: [], startPrice: "5.000", variants: [ {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Famplan (1 Bln)", price: "7.000"}, {name: "Indplan Cust (1 Bln)", price: "9.000"}, {name: "Indplan Seller (1 Bln)", price: "14.000"} ], details: "▶️ PRICELIST YOUTUBE PREMIUM — AFIAR STORE ▶️\n(Sudah termasuk YouTube Music)\n\n▪ Akun Sharing (Akun Seller - Fullgar)\n• 1 Bulan : 5k | 2 Bulan : 9k\n• 3 Bulan : 12k | 6 Bulan : 23k\n\n▪ Famplan Invite Akun Cust (Nogar | Fullgar)\n• 1 Bulan : 5k | 7k\n• 2 Bulan : 9k | 13k\n• 3 Bulan : 12k | 18k\n• 6 Bulan : 23k | 35k\n\n▪ Indplan / Famhead Renew (Akun Cust | Akun Seller)\n• 1 Bulan (Nogar) : 7k | 12k\n• 1 Bulan (Fullgar) : 9k | 14k\n• 2 Bulan (Fullgar) : 16k | 26k\n• 3 Bulan (Fullgar) : 23k | 38k\n• 6 Bulan (Fullgar) : 45k | 75k\n\n▪ Indplan Gsuite\n• 1 Bulan : 14k (Nogar) | 17k (Fullgar)\n📌 Ketentuan:\n✅ Fullgar = Garansi Backfree selama durasi\n✅ Durasi 1 bulan = 25-30 hari" },
+            { id: 12, cat: "STREAMING & HIBURAN", name: "YouTube Premium", shortcut: "youtube", logo: "https://cdn.simpleicons.org/youtube/FF0000", badges: ["PROMO"], startPrice: "5.000", variants: [ {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Famplan (1 Bln)", price: "7.000"}, {name: "Indplan Cust (1 Bln)", price: "9.000"}, {name: "Indplan Seller (1 Bln)", price: "14.000"} ], details: "PRICELIST YOUTUBE PREMIUM — AFIAR STORE\n(Sudah termasuk YouTube Music)\n\n▪ Akun Sharing (Akun Seller - Fullgar)\n• 1 Bulan : 5k | 2 Bulan : 9k\n• 3 Bulan : 12k | 6 Bulan : 23k\n\n▪ Famplan Invite Akun Cust (Nogar | Fullgar)\n• 1 Bulan : 5k | 7k\n• 2 Bulan : 9k | 13k\n• 3 Bulan : 12k | 18k\n• 6 Bulan : 23k | 35k\n\n▪ Indplan / Famhead Renew (Akun Cust | Akun Seller)\n• 1 Bulan (Nogar) : 7k | 12k\n• 1 Bulan (Fullgar) : 9k | 14k\n• 2 Bulan (Fullgar) : 16k | 26k\n• 3 Bulan (Fullgar) : 23k | 38k\n• 6 Bulan (Fullgar) : 45k | 75k\n\n▪ Indplan Gsuite\n• 1 Bulan : 14k (Nogar) | 17k (Fullgar)\n📌 Ketentuan:\n✅ Fullgar = Garansi Backfree selama durasi\n✅ Durasi 1 bulan = 25-30 hari" },
             { id: 13, cat: "STREAMING & HIBURAN", name: "Apple Music", shortcut: "applemusic", logo: "https://cdn.simpleicons.org/applemusic/FA243C", badges: [], startPrice: "3.000", variants: [ {name: "Fam Link (5 Hari)", price: "3.000"}, {name: "Fam Link (1 Bln)", price: "9.000"}, {name: "Indplan Andro (1 Bln)", price: "10.000"}, {name: "Famhead (1 Bln)", price: "27.000"} ], details: "▪ Family Link / iMessage (Akun Cust - All Device)\n• 5 Hari : 3k\n• 7 Hari : 4k\n• 14 Hari : 7k\n• 1 Bulan : 9k\n• 2 Bulan : 15k\n• 3 Bulan : 23k\n\n▪ Indplan (Akun Seller - Khusus Android)\n• 1 Bulan : 10k\n• 2 Bulan : 15k\n• 3 Bulan : 21k\n\n▪ Famhead (Akun Seller - Khusus Andro / Bisa Invite iOS)\n• 1 Bulan (Nogar) : 22k\n• 1 Bulan (Fullgar) : 27k\n📌 Ketentuan:\n✅ Garansi Backfree (BF)\n✅ Durasi >1 bulan menggunakan sistem renewal" },
             { id: 14, cat: "STREAMING & HIBURAN", name: "Joox VIP", shortcut: "joox", logo: "https://ui-avatars.com/api/?name=JX&background=1a202c&color=00ff66", badges: [], startPrice: "5.000", variants: [ {name: "Private (1 Hari)", price: "5.000"}, {name: "Private (7 Hari)", price: "9.000"}, {name: "Private (1 Bln)", price: "17.000"} ], details: "▪ Private (Akun Seller)\n• 1 Hari : 5k\n• 3 Hari : 6k\n• 5 Hari : 7k\n• 7 Hari : 9k\n• 14 Hari : 14k\n• 1 Bulan : 17k\n📌 Ketentuan:\n✅ Akun dari seller\n✅ Bebas iklan & bisa unduh lagu offline" },
             { id: 15, cat: "STREAMING & HIBURAN", name: "Prime Video", shortcut: "prime", logo: "https://ui-avatars.com/api/?name=PV&background=00A8E1&color=fff&font-size=0.45", badges: [], startPrice: "2.800", variants: [ {name: "Sharing 3U (1 Hari)", price: "2.800"}, {name: "Sharing 3U (1 Bln)", price: "9.000"}, {name: "Private Fullgar (1 Bln)", price: "17.000"} ], details: "▪ Sharing Harian (3U Anti Limit)\n• 1 Hari : 2.8k\n• 3 Hari : 3.5k\n• 5 Hari : 4k\n• 7 Hari : 5k\n\n▪ Sharing Bulanan (3U Anti Limit)\n• 1 Bulan : 9k\n• 2 Bulan : 16k\n• 3 Bulan : 23k\n\n▪ Private Full Garansi\n• 1 Bulan : 17k\n📌 Ketentuan:\n✅ Akun dari seller, maks login 1 device\n⚠️ Dilarang gonta-ganti device" },
             { id: 16, cat: "STREAMING & HIBURAN", name: "Bstation", shortcut: "bstation", logo: "https://ui-avatars.com/api/?name=Bs&background=ff0055&color=fff", badges: [], startPrice: "3.000", variants: [ {name: "Sharing (7 Hari)", price: "3.000"}, {name: "Sharing (1 Bln)", price: "5.000"}, {name: "Private AllDev (7 Hari)", price: "11.000"}, {name: "Private AllDev (1 Bln)", price: "30.000"} ], details: "▪ Sharing (Non-TV / Maks 1 Device)\n• 7 Hari : 3k\n• 14 Hari : 4.5k\n• 1 Bulan : 5k\n• 3 Bulan : 9k\n• 6 Bulan : 13k\n• 1 Tahun (Garansi 6B) : 14k\n• 1 Tahun (Garansi 12B) : 17k\n\n▪ Private (All Device - Bisa Login TV)\n• 7 Hari : 11k\n• 14 Hari : 17k\n• 1 Bulan : 30k\n📌 Ketentuan:\n✅ Akun dari seller, limit screen 1 device\n✅ Ingin login di TV wajib ambil paket Private" },
             { id: 17, cat: "STREAMING & HIBURAN", name: "Crunchyroll", shortcut: "crunchyroll", logo: "https://cdn.simpleicons.org/crunchyroll/F47521", badges: [], startPrice: "2.500", variants: [ {name: "Sharing (1 Hari)", price: "2.500"}, {name: "Sharing (1 Bln)", price: "7.000"}, {name: "Private (1 Hari)", price: "4.000"}, {name: "Private (7 Hari)", price: "9.000"} ], details: "▪ Sharing\n• 1 Hari : 2.5k | 3 Hari : 3k\n• 5 Hari : 3.5k | 7 Hari : 4.5k\n• 14 Hari : 6k | 1 Bulan : 7k\n• 1 Tahun (Garansi 6B) : 15k\n• 1 Tahun (Garansi 12B) : 20k\n\n▪ Private\n• 1 Hari : 4k | 3 Hari : 6k\n• 5 Hari : 8k | 7 Hari : 9k\n• 14 Hari : 12k\n📌 Ketentuan:\n✅ Akun dari seller, sharing maks login 1 device\n✅ Private sistem renew per minggu" },
-            { id: 18, cat: "STREAMING & HIBURAN", name: "Disney+ Hotstar", shortcut: "disney", logo: "https://ui-avatars.com/api/?name=D%2B&background=113CCF&color=fff&font-size=0.45", badges: ["HOT"], startPrice: "3.000", variants: [ {name: "Basic 3U (1 Hari)", price: "3.000"}, {name: "Prem 10U (1 Hari)", price: "4.000"}, {name: "Prem 10U (1 Bln)", price: "17.000"}, {name: "Private Prem (1 Bln)", price: "127.000"} ], details: "🏰 PRICELIST DISNEY+ HOTSTAR — AFIAR STORE 🏰\n(Khusus Region Indonesia)\n\n▪ Harian Basic (Sharing 3U)\n• 1 Hari : 3k | 3 Hari : 5k\n• 5 Hari : 7k | 7 Hari : 9k | 14 Hari : 17k\n\n▪ Harian Premium (10U | 6U | 3U)\n• 1 Hari : 4k | 5.5k | 7k\n• 3 Hari : 6k | 10k | 13k\n• 5 Hari : 8k | 14k | 16k\n• 7 Hari : 11k | 16k | 19k\n• 14 Hari : 14k | 20k | 27k\n\n▪ Bulanan Basic (1 Bulan)\n• Sharing (3U) : 28k\n• Anti Limit (2U) : 40k\n• Private : 77k\n\n▪ Bulanan Premium (1 Bulan)\n• Sharing (10U) : 17k | Sharing (8U) : 20k\n• Less Limit (6U) : 25k\n• Anti Limit (3U) : 47k\n• Private : 127k\n📌 Ketentuan:\n✅ Paid legal, full garansi, maks 1 device\n✅ Login via OTP (janjian terlebih dahulu)\n✅ Private menggunakan nomor HP customer (bebas provider)" },
+            { id: 18, cat: "STREAMING & HIBURAN", name: "Disney+ Hotstar", shortcut: "disney", logo: "https://ui-avatars.com/api/?name=D%2B&background=113CCF&color=fff&font-size=0.45", badges: [], startPrice: "3.000", variants: [ {name: "Basic 3U (1 Hari)", price: "3.000"}, {name: "Prem 10U (1 Hari)", price: "4.000"}, {name: "Prem 10U (1 Bln)", price: "17.000"}, {name: "Private Prem (1 Bln)", price: "127.000"} ], details: "PRICELIST DISNEY+ HOTSTAR — AFIAR STORE\n(Khusus Region Indonesia)\n\n▪ Harian Basic (Sharing 3U)\n• 1 Hari : 3k | 3 Hari : 5k\n• 5 Hari : 7k | 7 Hari : 9k | 14 Hari : 17k\n\n▪ Harian Premium (10U | 6U | 3U)\n• 1 Hari : 4k | 5.5k | 7k\n• 3 Hari : 6k | 10k | 13k\n• 5 Hari : 8k | 14k | 16k\n• 7 Hari : 11k | 16k | 19k\n• 14 Hari : 14k | 20k | 27k\n\n▪ Bulanan Basic (1 Bulan)\n• Sharing (3U) : 28k\n• Anti Limit (2U) : 40k\n• Private : 77k\n\n▪ Bulanan Premium (1 Bulan)\n• Sharing (10U) : 17k | Sharing (8U) : 20k\n• Less Limit (6U) : 25k\n• Anti Limit (3U) : 47k\n• Private : 127k\n📌 Ketentuan:\n✅ Paid legal, full garansi, maks 1 device\n✅ Login via OTP (janjian terlebih dahulu)\n✅ Private menggunakan nomor HP customer (bebas provider)" },
             { id: 19, cat: "STREAMING & HIBURAN", name: "Drakor ID", shortcut: "drakorid", logo: "https://ui-avatars.com/api/?name=DK&background=ff0055&color=fff", badges: [], startPrice: "2.000", variants: [ {name: "Sharing (1 Hari)", price: "2.000"}, {name: "Sharing (7 Hari)", price: "6.000"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "17.000"} ], details: "▪ Sharing (Maks 1 Device)\n• 1 Hari : 2k\n• 3 Hari : 3k\n• 5 Hari : 4k\n• 7 Hari : 6k\n• 1 Bulan : 8k\n• 3 Bulan : 11k\n• 6 Bulan : 15k\n• 1 Tahun : 17k\n📌 Ketentuan:\n✅ Akun dari seller, dilarang gonta-ganti device\n✅ Harian login Google (standby OTP), Bulanan/Tahunan login biasa" },
             { id: 20, cat: "STREAMING & HIBURAN", name: "HBO Max", shortcut: "hbomax", logo: "https://cdn.simpleicons.org/hbo/ffffff", badges: [], startPrice: "3.500", variants: [ {name: "Trik 4U (1 Hari)", price: "3.500"}, {name: "Legal Std (1 Hari)", price: "4.000"}, {name: "Legal Std (1 Bln)", price: "14.000"}, {name: "Legal Ult (1 Bln)", price: "19.000"} ], details: "▪ HBO Legal Paid — Sharing (Standard | Ultimate)\n• 1 Hari : 4k | 5.5k\n• 3 Hari : 6k | 7.5k\n• 5 Hari : 8k | 9.5k\n• 7 Hari : 9.5k | 11k\n• 14 Hari : 12k | 15k\n• 1 Bulan : 14k | 19k\n• 2 Bulan : 26k | 36k\n• 3 Bulan : 38k | 53k\n\n▪ HBO Legal Paid — Private 1 Bulan\n• Standard : 102k | Ultimate : 152k\n(Full garansi, login TV wajib beli 2 slot)\n\n▪ HBO Trik Paid (No Garansi — Standard)\n• Sharing 4U : 1 Hari (3.5k) | 3 Hari (4.5k) | 7 Hari (8.5k) | 1 Bulan (10.5k)\n• Private 1 Bulan : 27k\n(Bisa login TV tanpa biaya slot tambahan)" },
             { id: 21, cat: "STREAMING & HIBURAN", name: "iQIYI", shortcut: "iqiyi", logo: "https://ui-avatars.com/api/?name=IQ&background=00CC00&color=fff&font-size=0.45", badges: [], startPrice: "2.000", variants: [ {name: "Sharing Std (1 Hari)", price: "2.000"}, {name: "Sharing Std (1 Bln)", price: "6.000"}, {name: "Sharing Prem (1 Bln)", price: "7.000"}, {name: "Private Prem (1 Bln)", price: "37.000"} ], details: "▪ Sharing Standar (8U Biasa | 2U Anti Limit)\n• 1 Hari : 2k | 3.5k\n• 3 Hari : 2.2k | 5k\n• 7 Hari : 3k | 7k\n• 14 Hari : 5k | 10k\n• 1 Bulan (8U) : 6k | 3 Bulan : 9k | 6 Bulan : 14k\n• 1 Tahun (8U) : 17k (Gar 6B) | 23k (Gar 12B)\n\n▪ Sharing Premium (10U Biasa | 4U Anti Limit)\n• 1 Hari : 2.5k | 3 Hari : 3.5k | 7 Hari : 4.5k\n• 1 Bulan : 7k | 12k\n• 2 Bulan : 10k | 23k\n• 3 Bulan : 13k | 32k\n• 6 Bulan : 23k | 60k\n• 1 Tahun (Gar 12B) : 40k | 125k\n\n▪ Private (Standar | Premium)\n• 7 Hari : 11k | 16k\n• 14 Hari : 17k | 22k\n• 1 Bulan : 30k | 37k\n📌 Ketentuan:\n✅ Sharing maks 1 device (Harian login TV wajib beli 2 slot)\n✅ Private maks login 10 device" },
-            { id: 22, cat: "STREAMING & HIBURAN", name: "Vidio Platinum", shortcut: "vidio", logo: "https://ui-avatars.com/api/?name=Vidio&background=E50914&color=fff", badges: ["HOT"], startPrice: "5.000", variants: [ {name: "Private TV (1 Hari)", price: "5.000"}, {name: "Sharing 2U (1 Bln)", price: "17.000"}, {name: "Private TV (1 Bln)", price: "17.000"}, {name: "Private AllDev (1 Bln)", price: "39.000"} ], details: "▪ Sharing 2U (Mobile | All Device)\n• 1 Bulan : 17k | 23k\n• 2 Bulan : 31k | 45k\n• 3 Bulan : 46k | 63k\n\n▪ Private (TV Only | Mobile | All Device)\n• 1 Hari : 5k | 5k | 6k\n• 3 Hari : 7k | 7k | 8k\n• 5 Hari : 11k | 11k | 13k\n• 7 Hari : 13k | 13k | 16k\n• 1 Bulan : 17k | 29k | 39k\n• 2 Bulan : 31k | 55k | -\n• 3 Bulan : 45k | 78k | -\n📌 Ketentuan:\n✅ Mobile = Khusus HP/Tab/iPad\n✅ TV = Khusus Smart TV (Unlock Platinum, ada iklan)\n✅ AllDev = Bisa semua perangkat\n✅ Garansi Backfree, maks login 1 device" },
+            { id: 22, cat: "STREAMING & HIBURAN", name: "Vidio Platinum", shortcut: "vidio", logo: "https://ui-avatars.com/api/?name=Vidio&background=E50914&color=fff", badges: ["POPULER"], startPrice: "5.000", variants: [ {name: "Private TV (1 Hari)", price: "5.000"}, {name: "Sharing 2U (1 Bln)", price: "17.000"}, {name: "Private TV (1 Bln)", price: "17.000"}, {name: "Private AllDev (1 Bln)", price: "39.000"} ], details: "▪ Sharing 2U (Mobile | All Device)\n• 1 Bulan : 17k | 23k\n• 2 Bulan : 31k | 45k\n• 3 Bulan : 46k | 63k\n\n▪ Private (TV Only | Mobile | All Device)\n• 1 Hari : 5k | 5k | 6k\n• 3 Hari : 7k | 7k | 8k\n• 5 Hari : 11k | 11k | 13k\n• 7 Hari : 13k | 13k | 16k\n• 1 Bulan : 17k | 29k | 39k\n• 2 Bulan : 31k | 55k | -\n• 3 Bulan : 45k | 78k | -\n📌 Ketentuan:\n✅ Mobile = Khusus HP/Tab/iPad\n✅ TV = Khusus Smart TV (Unlock Platinum, ada iklan)\n✅ AllDev = Bisa semua perangkat\n✅ Garansi Backfree, maks login 1 device" },
             { id: 23, cat: "STREAMING & HIBURAN", name: "VIU Premium", shortcut: "viu", logo: "https://ui-avatars.com/api/?name=Viu&background=ffd700&color=000", badges: [], startPrice: "2.000", variants: [ {name: "Anti Limit (1 Hari)", price: "2.000"}, {name: "Biasa (1 Bln)", price: "4.000"}, {name: "Anti Limit (1 Bln)", price: "6.000"} ], details: "(Semua akun VIU adalah Private / 1 User)\n▪ Harian Anti Limit\n• 1 Hari : 2k | 2 Hari : 3k\n• 3 Hari : 3.5k | 7 Hari : 5k\n\n▪ Bulanan / Tahunan Anti Limit\n• 1 Bulan : 6k\n• 2 Bulan : 9k\n• 3 Bulan : 10k\n• 6 Bulan : 18k\n• 1 Tahun (Gar 6B) : 21k\n• Lifetime (Gar 6B) : 25k | (Gar 12B) : 30k\n\n▪ Private Biasa\n• 1 Bulan : 4k | 2 Bulan : 6k\n• 3 Bulan : 7k | 6 Bulan : 12k\n• 1 Tahun (Gar 6B) : 13k" },
             { id: 24, cat: "STREAMING & HIBURAN", name: "WeTV VIP", shortcut: "wetv", logo: "https://ui-avatars.com/api/?name=WeTV&background=0055ff&color=fff", badges: [], startPrice: "3.000", variants: [ {name: "Harian (1 Hari)", price: "3.000"}, {name: "Sharing 6U (1 Bln)", price: "9.000"}, {name: "Sharing 3U TV (1 Bln)", price: "14.000"}, {name: "Private (1 Bln)", price: "32.000"} ], details: "▪ Harian\n• 1 Hari : 3k | 3 Hari : 3.5k\n• 5 Hari : 4k | 7 Hari : 5k | 14 Hari : 7k\n\n▪ Sharing Bulanan (6U | 3U Less Limit | 2U Anti Limit)\n• 1 Bulan : 9k | 14k | 20k\n• 2 Bulan : 16k | 26k | 38k\n• 3 Bulan : 23k | 38k | 56k\n\n▪ Private\n• 7 Hari : 11k\n• 14 Hari : 20k\n• 1 Bulan : 32k\n• 2 Bulan : 62k\n• 3 Bulan : 88k\n📌 Ketentuan:\n✅ Maks login 1 device\n✅ Login TV wajib pilih Less Limit (3U) / Anti Limit (2U) / Private" },
             { id: 25, cat: "CREATIVE & EDITING", name: "Canva Pro / Edu", shortcut: "canva", logo: "https://ui-avatars.com/api/?name=CV&background=00C4CC&color=fff&font-size=0.45", badges: ["BEST SELLER"], startPrice: "1.500", variants: [ {name: "Member Pro (1 Hari)", price: "1.500"}, {name: "Member Pro (1 Bln)", price: "4.000"}, {name: "Edu Private (1 Bln)", price: "6.000"}, {name: "Edu Private (Life)", price: "20.000"} ], details: "▪ Canva Member Pro (Invite Email Cust)\n• 1 Hari : 1.5k | 2 Hari : 1.6k | 3 Hari : 1.7k\n• 5 Hari : 1.9k | 7 Hari : 2k\n• 1 Bulan : 4k | 2 Bulan : 6k | 3 Bulan : 7k\n• 4 Bulan : 9k | 5 Bulan : 10k\n(Role Designer: Harian +500p / Bulanan +1k)\n\n▪ Canva Education (Private | Sharing)\n• 1 Hari : 2k | 1.5k\n• 3 Hari : 3k | 2k\n• 7 Hari : 4k | 2.5k\n• 1 Bulan : 6k | 4k\n• 3 Bulan : 9k | 6k\n• 6 Bulan : 15k | 10k\n• Lifetime (Gar 6B) : 18k | 12k\n• Lifetime (Gar 12B) : 20k | 13k\n\n▪ Team Pro Business (Head 99 Member | Admin 20 Member)\n• Head 1 Bln : 37k (Nogar) | 47k (Fullgar)\n• Admin 1 Bln : 29k (Nogar) | 34k (Fullgar)" },
-            { id: 26, cat: "CREATIVE & EDITING", name: "CapCut Pro", shortcut: "capcut", logo: "https://ui-avatars.com/api/?name=CC&background=1a202c&color=fff&font-size=0.45", badges: ["HOT"], startPrice: "5.000", variants: [ {name: "Sharing 2U (1 Hari)", price: "5.000"}, {name: "Private (1 Hari)", price: "7.000"}, {name: "Sharing 2U (1 Bln)", price: "22.000"}, {name: "Private (1 Bln)", price: "42.000"} ], details: "▪ CapCut Pro — Sharing 2U (Andro/iOS/Web)\n• 1 Hari : 5k | 3 Hari : 8k\n• 5 Hari : 9.5k | 7 Hari : 13k\n• 14 Hari : 17k | 1 Bulan : 22k\n\n▪ CapCut Pro — Private (Andro/iOS/Web)\n• 1 Hari : 7k | 3 Hari : 11k\n• 5 Hari : 14k | 7 Hari : 21k\n• 14 Hari : 32k\n• 1 Bulan : 37k (Nogar) | 42k (Fullgar)\n\n▪ CapCut Standar (Sharing 2U | Private)\n• 7 Hari : 9k | 11k\n• 14 Hari : 12k | 20k\n• 1 Bulan : 20k | 37k\n\n• Link Trial 7 Hari : 13k/link (Hit sendiri)\n📌 Ketentuan:\n✅ Garansi Backfree (BF)\n⚠️ Akses di PC/Laptop wajib via Website (bukan aplikasi desktop)" },
+            { id: 26, cat: "CREATIVE & EDITING", name: "CapCut Pro", shortcut: "capcut", logo: "https://ui-avatars.com/api/?name=CC&background=1a202c&color=fff&font-size=0.45", badges: ["POPULER"], startPrice: "5.000", variants: [ {name: "Sharing 2U (1 Hari)", price: "5.000"}, {name: "Private (1 Hari)", price: "7.000"}, {name: "Sharing 2U (1 Bln)", price: "22.000"}, {name: "Private (1 Bln)", price: "42.000"} ], details: "▪ CapCut Pro — Sharing 2U (Andro/iOS/Web)\n• 1 Hari : 5k | 3 Hari : 8k\n• 5 Hari : 9.5k | 7 Hari : 13k\n• 14 Hari : 17k | 1 Bulan : 22k\n\n▪ CapCut Pro — Private (Andro/iOS/Web)\n• 1 Hari : 7k | 3 Hari : 11k\n• 5 Hari : 14k | 7 Hari : 21k\n• 14 Hari : 32k\n• 1 Bulan : 37k (Nogar) | 42k (Fullgar)\n\n▪ CapCut Standar (Sharing 2U | Private)\n• 7 Hari : 9k | 11k\n• 14 Hari : 12k | 20k\n• 1 Bulan : 20k | 37k\n\n• Link Trial 7 Hari : 13k/link (Hit sendiri)\n📌 Ketentuan:\n✅ Garansi Backfree (BF)\n⚠️ Akses di PC/Laptop wajib via Website (bukan aplikasi desktop)" },
             { id: 27, cat: "CREATIVE & EDITING", name: "Adobe Express", shortcut: "adobe", logo: "https://ui-avatars.com/api/?name=AD&background=FF0000&color=fff&font-size=0.45", badges: [], startPrice: "5.000", variants: [ {name: "Sharing (5 Hari)", price: "5.000"}, {name: "Sharing (1 Bln)", price: "14.000"}, {name: "Private (1 Bln)", price: "17.000"} ], details: "▪ Sharing\n• 5 Hari : 5k\n• 7 Hari : 6k\n• 1 Bulan : 14k\n\n▪ Private\n• 7 Hari : 6k\n• 14 Hari : 9k\n• 1 Bulan : 17k\n📌 Ketentuan:\n✅ Sistem pinjam akun Adobe (Support iOS & Android)\n✅ Sertakan email saat order untuk pengiriman akun" },
             { id: 28, cat: "CREATIVE & EDITING", name: "Alight Motion", shortcut: "am", logo: "https://ui-avatars.com/api/?name=AM&background=1a202c&color=fff", badges: [], startPrice: "1.800", variants: [ {name: "Sharing (1 Hari)", price: "1.800"}, {name: "Sharing (1 Bln)", price: "6.000"}, {name: "Private (1 Bln)", price: "10.000"}, {name: "Private (1 Thn)", price: "17.000"} ], details: "▪ Sharing\n• 1 Hari : 1.8k | 2 Hari : 2k\n• 3 Hari : 2.5k | 5 Hari : 3.5k\n• 7 Hari : 4.5k\n• 1 Bulan : 6k\n• 1 Tahun (Link - Gar 6B) : 11k\n\n▪ Private\n• 1 Bulan : 10k\n• 1 Tahun (Gar 6B) : 17k\n(Private pakai akun seller +2k)\n📌 Ketentuan:\n✅ Support iOS & Android" },
             { id: 29, cat: "CREATIVE & EDITING", name: "InShot Pro", shortcut: "inshot", logo: "https://ui-avatars.com/api/?name=IS&background=ff0055&color=fff", badges: [], startPrice: "15.000", variants: [ {name: "Lifetime Android", price: "15.000"} ], details: "▪ Sharing Lifetime\n• Android : 15k\n• iOS : (Stok Kosong)\n📌 Ketentuan:\n✅ Garansi 6 Bulan\n✅ Sistem pinjam akun Google (Standby OTP)" },
@@ -762,29 +1276,258 @@
             { id: 32, cat: "CREATIVE & EDITING", name: "Remini Pro (App)", shortcut: "reminiapp", logo: "https://ui-avatars.com/api/?name=Re&background=ff0055&color=fff", badges: [], startPrice: "3.200", variants: [ {name: "Sharing Andro (1H)", price: "3.200"}, {name: "Private (1 Hari)", price: "4.000"}, {name: "Sharing Andro (1B)", price: "15.000"}, {name: "Sharing 1T (Gar 6B)", price: "29.000"} ], details: "▪ Sharing Android\n• 1 Hari : 3.2k | 3 Hari : 3.5k\n• 5 Hari : 4.5k | 7 Hari : 5.5k\n• 14 Hari : 9k | 1 Bulan : 15k\n• 2 Bulan : 19k | 3 Bulan : 21k | 6 Bulan : 25k\n• 1 Tahun : 20k (Nogar) | 29k (Fullgar 6B) | 45k (Fullgar 12B)\n\n▪ Private\n• 1 Hari : 4k | 3 Hari : 6k\n• 5 Hari : 8k | 7 Hari : 10k\n📌 Ketentuan:\n✅ Sistem pinjam akun Google seller (Maks 1 device)" },
             { id: 33, cat: "CREATIVE & EDITING", name: "Remini Web", shortcut: "reminiweb", logo: "https://ui-avatars.com/api/?name=RW&background=ff0055&color=fff", badges: [], startPrice: "3.000", variants: [ {name: "Sharing Web (1 Hari)", price: "3.000"}, {name: "Private Web (1 Hari)", price: "4.000"}, {name: "Sharing Web (1 Bln)", price: "9.000"}, {name: "Private Web (7 Hari)", price: "10.000"} ], details: "▪ Sharing\n• 1 Hari : 3k | 3 Hari : 3.5k\n• 5 Hari : 4k | 7 Hari : 5k\n• 14 Hari : 7k | 1 Bulan : 9k\n\n▪ Private\n• 1 Hari : 4k | 3 Hari : 6k\n• 5 Hari : 8k | 7 Hari : 10k\n📌 Ketentuan:\n✅ Login akun Google via website Remini (Maks 1 device)" },
             { id: 34, cat: "PRODUCTIVITY & EDU", name: "Microsoft 365", shortcut: "m365", logo: "https://ui-avatars.com/api/?name=MS&background=00a4ef&color=fff&font-size=0.45", badges: ["PROMO"], startPrice: "2.000", variants: [ {name: "Sharing Seller (1H)", price: "2.000"}, {name: "Invite Cust (1 Bln)", price: "6.000"}, {name: "Private Indplan (1B)", price: "14.000"}, {name: "Private Famhead (1B)", price: "22.000"} ], details: "▪ Member Invite (Akun Cust) | Sharing (Akun Seller)\n• 1 Hari : 2.5k | 2k\n• 3 Hari : 3.5k | 2.3k\n• 5 Hari : 4k | 2.5k\n• 7 Hari : 4.5k | 2.8k\n• 1 Bulan : 6k | 4k\n• 2 Bulan : 9k | 6k\n• 3 Bulan : 12k | 7.5k\n\n▪ Private Indplan\n• 1 Bulan : 14k | 2 Bulan : 20k\n\n▪ Private Famhead (Bisa Invite 5 Member)\n• 1 Bulan : 22k\n📌 Ketentuan:\n✅ Member Invite cukup kirimkan email ke admin" },
-            { id: 35, cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", shortcut: "zoom", logo: "https://cdn.simpleicons.org/zoom/0B5CFF", badges: ["HOT"], startPrice: "4.000", variants: [ {name: "Room Link 100p (1 Jam)", price: "4.000"}, {name: "Sewa Akun 100p (1 Jam)", price: "5.000"}, {name: "Room Link 100p (1 Hari)", price: "9.000"}, {name: "Private 100p (1 Bln)", price: "42.000"} ], details: "▪ Sewa Room Zoom via Link (100p | 300p | 500p)\n• 1 Jam : 4k | 8k | 23k\n• 1 Hari : 9k | 23k | 44k\n• 2 Hari : 13k | 35k | 71k\n• 3 Hari : 16k | 38k | 101k\n• 7 Hari : 21k | 48k | 201k\n\n▪ Sewa Akun Email+Pass (100p | 300p)\n• 1 Jam : 5k | 9k\n• 2 Jam : 7k | 13k\n• 1 Hari : 11k | 21k\n• 3 Hari : 18k | 36k\n• 7 Hari : 23k | 46k\n\n▪ Zoom Private Bulanan (100p | 300p | 500p)\n• 14 Hari : 22k | 102k | 252k\n• 1 Bulan : 42k | 152k | 352k\n📌 Ketentuan:\n✅ Order minimal 1-2 jam sebelum acara dimulai" },
+            { id: 35, cat: "PRODUCTIVITY & EDU", name: "Zoom Pro", shortcut: "zoom", logo: "https://cdn.simpleicons.org/zoom/0B5CFF", badges: [], startPrice: "4.000", variants: [ {name: "Room Link 100p (1 Jam)", price: "4.000"}, {name: "Sewa Akun 100p (1 Jam)", price: "5.000"}, {name: "Room Link 100p (1 Hari)", price: "9.000"}, {name: "Private 100p (1 Bln)", price: "42.000"} ], details: "▪ Sewa Room Zoom via Link (100p | 300p | 500p)\n• 1 Jam : 4k | 8k | 23k\n• 1 Hari : 9k | 23k | 44k\n• 2 Hari : 13k | 35k | 71k\n• 3 Hari : 16k | 38k | 101k\n• 7 Hari : 21k | 48k | 201k\n\n▪ Sewa Akun Email+Pass (100p | 300p)\n• 1 Jam : 5k | 9k\n• 2 Jam : 7k | 13k\n• 1 Hari : 11k | 21k\n• 3 Hari : 18k | 36k\n• 7 Hari : 23k | 46k\n\n▪ Zoom Private Bulanan (100p | 300p | 500p)\n• 14 Hari : 22k | 102k | 252k\n• 1 Bulan : 42k | 152k | 352k\n📌 Ketentuan:\n✅ Order minimal 1-2 jam sebelum acara dimulai" },
             { id: 36, cat: "PRODUCTIVITY & EDU", name: "CamScanner", shortcut: "camscanner", logo: "https://ui-avatars.com/api/?name=CS&background=00ff66&color=000", badges: [], startPrice: "4.000", variants: [ {name: "Sharing Prem (3 Hari)", price: "4.000"}, {name: "Sharing Edu (1 Bln)", price: "7.000"}, {name: "Private Edu (1 Bln)", price: "12.000"}, {name: "Private Prem (1 Bln)", price: "17.000"} ], details: "▪ Sharing Premium\n• 3 Hari : 4k | 7 Hari : 6k | 14 Hari : 9k\n• 1 Bulan : 10k | 6 Bulan : 15k | 1 Tahun : 17k\n\n▪ Sharing Education\n• 1 Bulan : 7k | 3 Bulan : 9k\n• 6 Bulan : 12k | 1 Tahun : 14k\n\n▪ Private Premium\n• 3 Hari : 6k | 7 Hari : 8k\n• 14 Hari : 12k | 1 Bulan : 17k\n\n▪ Private Education\n• 1 Bulan : 12k | 6 Bulan : 20k | 1 Tahun : 25k\n📌 Ketentuan:\n✅ Akun dari seller, Garansi Backfree (Tahunan garansi 6B)" },
             { id: 37, cat: "PRODUCTIVITY & EDU", name: "GetContact Premium", shortcut: "getcontact", logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: [], startPrice: "2.000", variants: [ {name: "Private Nogar (1 Hari)", price: "2.000"}, {name: "Private Fullgar (1 Hari)", price: "3.000"}, {name: "Private Nogar (1 Bln)", price: "7.000"}, {name: "Private Fullgar (1 Bln)", price: "12.000"} ], details: "▪ Private (Nomor HP Customer)\n• 1 Hari : 2k (Nogar) | 3k (Fullgar)\n• 3 Hari : 4k (Fullgar)\n• 5 Hari : 5k (Fullgar)\n• 7 Hari : 3.8k (Nogar) | 6k (Fullgar)\n• 1 Bulan : 7k (Nogar) | 12k (Fullgar)\n📌 Keuntungan & Ketentuan:\n✅ Bebas iklan, lihat siapa yang mengecek tag nomor Anda, & lencana premium\n✅ Wajib standby OTP saat proses aktivasi" },
             { id: 38, cat: "PRODUCTIVITY & EDU", name: "GoodNotes 6", shortcut: "goodnotes", logo: "https://ui-avatars.com/api/?name=GN&background=00f0ff&color=000", badges: [], startPrice: "19.000", variants: [ {name: "Lifetime iOS / iPadOS", price: "19.000"} ], details: "▪ Sharing iOS / iPadOS\n• Lifetime : 19k\n📌 Ketentuan:\n✅ Garansi 6 Bulan\n✅ Sistem pinjam Apple ID seller" },
             { id: 39, cat: "PRODUCTIVITY & EDU", name: "Wattpad Premium", shortcut: "wattpad", logo: "https://cdn.simpleicons.org/wattpad/FF500A", badges: [], startPrice: "2.800", variants: [ {name: "Sharing (1 Hari)", price: "2.800"}, {name: "Sharing (7 Hari)", price: "6.000"}, {name: "Sharing (1 Bln)", price: "8.000"}, {name: "Sharing (1 Thn)", price: "17.000"} ], details: "▪ Sharing (Tanpa Iklan)\n• 1 Hari : 2.8k | 3 Hari : 3.5k\n• 5 Hari : 4.5k | 7 Hari : 6k\n• 1 Bulan : 8k | 3 Bulan : 11k\n• 6 Bulan : 15k | 1 Tahun : 17k\n📌 Ketentuan:\n✅ Bebas iklan (Tidak termasuk Paid Story/Koin)\n✅ Akun dari seller (1 Tahun garansi 6 bulan)" },
-            { id: 40, cat: "PRODUCTIVITY & EDU", name: "Jasa Cek GTC", shortcut: "gtc", logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: ["NEW"], startPrice: "1.000", variants: [ {name: "1 Cek Nomor", price: "1.000"}, {name: "3 Cek Nomor", price: "2.700"}, {name: "5 Cek Nomor", price: "4.500"} ], details: "▪ Jasa Cek GetContact (GTC)\n• 1 Cek Nomor : 1.000p\n• 3 Cek Nomor : 2.7k\n• 5 Cek Nomor : 4.5k\n📌 Catatan:\n✅ Dikirim hasil screenshot/video record tag nomor.\n✅ Jika melebihi 50 tag maka akan direcord!\n⚠️ Tidak ada refund apabila dicek nomor diprivate atau tidak ada tag (slot akun tetap berkurang)." }
+            { id: 40, cat: "PRODUCTIVITY & EDU", name: "Jasa Cek GTC", shortcut: "gtc", logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: [], startPrice: "1.000", variants: [ {name: "1 Cek Nomor", price: "1.000"}, {name: "3 Cek Nomor", price: "2.700"}, {name: "5 Cek Nomor", price: "4.500"} ], details: "▪ Jasa Cek GetContact (GTC)\n• 1 Cek Nomor : 1.000p\n• 3 Cek Nomor : 2.7k\n• 5 Cek Nomor : 4.5k\n📌 Catatan:\n✅ Dikirim hasil screenshot/video record tag nomor.\n✅ Jika melebihi 50 tag maka akan direcord!\n⚠️ Tidak ada refund apabila dicek nomor diprivate atau tidak ada tag (slot akun tetap berkurang)." }
         ];
 
         const grid = document.getElementById('productGrid');
         const countText = document.getElementById('productCount');
+
+        function parsePriceValue(priceStr) {
+            const num = parseInt(String(priceStr).replace(/[^0-9]/g, ''), 10);
+            return isNaN(num) ? 999999 : num;
+        }
+
+        function triggerRender() {
+            const activeCatEl = document.querySelector('.cat-tab.active');
+            const activeCat = activeCatEl ? activeCatEl.dataset.cat : 'all';
+            const searchQ = document.getElementById('searchInput').value;
+            renderProducts(activeCat, searchQ);
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = '';
+            document.getElementById('clearSearchBtn').style.display = 'none';
+            triggerRender();
+        }
+
+        const heroSpotlights = [
+            {
+                prodId: 4,
+                tag: "BEST VALUE • HEMAT 26%",
+                category: "AI & Cloud Storage",
+                subtitle: "Include VEO3 & GDrive 2-5 TB",
+                title: "Gemini AI Pro + Google One",
+                desc: "Paket paling worth it untuk produktivitas & penyimpanan lega 2–5 TB. Tersedia pilihan Sharing maupun Private Invite ke akun sendiri.",
+                price: "Mulai Rp 2.200",
+                strike: "Rp 3.000",
+                bgGradient: "radial-gradient(circle at 75% 40%, rgba(142, 117, 178, 0.45), rgba(15, 19, 28, 0.95) 70%)",
+                cardBg: "linear-gradient(135deg, rgba(142, 117, 178, 0.35), rgba(30, 41, 59, 0.8))",
+                featureLabel: "GDrive 2-5 TB + VEO3"
+            },
+            {
+                prodId: 1,
+                tag: "PALING DICARI • HEMAT 23%",
+                category: "AI & Intelligence",
+                subtitle: "Paid Legal • Garansi Backfree",
+                title: "ChatGPT Plus",
+                desc: "Akses cepat untuk bantuan tugas, riset, analisis data, hingga coding harian. Tersedia paket Harian, Mingguan, hingga Bulanan.",
+                price: "Mulai Rp 5.000",
+                strike: "Rp 6.500",
+                bgGradient: "radial-gradient(circle at 75% 40%, rgba(0, 240, 255, 0.32), rgba(15, 19, 28, 0.95) 70%)",
+                cardBg: "linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(15, 23, 42, 0.85))",
+                featureLabel: "Paid Legal • Standby OTP"
+            },
+            {
+                prodId: 10,
+                tag: "BEST SELLER • HEMAT 20%",
+                category: "Streaming & Hiburan",
+                subtitle: "Support iOS, Android, Laptop & TV",
+                title: "Netflix Premium Plan",
+                desc: "Nonton film & series kualitas Ultra HD tanpa iklan. Tersedia paket Harian mulai Rp 3.000 dan Bulanan Legal Indo mulai Rp 20.000.",
+                price: "Mulai Rp 20.000 / bln",
+                strike: "Rp 25.000",
+                bgGradient: "radial-gradient(circle at 75% 40%, rgba(229, 9, 20, 0.42), rgba(15, 19, 28, 0.95) 70%)",
+                cardBg: "linear-gradient(135deg, rgba(229, 9, 20, 0.35), rgba(15, 23, 42, 0.85))",
+                featureLabel: "1P2U • 1P1U • Semi Private"
+            },
+            {
+                prodId: 25,
+                tag: "FAVORIT KREATOR • HEMAT 25%",
+                category: "Creative & Editing",
+                subtitle: "Invite Email Customer",
+                title: "Canva Pro & Education",
+                desc: "Buka seluruh elemen premium, fitur hapus background, dan template desain secara instan cukup menggunakan alamat email Anda.",
+                price: "Mulai Rp 1.500",
+                strike: "Rp 2.000",
+                bgGradient: "radial-gradient(circle at 75% 40%, rgba(0, 196, 204, 0.38), rgba(15, 19, 28, 0.95) 70%)",
+                cardBg: "linear-gradient(135deg, rgba(0, 196, 204, 0.3), rgba(15, 23, 42, 0.85))",
+                featureLabel: "Harian • Bulanan • Lifetime"
+            },
+            {
+                prodId: 22,
+                tag: "OLAHRAGA & SERIES • HEMAT 23%",
+                category: "Streaming & Hiburan",
+                subtitle: "Mobile • Smart TV • All Device",
+                title: "Vidio Platinum",
+                desc: "Nikmati tayangan olahraga, liga sepak bola, hingga Express Series pilihan. Tersedia paket Harian maupun Bulanan bergaransi.",
+                price: "Mulai Rp 5.000",
+                strike: "Rp 6.500",
+                bgGradient: "radial-gradient(circle at 75% 40%, rgba(225, 29, 72, 0.4), rgba(15, 19, 28, 0.95) 70%)",
+                cardBg: "linear-gradient(135deg, rgba(225, 29, 72, 0.32), rgba(15, 23, 42, 0.85))",
+                featureLabel: "Garansi Backfree S&K"
+            },
+            {
+                prodId: 12,
+                tag: "PROMO • HEMAT 17%",
+                category: "Streaming & Musik",
+                subtitle: "Include YouTube Music",
+                title: "YouTube Premium",
+                desc: "Streaming video dan musik bebas iklan serta putar di latar belakang. Tersedia opsi Sharing, Famplan Invite, hingga Indplan.",
+                price: "Mulai Rp 5.000 / bln",
+                strike: "Rp 6.000",
+                bgGradient: "radial-gradient(circle at 75% 40%, rgba(255, 0, 0, 0.38), rgba(15, 19, 28, 0.95) 70%)",
+                cardBg: "linear-gradient(135deg, rgba(255, 0, 0, 0.3), rgba(15, 23, 42, 0.85))",
+                featureLabel: "Full Garansi Selama Durasi"
+            }
+        ];
+
+        let currentHeroIdx = 0;
+        let heroAutoTimer = null;
+
+        function initHeroCarousel() {
+            const slidesContainer = document.getElementById('heroSlidesContainer');
+            const dotsContainer = document.getElementById('heroDotsContainer');
+            const carouselEl = document.getElementById('heroCarousel');
+            if (!slidesContainer || !dotsContainer) return;
+
+            slidesContainer.innerHTML = '';
+            dotsContainer.innerHTML = '';
+
+            heroSpotlights.forEach((item, index) => {
+                const prod = products.find(p => p.id === item.prodId);
+                if (!prod) return;
+
+                const slide = document.createElement('div');
+                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+                slide.style.background = item.bgGradient;
+
+                slide.innerHTML = `
+                    <div class="hero-top-tag">${item.tag}</div>
+                    <div class="hero-visual">
+                        <div class="showcase-card" style="background: ${item.cardBg};">
+                            <img src="${prod.logo}" alt="${item.title}">
+                            <span class="showcase-card-label">${item.featureLabel}</span>
+                        </div>
+                    </div>
+                    <div class="hero-gradient-overlay"></div>
+                    <div class="hero-content">
+                        <div class="hero-meta-row">
+                            <span class="hero-meta-cat">${item.category}</span>
+                            <span>•</span>
+                            <span>${item.subtitle}</span>
+                        </div>
+                        <h2 class="hero-slide-title">${item.title}</h2>
+                        <p class="hero-slide-desc">${item.desc}</p>
+                        <div class="hero-price-highlight">
+                            <span class="hero-price-main">${item.price}</span>
+                            <span class="hero-price-strike">${item.strike}</span>
+                        </div>
+                        <div class="hero-btn-group">
+                            <button type="button" class="btn-hero-primary" onclick="openHeroProduct(${item.prodId})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                                <span>Cek Sekarang</span>
+                            </button>
+                            <button type="button" class="btn-hero-secondary" onclick="openPaymentModal()">
+                                <span>QRIS / Bayar</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                slidesContainer.appendChild(slide);
+
+                const dot = document.createElement('button');
+                dot.className = `hero-dot ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('aria-label', `Slide ${index + 1}`);
+                dot.onclick = () => goToHeroSlide(index);
+                dotsContainer.appendChild(dot);
+            });
+
+            startHeroAutoPlay();
+
+            // Support Swipe Kiri/Kanan di Layar Sentuh HP
+            let touchStartX = 0;
+            let touchEndX = 0;
+            carouselEl.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopHeroAutoPlay();
+            }, { passive: true });
+
+            carouselEl.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 40) {
+                    changeHeroSlide(1);
+                } else if (touchEndX - touchStartX > 40) {
+                    changeHeroSlide(-1);
+                } else {
+                    startHeroAutoPlay();
+                }
+            }, { passive: true });
+
+            carouselEl.addEventListener('mouseenter', stopHeroAutoPlay);
+            carouselEl.addEventListener('mouseleave', startHeroAutoPlay);
+        }
+
+        function goToHeroSlide(idx) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            if (!slides.length) return;
+
+            currentHeroIdx = (idx + slides.length) % slides.length;
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentHeroIdx));
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentHeroIdx));
+            startHeroAutoPlay();
+        }
+
+        function changeHeroSlide(step) {
+            goToHeroSlide(currentHeroIdx + step);
+        }
+
+        function startHeroAutoPlay() {
+            stopHeroAutoPlay();
+            heroAutoTimer = setInterval(() => {
+                goToHeroSlide(currentHeroIdx + 1);
+            }, 4800);
+        }
+
+        function stopHeroAutoPlay() {
+            if (heroAutoTimer) clearInterval(heroAutoTimer);
+        }
+
+        function openHeroProduct(prodId) {
+            const prod = products.find(p => p.id === prodId);
+            if (prod) openModal(prod);
+        }
         
         function renderProducts(filterCat = 'all', searchQ = '') {
             grid.innerHTML = '';
-            const filtered = products.filter(p => {
+            const sortMode = document.getElementById('sortSelect') ? document.getElementById('sortSelect').value : 'default';
+
+            let filtered = products.filter(p => {
                 const matchCat = filterCat === 'all' || p.cat === filterCat;
-                const matchSearch = p.name.toLowerCase().includes(searchQ.toLowerCase()) || p.shortcut.toLowerCase().includes(searchQ.toLowerCase());
+                const matchSearch = p.name.toLowerCase().includes(searchQ.toLowerCase()) 
+                    || p.shortcut.toLowerCase().includes(searchQ.toLowerCase())
+                    || p.details.toLowerCase().includes(searchQ.toLowerCase());
                 return matchCat && matchSearch;
             });
+
+            if (sortMode === 'price_asc') {
+                filtered.sort((a, b) => parsePriceValue(a.startPrice) - parsePriceValue(b.startPrice));
+            } else if (sortMode === 'popular') {
+                filtered.sort((a, b) => (window.productViewsData[b.id] || 0) - (window.productViewsData[a.id] || 0));
+            } else if (sortMode === 'name_asc') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            }
 
             countText.innerText = `Menampilkan ${filtered.length} Layanan`;
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 20px;">Produk tidak ditemukan. Coba kata kunci lain.</div>';
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 32px 16px; background: #131720; border-radius: 12px; border: 1px dashed #222938; font-size: 0.82rem;">Layanan tidak ditemukan. Silakan gunakan kata kunci lain atau tanyakan langsung ke Admin.</div>`;
                 return;
             }
 
@@ -794,9 +1537,12 @@
                 
                 let badgeHTML = '';
                 if (p.badges.length > 0) {
-                    let bClass = p.badges[0].includes('HOT') || p.badges[0].includes('BEST') ? 'hot' : 'promo';
+                    let bClass = p.badges[0] === 'PROMO' ? 'promo' : '';
                     badgeHTML = `<div class="badge ${bClass}">${p.badges[0]}</div>`;
                 }
+
+                const currentViews = window.productViewsData[p.id] || 0;
+                const promoInfo = strategicPromoMap[p.id];
                 
                 card.innerHTML = `
                     ${badgeHTML}
@@ -804,11 +1550,20 @@
                         <img src="${p.logo}" class="prod-logo" alt="${p.name}" loading="lazy">
                     </div>
                     <div class="prod-name">${p.name}</div>
-                    <div class="prod-price">Mulai Rp ${p.startPrice}</div>
-                    <div class="prod-sold">
-                        <span id="view-count-${p.id}" class="view-badge">👁 0</span> 
-                        <span style="margin: 0 4px; opacity: 0.5;">•</span> 
-                        <span class="dot"></span> Garansi S&K
+                    <div class="price-container">
+                        ${promoInfo ? `
+                        <div class="price-anchor-row">
+                            <span class="price-strike">Rp ${promoInfo.strike}</span>
+                            <span class="disc-tag">${promoInfo.label}</span>
+                        </div>` : ''}
+                        <div class="prod-price">Mulai Rp ${p.startPrice}</div>
+                    </div>
+                    <div class="prod-meta">
+                        <div class="meta-status">
+                            <span class="dot"></span>
+                            <span>Garansi S&K</span>
+                        </div>
+                        <span id="view-count-${p.id}" class="text-slate-400 font-medium">${currentViews}x dilihat</span>
                     </div>
                 `;
                 card.onclick = () => openModal(p);
@@ -816,63 +1571,86 @@
             });
         }
 
+        initHeroCarousel();
         renderProducts();
 
         function filterCat(cat, elem) {
-            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.cat-tab').forEach(el => el.classList.remove('active'));
             if (elem) elem.classList.add('active');
             renderProducts(cat, document.getElementById('searchInput').value);
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
-            const activeCat = document.querySelector('.cat-item.active').dataset.cat;
-            renderProducts(activeCat, e.target.value);
+            const val = e.target.value;
+            document.getElementById('clearSearchBtn').style.display = val.length > 0 ? 'block' : 'none';
+            const activeCat = document.querySelector('.cat-tab.active').dataset.cat;
+            renderProducts(activeCat, val);
         });
 
         const modal = document.getElementById('bottomSheet');
         let currentProd = null;
+        let currentVariant = null;
 
-        function openByShortcut(shortcutKey) {
-            const found = products.find(p => p.shortcut.toLowerCase() === shortcutKey.toLowerCase());
-            if (found) openModal(found);
-        }
-
-        // Fungsi Share Pricelist Link untuk dibagikan ke Story / WA / Teman
         function shareCurrentProduct() {
             if (!currentProd) return;
-            const deepLink = `https://aryaarafiiarhmt.github.io/Store/?item=${currentProd.shortcut}&utm_source=igstory`;
-            const shareText = `⚡ *${currentProd.name} — AFIAR STORE*\n\nTersedia pilihan paket Harian hingga Bulanan mulai *Rp ${currentProd.startPrice}* (Transparan & Garansi S&K Berlaku).\n\nCek rincian paket & ketersediaan stok langsung di portal resmi:\n🔗 ${deepLink}`;
-            copyStoryLink(shareText, `Pricelist Link ${currentProd.name} berhasil disalin!`);
+            const deepLink = `https://aryaarafiiarhmt.github.io/Store/?item=${currentProd.shortcut}`;
+            const promoInfo = strategicPromoMap[currentProd.id];
+            const priceText = promoInfo ? `~Rp ${promoInfo.strike}~ *Rp ${currentProd.startPrice}* (${promoInfo.label})` : `*Rp ${currentProd.startPrice}*`;
+            const shareText = `*${currentProd.name} — AFIAR STORE*\n\nTersedia paket mulai ${priceText} • Transparan & Garansi S&K Berlaku.\n\nLihat rincian paket & cek stok di katalog resmi:\n${deepLink}\n\nBukti Transaksi & Testimoni: https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i`;
+            copyStoryLink(shareText, `Tautan ${currentProd.name} berhasil disalin`);
+        }
+
+        function formatDetailsHTML(rawText) {
+            const lines = rawText.split('\n');
+            return lines.map(line => {
+                const trimmed = line.trim();
+                if (!trimmed) return '<div class="h-2"></div>';
+                if (trimmed.startsWith('▪')) {
+                    return `<div class="text-cyan-300 font-bold text-xs mt-2.5 mb-1 border-l-2 border-cyan-400 pl-2">${trimmed.replace('▪', '').trim()}</div>`;
+                }
+                if (trimmed.startsWith('📌')) {
+                    return `<div class="text-amber-300 font-bold text-xs mt-3 mb-1 uppercase tracking-wide">${trimmed.replace('📌', '').trim()}</div>`;
+                }
+                if (trimmed.startsWith('✅')) {
+                    return `<div class="text-emerald-300 text-[11px] py-0.5">• ${trimmed.replace('✅', '').trim()}</div>`;
+                }
+                if (trimmed.startsWith('⚠️')) {
+                    return `<div class="text-rose-300 text-[11px] py-0.5 font-medium">Catatan: ${trimmed.replace('⚠️', '').trim()}</div>`;
+                }
+                return `<div class="text-slate-300 text-xs py-0.5">${trimmed}</div>`;
+            }).join('');
         }
 
         function openModal(prod) {
             currentProd = prod;
+
             document.getElementById('modalHeaderInfo').style.display = 'flex';
             document.getElementById('modalLogo').src = prod.logo;
+            document.getElementById('modalCatBadge').innerText = prod.cat;
             document.getElementById('modalTitle').innerText = prod.name;
-            document.getElementById('modalDetails').innerText = prod.details;
+            document.getElementById('modalDetails').innerHTML = formatDetailsHTML(prod.details);
             
             document.getElementById('variantSection').style.display = 'block';
             document.getElementById('qrisSection').style.display = 'none';
             document.getElementById('quickPayBtn').style.display = 'block';
-            
-            document.getElementById('waLink').innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
-                </svg>
-                <span>Cek Stok / Pesan via WA</span>
-            `;
 
             const vList = document.getElementById('variantList');
             vList.innerHTML = '';
             prod.variants.forEach((v, i) => {
                 const btn = document.createElement('button');
                 btn.className = `variant-btn ${i === 0 ? 'active' : ''}`;
-                btn.innerText = v.name;
+                const vStrike = getSelectiveVariantStrike(prod.id, v.name, v.price);
+                btn.innerHTML = `
+                    <span class="v-name">${v.name}</span>
+                    <div class="v-price-row">
+                        <span class="v-price">Rp ${v.price}</span>
+                        ${vStrike ? `<span class="v-strike">Rp ${vStrike}</span>` : ''}
+                    </div>
+                `;
                 btn.onclick = () => selectVariant(v, btn);
                 vList.appendChild(btn);
             });
-            if(prod.variants.length > 0) selectVariant(prod.variants[0], vList.firstChild);
+            if (prod.variants.length > 0) selectVariant(prod.variants[0], vList.firstChild);
 
             if (typeof window.incrementProductView === "function") {
                 window.incrementProductView(prod.id);
@@ -891,12 +1669,39 @@
         }
 
         function selectVariant(variant, btn) {
+            currentVariant = variant;
             document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            document.getElementById('modalPrice').innerText = "Rp " + variant.price;
+            if (btn) btn.classList.add('active');
+            updateWaOrderLink();
+        }
+
+        function updateWaOrderLink() {
+            if (!currentProd || !currentVariant) return;
+
+            const displayPrice = `Rp ${currentVariant.price}`;
+            const vStrike = getSelectiveVariantStrike(currentProd.id, currentVariant.name, currentVariant.price);
+            const strikeEl = document.getElementById('modalPriceStrike');
+            const discBadgeEl = document.getElementById('modalDiscBadge');
+            const promoInfo = strategicPromoMap[currentProd.id];
+
+            if (vStrike) {
+                strikeEl.innerText = `Rp ${vStrike}`;
+                strikeEl.style.display = 'inline';
+                discBadgeEl.innerText = promoInfo ? promoInfo.label : 'Promo';
+                discBadgeEl.style.display = 'inline-block';
+            } else {
+                strikeEl.innerText = '';
+                strikeEl.style.display = 'none';
+                discBadgeEl.style.display = 'none';
+            }
+
+            document.getElementById('modalPrice').innerText = displayPrice;
+
+            const msg = encodeURIComponent(`Halo Admin *AFIAR STORE*\nSaya ingin cek stok & memesan layanan berikut:\n\n• *Produk:* ${currentProd.name}\n• *Paket:* ${currentVariant.name}\n• *Harga:* ${displayPrice}\n\nApakah stoknya tersedia, Kak?`);
             
-            const msg = encodeURIComponent(`Halo Admin *AFIAR STORE* ⚡\nSaya ingin order & cek stok produk berikut:\n\n• *Produk:* ${currentProd.name}\n• *Paket:* ${variant.name}\n• *Harga:* Rp ${variant.price}\n\nApakah ready?`);
-            document.getElementById('waLink').href = `https://wa.me/62882006216644?text=${msg}`;
+            const waBtn = document.getElementById('waLink');
+            waBtn.href = `https://wa.me/62882006216644?text=${msg}`;
+            waBtn.innerHTML = `<span>Cek Stok / Pesan via WhatsApp (${displayPrice})</span>`;
         }
 
         function openPaymentModal() {
@@ -905,8 +1710,8 @@
             document.getElementById('qrisSection').style.display = 'block';
             document.getElementById('quickPayBtn').style.display = 'none';
             ensureQRGenerated();
-            document.getElementById('waLink').innerHTML = "<span>📲 KONFIRMASI BUKTI TRANSFER KE WA</span>";
-            const msg = encodeURIComponent("Halo Admin *AFIAR STORE* ⚡\nSaya sudah melakukan pembayaran melalui QRIS / E-Wallet. Berikut bukti transfer untuk pesanan saya:");
+            document.getElementById('waLink').innerHTML = "<span>Konfirmasi Bukti Transfer ke WhatsApp</span>";
+            const msg = encodeURIComponent("Halo Admin *AFIAR STORE*\nSaya sudah melakukan pembayaran melalui QRIS / E-Wallet. Berikut bukti transfer untuk pesanan saya:");
             document.getElementById('waLink').href = `https://wa.me/62882006216644?text=${msg}`;
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -917,13 +1722,12 @@
             document.body.style.overflow = 'auto';
         }
 
-        // DETEKSI DEEP-LINK DARI INSTAGRAM STORY (?item=... atau ?utm_source=igstory)
+        let welcomeShownInSession = false;
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             const itemParam = urlParams.get('item');
             const utmSource = urlParams.get('utm_source');
 
-            // Tampilkan bar sambutan jika pengunjung datang dari IG Story
             if (utmSource && utmSource.toLowerCase().includes('ig')) {
                 const igBanner = document.getElementById('igVisitorBanner');
                 if (igBanner) igBanner.classList.remove('hidden');
@@ -932,19 +1736,17 @@
                 }
             }
 
-            // Jika link memiliki ?item=chatgpt (dsb), langsung buka modal produk tersebut tanpa terhalang Welcome Popup
             if (itemParam) {
                 const targetProduct = products.find(p => p.shortcut.toLowerCase() === itemParam.toLowerCase());
                 if (targetProduct) {
-                    sessionStorage.setItem("afiarWelcomeSeen", "true");
+                    welcomeShownInSession = true;
                     setTimeout(() => openModal(targetProduct), 250);
                     return;
                 }
             }
 
-            // Jika kunjungan normal, tampilkan Welcome Popup seperti biasa
-            if (!sessionStorage.getItem("afiarWelcomeSeen")) {
-                sessionStorage.setItem("afiarWelcomeSeen", "true");
+            if (!welcomeShownInSession) {
+                welcomeShownInSession = true;
                 setTimeout(() => openWelcomePopup(false), 300);
             }
         });
@@ -972,10 +1774,11 @@
         onValue(viewsRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
+                window.productViewsData = data;
                 Object.keys(data).forEach(id => {
                     const viewElement = document.getElementById(`view-count-${id}`);
                     if (viewElement) {
-                        viewElement.innerHTML = `👁 ${data[id]}`;
+                        viewElement.innerHTML = `${data[id]}x dilihat`;
                     }
                 });
             }
