@@ -480,6 +480,43 @@
             text-decoration: underline;
         }
 
+        /* Live Customer Review Ticker (Bintang 4 & 5) */
+        .live-review-bar {
+            background: linear-gradient(90deg, rgba(19, 23, 32, 0.95), rgba(15, 23, 42, 0.95));
+            border: 1px solid rgba(250, 204, 21, 0.25);
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .live-review-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+            font-size: clamp(0.68rem, 2vw, 0.75rem);
+            color: #e2e8f0;
+        }
+        .btn-open-survey-inline {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            color: var(--accent-cyan);
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .btn-open-survey-inline:hover {
+            background: rgba(0, 240, 255, 0.22);
+            color: #fff;
+        }
+
         /* Clean Pill Category Tabs (No Cluttered Icons) */
         .category-tabs { 
             display: flex; 
@@ -846,6 +883,67 @@
             text-decoration: none; transition: 0.2s;
         }
         .floating-cs:hover { border-color: var(--accent-cyan); color: #fff; }
+
+        /* 3-CLICK SURVEY MODAL STYLES */
+        .star-btn {
+            font-size: 2rem;
+            line-height: 1;
+            color: #334155;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.15s ease, color 0.15s ease;
+            padding: 2px 4px;
+        }
+        .star-btn:hover { transform: scale(1.12); }
+        .star-btn.active {
+            color: #facc15;
+            text-shadow: 0 0 12px rgba(250, 204, 21, 0.45);
+        }
+        .quick-tag-pill {
+            background: #0b0c10;
+            border: 1px solid #262f40;
+            color: #cbd5e1;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 7px 11px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: left;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .quick-tag-pill:hover {
+            border-color: #475569;
+            color: #fff;
+        }
+        .quick-tag-pill.selected {
+            background: rgba(0, 240, 255, 0.14);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-weight: 700;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+        }
+        .mini-opt-btn {
+            background: #0b0c10;
+            border: 1px solid #262f40;
+            color: #cbd5e1;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 7px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+        .mini-opt-btn.selected {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: #10b981;
+            color: #6ee7b7;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -890,6 +988,131 @@
             </button>
             
             <div id="popupProgress" class="absolute bottom-0 left-0 h-0.5 bg-cyan-400 rounded-b-xl" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- 3-CLICK CUSTOMER SURVEY MODAL (PRIVATE INVITE-ONLY KHUSUS PEMBELI) -->
+    <div id="surveyModal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-3">
+        <div class="bg-[#131720] border border-cyan-500/40 rounded-2xl p-5 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto relative custom-scrollbar shadow-2xl">
+            <button onclick="closeSurveyModal()" class="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-slate-800 hover:bg-rose-500 text-slate-300 hover:text-white font-bold text-base flex items-center justify-center transition-colors">&times;</button>
+
+            <div class="flex items-center gap-2 mb-1">
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-extrabold uppercase tracking-wider">✓ Verified Buyer Only</span>
+                <span class="text-[11px] text-slate-400 font-medium">• Survei 3-Klik Tanpa Ketik</span>
+            </div>
+            <h3 class="text-white font-extrabold text-base sm:text-lg">Evaluasi Layanan AFIAR STORE</h3>
+            <p class="text-slate-400 text-xs mb-4">Halaman khusus pelanggan resmi. Masukan Anda membantu kami menjaga kualitas akun & layanan.</p>
+
+            <!-- Step 1: Pilih Produk & Durasi (Terkunci otomatis jika dari link Admin) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Layanan yang Dipesan:</label>
+                    <select id="surveyProductSelect" class="w-full bg-[#0b0c10] border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white font-semibold outline-none focus:border-cyan-400 disabled:opacity-75 disabled:cursor-not-allowed">
+                        <option value="Layanan AFIAR STORE">Pilih Layanan...</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Paket Durasi:</label>
+                    <select id="surveyDurationSelect" class="w-full bg-[#0b0c10] border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white font-semibold outline-none focus:border-cyan-400 disabled:opacity-75 disabled:cursor-not-allowed">
+                        <option value="1 Hari">Paket 1 Hari</option>
+                        <option value="3 Hari">Paket 3 Hari</option>
+                        <option value="5 Hari">Paket 5 Hari</option>
+                        <option value="7 Hari" selected>Paket 7 Hari</option>
+                        <option value="14 Hari">Paket 14 Hari</option>
+                        <option value="1 Bulan">Paket 1 Bulan</option>
+                        <option value="Tahunan / Lifetime">Tahunan / Lifetime</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Step 2: Bintang 1-5 -->
+            <div class="bg-[#0b0c10] border border-slate-800 rounded-xl p-3.5 text-center mb-3">
+                <div class="text-xs font-bold text-slate-300 mb-1.5">1. Tap Bintang Penilaian Anda:</div>
+                <div class="flex items-center justify-center gap-1" id="starContainer">
+                    <button type="button" class="star-btn active" onclick="selectSurveyStar(1)">★</button>
+                    <button type="button" class="star-btn active" onclick="selectSurveyStar(2)">★</button>
+                    <button type="button" class="star-btn active" onclick="selectSurveyStar(3)">★</button>
+                    <button type="button" class="star-btn active" onclick="selectSurveyStar(4)">★</button>
+                    <button type="button" class="star-btn active" onclick="selectSurveyStar(5)">★</button>
+                </div>
+                <div id="starRatingLabel" class="text-xs font-extrabold text-amber-400 mt-1.5">⭐⭐⭐⭐⭐ (5/5 — Sangat Memuaskan!)</div>
+            </div>
+
+            <!-- Step 3: Quick-Tags Dinamis Sesuai Bintang -->
+            <div class="mb-3.5">
+                <div id="quickTagPrompt" class="text-xs font-bold text-cyan-300 mb-2">2. Pilih hal yang paling memuaskan (bisa klik lebih dari 1):</div>
+                <div id="quickTagsContainer" class="flex flex-wrap gap-1.5"></div>
+            </div>
+
+            <!-- Pertanyaan Mini 1-Klik: Kondisi & Rencana -->
+            <div class="space-y-3 mb-3.5 pt-2.5 border-t border-slate-800/90">
+                <div>
+                    <div class="text-[11px] font-bold text-slate-300 mb-1.5">3. Kondisi Akun Selama Masa Langganan:</div>
+                    <div class="grid grid-cols-3 gap-1.5" id="conditionOpts">
+                        <button type="button" class="mini-opt-btn selected" onclick="selectConditionOpt(this, 'Lancar Penuh')">🟢 Lancar Penuh</button>
+                        <button type="button" class="mini-opt-btn" onclick="selectConditionOpt(this, 'Sempat Kendala & Dibantu')">🟡 Dibantu Admin</button>
+                        <button type="button" class="mini-opt-btn" onclick="selectConditionOpt(this, 'Sering Kendala')">🔴 Sering Kendala</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-[11px] font-bold text-slate-300 mb-1.5">Rencana Setelah Masa Aktif Selesai:</div>
+                    <div class="grid grid-cols-2 gap-1.5" id="nextPlanOpts">
+                        <button type="button" class="mini-opt-btn selected" onclick="selectPlanOpt(this, 'Mau Perpanjang')">🔄 Mau Perpanjang</button>
+                        <button type="button" class="mini-opt-btn" onclick="selectPlanOpt(this, 'Upgrade Bulanan / Private')">⬆️ Upgrade Paket</button>
+                        <button type="button" class="mini-opt-btn" onclick="selectPlanOpt(this, 'Coba Layanan Lain')">👀 Coba Produk Lain</button>
+                        <button type="button" class="mini-opt-btn" onclick="selectPlanOpt(this, 'Belum Butuh Dulu')">⏸️ Belum Butuh Dulu</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opsional Nama & Catatan -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
+                <input type="text" id="surveyNameInput" placeholder="Nama / Inisial (Opsional)" class="w-full bg-[#0b0c10] border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-cyan-400">
+                <input type="text" id="surveyCustomNote" placeholder="Saran tambahan? (Boleh kosong)" class="w-full bg-[#0b0c10] border border-slate-800 rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-cyan-400">
+            </div>
+
+            <button type="button" id="submitSurveyBtn" onclick="submitCustomerSurvey()" class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all">
+                Kirim Penilaian Sekarang
+            </button>
+        </div>
+    </div>
+
+    <!-- PANEL RAHASIA ADMIN: GENERATOR LINK SURVEI KHUSUS PEMBELI (Ketik #survei di kolom search) -->
+    <div id="adminSurveyGenModal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/85 backdrop-blur-sm p-3">
+        <div class="bg-[#131720] border border-amber-400/50 rounded-2xl p-5 max-w-md w-full relative shadow-2xl">
+            <button onclick="closeAdminSurveyGen()" class="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-slate-800 hover:bg-rose-500 text-slate-300 hover:text-white font-bold text-base flex items-center justify-center">&times;</button>
+            <div class="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 mb-1">🔒 Mode Admin Internal (Tersembunyi dari Publik)</div>
+            <h3 class="text-white font-extrabold text-base mb-1">Generator Link Survei Pembeli</h3>
+            <p class="text-slate-400 text-xs mb-4">Buat tautan survei khusus ber-token agar hanya pelanggan yang menerima link ini dari WA Admin yang bisa mengisi penilaian.</p>
+
+            <div class="space-y-3 mb-4">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Pilih Produk yang Dibeli Customer:</label>
+                    <select id="adminGenProd" class="w-full bg-[#0b0c10] border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-semibold outline-none focus:border-amber-400"></select>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-300 mb-1">Pilih Paket Durasi Customer:</label>
+                    <select id="adminGenDur" class="w-full bg-[#0b0c10] border border-slate-700 rounded-lg px-3 py-2 text-xs text-white font-semibold outline-none focus:border-amber-400">
+                        <option value="1 Hari">Paket 1 Hari</option>
+                        <option value="3 Hari">Paket 3 Hari</option>
+                        <option value="5 Hari">Paket 5 Hari</option>
+                        <option value="7 Hari" selected>Paket 7 Hari</option>
+                        <option value="14 Hari">Paket 14 Hari</option>
+                        <option value="1 Bulan">Paket 1 Bulan</option>
+                        <option value="Tahunan / Lifetime">Tahunan / Lifetime</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <button type="button" onclick="copyAdminSurveyChat()" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl transition-all">
+                    📋 Salin Chat WA + Link
+                </button>
+                <button type="button" onclick="previewSurveyAsBuyer()" class="w-full py-2.5 bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 font-bold text-xs rounded-xl transition-all">
+                    👁️ Tes Tampilan Survei
+                </button>
+            </div>
         </div>
     </div>
 
@@ -951,6 +1174,19 @@
                     <span>Lihat Bukti Transaksi (Saluran WA)</span>
                     <span>↗</span>
                 </a>
+            </div>
+
+            <!-- Live Review Bar (Read-Only untuk Publik, Hanya dari Verified Buyer) -->
+            <div class="live-review-bar">
+                <div class="live-review-content">
+                    <span class="text-amber-400 font-bold shrink-0">★★★★★</span>
+                    <span id="liveReviewTicker" class="truncate text-slate-300">
+                        <strong>Pelanggan AFIAR (Netflix 7 Hari):</strong> ⚡ Proses kilat & langsung aktif, 🛡️ Akun awet & anti-limit sampai habis!
+                    </span>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-bold shrink-0">
+                    ✓ Verified Buyer
+                </span>
             </div>
         </div>
 
@@ -1113,8 +1349,6 @@
 
         /* 
          * STRATEGI MARKETING: SELECTIVE PRICE ANCHORING
-         * Hanya 12 produk unggulan (High-Demand) yang diberi harga coret dengan persentase bervariasi (17% - 26%)
-         * agar terlihat realistis dan menjadi pusat perhatian (focal point) di katalog.
          */
         const strategicPromoMap = {
             1:  { strike: "6.500", label: "Hemat 23%" },  // ChatGPT Plus
@@ -1131,11 +1365,6 @@
             35: { strike: "5.000", label: "Hemat 20%" }   // Zoom Pro
         };
 
-        /*
-         * Untuk di dalam pop-up varian produk:
-         * Harga coret hanya ditempatkan pada paket mingguan/bulanan/tahunan (Upselling)
-         * atau pada produk yang masuk daftar promo strategis.
-         */
         function getSelectiveVariantStrike(prodId, variantName, priceStr) {
             const cleanStr = String(priceStr).trim();
             if (!/^[0-9.]+$/.test(cleanStr)) return null;
@@ -1145,7 +1374,6 @@
             const isHeroPromo = Boolean(strategicPromoMap[prodId]);
             const isUpsellDuration = /bln|bulan|thn|tahun|life|7h|7 hari|14 hari/i.test(variantName);
 
-            // Jika bukan produk promo utama dan hanya paket 1 hari biasa, biarkan harga normal tanpa coretan
             if (!isHeroPromo && !isUpsellDuration) return null;
 
             let anchored = Math.round(actualPrice * 1.22);
@@ -1166,7 +1394,7 @@
             if (!toast || !text) return;
             text.innerText = message;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2400);
+            setTimeout(() => { toast.classList.remove('show'); }, 2600);
         }
 
         function copyStoryLink(textToCopy, toastMessage) {
@@ -1284,6 +1512,295 @@
             { id: 40, cat: "PRODUCTIVITY & EDU", name: "Jasa Cek GTC", shortcut: "gtc", logo: "https://ui-avatars.com/api/?name=GTC&background=00f0ff&color=000", badges: [], startPrice: "1.000", variants: [ {name: "1 Cek Nomor", price: "1.000"}, {name: "3 Cek Nomor", price: "2.700"}, {name: "5 Cek Nomor", price: "4.500"} ], details: "▪ Jasa Cek GetContact (GTC)\n• 1 Cek Nomor : 1.000p\n• 3 Cek Nomor : 2.7k\n• 5 Cek Nomor : 4.5k\n📌 Catatan:\n✅ Dikirim hasil screenshot/video record tag nomor.\n✅ Jika melebihi 50 tag maka akan direcord!\n⚠️ Tidak ada refund apabila dicek nomor diprivate atau tidak ada tag (slot akun tetap berkurang)." }
         ];
 
+        /* =========================================================
+         * LOGIKA SURVEI KILAT 3-KLIK (TANPA KETIK)
+         * ========================================================= */
+        const surveyMatrix = {
+            1: {
+                label: "⭐ (1/5 — Tidak Puas)",
+                prompt: "Mohon maaf atas ketidaknyamanannya. Bagian mana yang mengecewakan Anda?",
+                tags: [
+                    "Akun sering limit / mental keluar",
+                    "Terkendala OTP / Household",
+                    "Akun terkena Backfree sebelum waktunya",
+                    "Respon Admin / klaim garansi lambat",
+                    "Proses pengiriman akun lama",
+                    "Instruksi login kurang jelas"
+                ]
+            },
+            2: {
+                label: "⭐⭐ (2/5 — Kurang Puas)",
+                prompt: "Terima kasih masukannya. Apa kendala utama selama berlangganan?",
+                tags: [
+                    "Terkadang terkena limit screen",
+                    "Proses antre OTP agak lama",
+                    "Klaim garansi butuh waktu tunggu",
+                    "Harga terasa kurang pas untuk durasi ini",
+                    "Aturan penggunaan (1 device) terlalu ketat"
+                ]
+            },
+            3: {
+                label: "⭐⭐⭐ (3/5 — Cukup / Netral)",
+                prompt: "Apa yang sudah bagus & apa yang perlu kami tingkatkan?",
+                tags: [
+                    "Admin ramah & sopan (+)",
+                    "Harga terjangkau (+)",
+                    "Pembayaran QRIS mudah (+)",
+                    "Stok varian kadang kosong (-)",
+                    "Akun sharing sesekali penuh/limit (-)",
+                    "Respon chat di jam sibuk perlu ditingkatkan (-)"
+                ]
+            },
+            4: {
+                label: "⭐⭐⭐⭐ (4/5 — Puas)",
+                prompt: "Senang Anda puas! Apa yang paling Anda sukai dari AFIAR STORE?",
+                tags: [
+                    "Proses aktivasi cepat",
+                    "Akun lancar sampai masa aktif habis",
+                    "Harga hemat & banyak pilihan durasi",
+                    "Pertahankan kecepatan respon WA",
+                    "Perbanyak stok paket Harian/Sharing"
+                ]
+            },
+            5: {
+                label: "⭐⭐⭐⭐⭐ (5/5 — Sangat Memuaskan!)",
+                prompt: "2. Pilih hal yang paling memuaskan (bisa klik lebih dari 1):",
+                tags: [
+                    "⚡ Proses kilat & langsung aktif",
+                    "🛡️ Akun awet & anti-limit sampai habis",
+                    "💬 Admin fast respon, ramah & solutif",
+                    "💰 Harga sangat worth it di kantong",
+                    "💳 Pembayaran QRIS praktis & transparan",
+                    "🔄 Pasti bakal langganan / perpanjang lagi!"
+                ]
+            }
+        };
+
+        let currentSurveyStar = 5;
+        let selectedSurveyTags = new Set();
+        let selectedSurveyCondition = "Lancar Penuh";
+        let selectedSurveyNextPlan = "Mau Perpanjang";
+        let surveyAlreadySubmitted = false;
+
+        // Token rahasia agar hanya link dari WA Admin yang bisa membuka form survei
+        const SURVEY_SECRET_TOKEN = "afiar26";
+
+        function populateSurveyProductDropdown() {
+            const selectEl = document.getElementById('surveyProductSelect');
+            if (!selectEl) return;
+            selectEl.innerHTML = `<option value="Layanan AFIAR STORE">Semua / Layanan Umum</option>`;
+            products.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.name;
+                opt.dataset.shortcut = p.shortcut.toLowerCase();
+                opt.innerText = p.name;
+                selectEl.appendChild(opt);
+            });
+        }
+
+        function selectSurveyStar(starCount) {
+            currentSurveyStar = starCount;
+            selectedSurveyTags.clear();
+
+            const stars = document.querySelectorAll('#starContainer .star-btn');
+            stars.forEach((btn, idx) => {
+                btn.classList.toggle('active', idx < starCount);
+            });
+
+            const config = surveyMatrix[starCount] || surveyMatrix[5];
+            document.getElementById('starRatingLabel').innerText = config.label;
+            document.getElementById('quickTagPrompt').innerText = config.prompt;
+
+            const container = document.getElementById('quickTagsContainer');
+            container.innerHTML = '';
+            config.tags.forEach((tagText, index) => {
+                const pill = document.createElement('button');
+                pill.type = 'button';
+                pill.className = 'quick-tag-pill';
+                pill.innerText = tagText;
+                if (starCount === 5 && index < 2) {
+                    pill.classList.add('selected');
+                    selectedSurveyTags.add(tagText);
+                }
+                pill.onclick = () => {
+                    if (selectedSurveyTags.has(tagText)) {
+                        selectedSurveyTags.delete(tagText);
+                        pill.classList.remove('selected');
+                    } else {
+                        selectedSurveyTags.add(tagText);
+                        pill.classList.add('selected');
+                    }
+                };
+                container.appendChild(pill);
+            });
+        }
+
+        function selectConditionOpt(btn, val) {
+            selectedSurveyCondition = val;
+            document.querySelectorAll('#conditionOpts .mini-opt-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function selectPlanOpt(btn, val) {
+            selectedSurveyNextPlan = val;
+            document.querySelectorAll('#nextPlanOpts .mini-opt-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function openSurveyModal(prefillProd = null, prefillDur = null, lockSelection = false) {
+            if (surveyAlreadySubmitted) {
+                showToast("Penilaian untuk sesi pesanan ini sudah terkirim. Terima kasih!");
+                return;
+            }
+
+            populateSurveyProductDropdown();
+            const selectEl = document.getElementById('surveyProductSelect');
+            const durSelect = document.getElementById('surveyDurationSelect');
+            selectEl.disabled = false;
+            durSelect.disabled = false;
+
+            if (prefillProd) {
+                const cleanParam = prefillProd.toLowerCase().trim();
+                for (let i = 0; i < selectEl.options.length; i++) {
+                    const opt = selectEl.options[i];
+                    if (opt.value.toLowerCase().includes(cleanParam) || (opt.dataset.shortcut && opt.dataset.shortcut === cleanParam)) {
+                        selectEl.selectedIndex = i;
+                        if (lockSelection) selectEl.disabled = true;
+                        break;
+                    }
+                }
+            }
+
+            if (prefillDur) {
+                const cleanDur = prefillDur.toLowerCase().trim();
+                for (let i = 0; i < durSelect.options.length; i++) {
+                    if (durSelect.options[i].value.toLowerCase().includes(cleanDur)) {
+                        durSelect.selectedIndex = i;
+                        if (lockSelection) durSelect.disabled = true;
+                        break;
+                    }
+                }
+            }
+
+            selectSurveyStar(5);
+            const modalEl = document.getElementById('surveyModal');
+            modalEl.classList.remove('hidden');
+            modalEl.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSurveyModal() {
+            const modalEl = document.getElementById('surveyModal');
+            modalEl.classList.add('hidden');
+            modalEl.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Panel Rahasia Admin (Dibuka dengan mengetik #survei atau #admin di kotak pencarian)
+        function openAdminSurveyGen() {
+            const adminProdSelect = document.getElementById('adminGenProd');
+            if (adminProdSelect) {
+                adminProdSelect.innerHTML = '';
+                products.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.shortcut;
+                    opt.dataset.fullname = p.name;
+                    opt.innerText = p.name;
+                    adminProdSelect.appendChild(opt);
+                });
+            }
+            const modalEl = document.getElementById('adminSurveyGenModal');
+            modalEl.classList.remove('hidden');
+            modalEl.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAdminSurveyGen() {
+            const modalEl = document.getElementById('adminSurveyGenModal');
+            modalEl.classList.add('hidden');
+            modalEl.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function copyAdminSurveyChat() {
+            const prodSelect = document.getElementById('adminGenProd');
+            const shortcut = prodSelect.value;
+            const fullName = prodSelect.options[prodSelect.selectedIndex].dataset.fullname;
+            const dur = document.getElementById('adminGenDur').value;
+
+            const inviteLink = `https://aryaarafiiarhmt.github.io/Store/?review=${SURVEY_SECRET_TOKEN}&prod=${encodeURIComponent(shortcut)}&dur=${encodeURIComponent(dur)}`;
+            const waText = `Halo Kak! ⚡ Masa aktif layanan *${fullName} (${dur})* Kakak di *AFIAR STORE* telah selesai.\n\nTerima kasih sudah mempercayakan kebutuhan akun premium Kakak kepada kami. Demi menjaga kualitas layanan ke depannya, mohon bantuannya mengisi *Survei Khusus Pembeli (3-Klik Tanpa Ketik, cuma 5 detik)* melalui tautan khusus berikut:\n\n👉 ${inviteLink}\n\n*(Jika Kakak ingin memperpanjang masa aktif atau mencoba layanan lain, silakan balas pesan ini kapan saja ya Kak!)*\n\n*Transparan & Garansi S&K Berlaku — AFIAR STORE*`;
+
+            copyStoryLink(waText, `Chat WA & Link Survei (${fullName}) berhasil disalin!`);
+        }
+
+        function previewSurveyAsBuyer() {
+            const prodSelect = document.getElementById('adminGenProd');
+            const shortcut = prodSelect ? prodSelect.value : 'netflix';
+            const dur = document.getElementById('adminGenDur') ? document.getElementById('adminGenDur').value : '7 Hari';
+            closeAdminSurveyGen();
+            surveyAlreadySubmitted = false;
+            openSurveyModal(shortcut, dur, true);
+        }
+
+        function submitCustomerSurvey() {
+            if (surveyAlreadySubmitted) {
+                showToast("Penilaian Anda sudah tercatat sebelumnya.");
+                return;
+            }
+
+            const prodName = document.getElementById('surveyProductSelect').value;
+            const duration = document.getElementById('surveyDurationSelect').value;
+            const custName = document.getElementById('surveyNameInput').value.trim() || "Verified Buyer";
+            const customNote = document.getElementById('surveyCustomNote').value.trim();
+            const tagsArray = Array.from(selectedSurveyTags);
+
+            if (tagsArray.length === 0 && !customNote) {
+                showToast("Pilih minimal 1 kalimat penilaian di atas ya Kak");
+                return;
+            }
+
+            const payload = {
+                name: custName,
+                product: prodName,
+                duration: duration,
+                stars: currentSurveyStar,
+                tags: tagsArray,
+                condition: selectedSurveyCondition,
+                nextPlan: selectedSurveyNextPlan,
+                note: customNote,
+                verifiedBuyer: true,
+                visibility: currentSurveyStar >= 4 ? "public" : "internal_evaluation",
+                timestamp: Date.now(),
+                dateStr: new Date().toLocaleString('id-ID')
+            };
+
+            if (typeof window.saveSurveyToFirebase === "function") {
+                window.saveSurveyToFirebase(payload);
+            }
+
+            if (currentSurveyStar >= 4) {
+                const tickerEl = document.getElementById('liveReviewTicker');
+                if (tickerEl) {
+                    const tagSummary = tagsArray.slice(0, 2).join(', ');
+                    const extraNote = customNote ? ` — "${customNote}"` : '';
+                    tickerEl.innerHTML = `<strong>${custName} (${prodName} - ${duration}):</strong> ${tagSummary}${extraNote}`;
+                }
+            }
+
+            surveyAlreadySubmitted = true;
+            closeSurveyModal();
+
+            if (currentSurveyStar >= 4) {
+                showToast("Terima kasih! Ulasan Terverifikasi Kakak telah tampil di katalog.");
+            } else {
+                showToast("Terima kasih! Masukan Kakak telah masuk ke evaluasi prioritas Admin.");
+            }
+        }
+
+        /* =========================================================
+         * KATALOG & HERO CAROUSEL
+         * ========================================================= */
         const grid = document.getElementById('productGrid');
         const countText = document.getElementById('productCount');
 
@@ -1450,7 +1967,6 @@
 
             startHeroAutoPlay();
 
-            // Support Swipe Kiri/Kanan di Layar Sentuh HP
             let touchStartX = 0;
             let touchEndX = 0;
             carouselEl.addEventListener('touchstart', (e) => {
@@ -1582,6 +2098,17 @@
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const val = e.target.value;
+            const cleanCmd = val.trim().toLowerCase();
+
+            // Pintasan Rahasia Admin: Ketik #survei atau #admin untuk membuka Generator Link Survei Pembeli
+            if (cleanCmd === '#survei' || cleanCmd === '#admin') {
+                e.target.value = '';
+                document.getElementById('clearSearchBtn').style.display = 'none';
+                triggerRender();
+                openAdminSurveyGen();
+                return;
+            }
+
             document.getElementById('clearSearchBtn').style.display = val.length > 0 ? 'block' : 'none';
             const activeCat = document.querySelector('.cat-tab.active').dataset.cat;
             renderProducts(activeCat, val);
@@ -1726,6 +2253,10 @@
         document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URLSearchParams(window.location.search);
             const itemParam = urlParams.get('item');
+            const reviewParam = urlParams.get('review');
+            const keyParam = urlParams.get('key');
+            const prodParam = urlParams.get('prod');
+            const durParam = urlParams.get('dur');
             const utmSource = urlParams.get('utm_source');
 
             if (utmSource && utmSource.toLowerCase().includes('ig')) {
@@ -1734,6 +2265,13 @@
                 if (typeof gtag === "function") {
                     gtag('event', 'ig_story_visit', { 'source': utmSource });
                 }
+            }
+
+            // Deep-link Khusus Pembeli Terverifikasi (Wajib memiliki token rahasia afiar26)
+            if (reviewParam === SURVEY_SECRET_TOKEN || keyParam === SURVEY_SECRET_TOKEN) {
+                welcomeShownInSession = true;
+                setTimeout(() => openSurveyModal(prodParam, durParam, Boolean(prodParam)), 250);
+                return;
             }
 
             if (itemParam) {
@@ -1752,10 +2290,10 @@
         });
     </script>
 
-    <!-- FIREBASE SDK UNTUK VIEW COUNTER PRODUK (REAL-TIME) -->
+    <!-- FIREBASE SDK UNTUK VIEW COUNTER & SURVEI PELANGGAN (REAL-TIME) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue, runTransaction, push, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXrRUX9bt9Mo07jYY4dFvW_iPr9GOdLyg",
@@ -1770,6 +2308,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        // 1. Real-Time Product View Counter
         const viewsRef = ref(db, 'product_views');
         onValue(viewsRef, (snapshot) => {
             const data = snapshot.val();
@@ -1790,6 +2329,42 @@
                 return (currentViews || 0) + 1;
             });
         };
+
+        // 2. Simpan Survei Pelanggan ke Firebase
+        window.saveSurveyToFirebase = function(surveyData) {
+            const surveysRef = ref(db, 'customer_surveys');
+            push(surveysRef, surveyData);
+        };
+
+        // 3. Tampilkan Ulasan Bintang 4 & 5 Secara Real-Time di Live Review Bar
+        const recentSurveysQuery = query(ref(db, 'customer_surveys'), limitToLast(15));
+        let publicReviewsList = [];
+        let tickerIdx = 0;
+
+        onValue(recentSurveysQuery, (snapshot) => {
+            const data = snapshot.val();
+            if (!data) return;
+            const allList = Object.values(data);
+            publicReviewsList = allList.filter(item => item.stars >= 4).reverse();
+            updateLiveReviewTicker();
+        });
+
+        function updateLiveReviewTicker() {
+            const tickerEl = document.getElementById('liveReviewTicker');
+            if (!tickerEl || publicReviewsList.length === 0) return;
+
+            const item = publicReviewsList[tickerIdx % publicReviewsList.length];
+            const tagSummary = (item.tags && item.tags.length > 0) ? item.tags.slice(0, 2).join(', ') : '';
+            const extraNote = item.note ? ` — "${item.note}"` : '';
+            tickerEl.innerHTML = `<strong>${item.name} (${item.product} - ${item.duration}):</strong> ${tagSummary}${extraNote}`;
+        }
+
+        setInterval(() => {
+            if (publicReviewsList.length > 1) {
+                tickerIdx++;
+                updateLiveReviewTicker();
+            }
+        }, 4500);
     </script>
 </body>
 </html>
