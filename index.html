@@ -257,6 +257,15 @@
             box-shadow: var(--shadow-card);
         }
         .search-box:focus { border-color: var(--accent-cyan); }
+        /* Hilangkan tombol X bawaan browser agar tidak ganda dengan tombol X kustom */
+        .search-box::-webkit-search-decoration,
+        .search-box::-webkit-search-cancel-button,
+        .search-box::-webkit-search-results-button,
+        .search-box::-webkit-search-results-decoration {
+            -webkit-appearance: none;
+            appearance: none;
+            display: none;
+        }
         .search-icon {
             position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
             color: var(--text-muted); pointer-events: none;
@@ -307,32 +316,32 @@
         .hero-visual {
             position: absolute;
             top: 0; right: 0; bottom: 0;
-            width: 55%;
+            width: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            z-index: 1;
+            z-index: 3;
             pointer-events: none;
         }
         @media (max-width: 639px) {
             .hero-visual {
-                width: 100%;
+                width: 44%;
                 justify-content: flex-end;
-                padding-right: 10px;
-                opacity: 0.22;
+                padding-right: 12px;
+                opacity: 0.92;
             }
         }
         .hero-gradient-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, #0d111a 0%, #0d111a 46%, rgba(13, 17, 26, 0.86) 70%, rgba(13, 17, 26, 0.3) 100%);
+            background: linear-gradient(90deg, #0d111a 0%, #0d111a 46%, rgba(13, 17, 26, 0.82) 68%, rgba(13, 17, 26, 0.2) 100%);
             z-index: 2;
             pointer-events: none;
         }
         @media (max-width: 639px) {
             .hero-gradient-overlay {
-                background: linear-gradient(90deg, #0d111a 0%, rgba(13, 17, 26, 0.95) 65%, rgba(13, 17, 26, 0.78) 100%);
+                background: linear-gradient(90deg, #0d111a 0%, #0d111a 52%, rgba(13, 17, 26, 0.62) 78%, rgba(13, 17, 26, 0.18) 100%);
             }
         }
         .hero-top-tag {
@@ -352,15 +361,18 @@
             position: relative;
             z-index: 4;
             width: 100%;
-            max-width: 580px;
-            padding: 18px 16px 42px;
+            max-width: 62%;
+            padding: 18px 14px 42px 16px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 6px;
         }
         @media (min-width: 640px) {
-            .hero-content { padding: 26px 44px 46px; }
+            .hero-content {
+                max-width: 580px;
+                padding: 26px 44px 46px;
+            }
         }
         .hero-meta-row {
             display: flex;
@@ -373,17 +385,38 @@
         }
         .hero-meta-cat { color: #00f0ff; font-weight: 700; }
         .hero-slide-title {
-            font-size: clamp(1.15rem, 4.2vw, 1.75rem);
+            font-size: clamp(1.08rem, 4vw, 1.75rem);
             font-weight: 900;
             color: #ffffff;
             line-height: 1.2;
         }
         .hero-slide-desc {
-            font-size: 0.75rem;
+            font-size: 0.74rem;
             color: #cbd5e1;
-            line-height: 1.5;
+            line-height: 1.45;
             max-width: 450px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+        }
+        /* Harga di Carousel: Kontras tinggi (Putih & Aksen Cyan) di Light maupun Dark Mode */
+        .hero-price-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 240, 255, 0.14);
+            border: 1px solid rgba(0, 240, 255, 0.45);
+            padding: 4px 11px;
+            border-radius: 8px;
+            margin-top: 2px;
+        }
+        .hero-price-main {
+            font-size: clamp(0.78rem, 2.5vw, 0.92rem);
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.2px;
+        }
+        .hero-price-accent {
+            color: #00f0ff;
+            font-weight: 900;
         }
         .hero-btn-group {
             display: flex;
@@ -409,22 +442,6 @@
         }
         .btn-hero-primary:hover { background: #00f0ff; color: #000; }
         .btn-hero-primary:active { transform: scale(0.96); }
-        .btn-hero-secondary {
-            background: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #f1f5f9;
-            min-height: 38px;
-            font-size: 0.74rem;
-            font-weight: 700;
-            padding: 8px 14px;
-            border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
-        }
-        .btn-hero-secondary:hover { border-color: #fff; background: rgba(255, 255, 255, 0.12); }
 
         .hero-nav-arrow {
             position: absolute;
@@ -468,37 +485,42 @@
 
         .showcase-card {
             position: relative;
-            width: clamp(140px, 24vw, 210px);
-            height: clamp(140px, 24vw, 190px);
-            border-radius: 20px;
+            width: clamp(106px, 24vw, 200px);
+            height: clamp(114px, 24vw, 185px);
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
             transform: rotate(-3deg);
+            padding: 8px;
         }
         .showcase-card img {
-            width: clamp(54px, 9vw, 76px);
-            height: clamp(54px, 9vw, 76px);
-            border-radius: 16px;
+            width: clamp(46px, 9vw, 74px);
+            height: clamp(46px, 9vw, 74px);
+            border-radius: 14px;
             background: #131720;
-            padding: 10px;
+            padding: 8px;
+            object-fit: contain;
         }
         .showcase-card-label {
-            font-size: 0.65rem;
+            font-size: clamp(0.54rem, 1.6vw, 0.65rem);
             font-weight: 800;
             color: #fff;
-            background: rgba(0, 0, 0, 0.65);
-            padding: 3px 10px;
+            background: rgba(0, 0, 0, 0.72);
+            padding: 3px 8px;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Google Maps Style Reviews Summary & Cards */
+        /* Google Maps Style Reviews Summary & Cards (Berdampingan di Mobile & Desktop) */
         .gmaps-review-container {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -508,19 +530,20 @@
         }
         .gmaps-summary-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
+            grid-template-columns: 112px 1fr;
+            gap: 12px;
+            align-items: center;
             padding-bottom: 14px;
             border-bottom: 1px solid var(--border-color);
         }
         @media (min-width: 640px) {
             .gmaps-summary-grid {
-                grid-template-columns: 180px 1fr;
-                align-items: center;
+                grid-template-columns: 170px 1fr;
+                gap: 18px;
             }
         }
         .gmaps-score-big {
-            font-size: 2.4rem;
+            font-size: clamp(2rem, 6vw, 2.5rem);
             font-weight: 900;
             line-height: 1;
             color: var(--text-main);
@@ -1055,12 +1078,12 @@
             <button onclick="closeAllReviewsModal()" class="close-modal" aria-label="Tutup Daftar Ulasan">&times;</button>
 
             <div class="pr-8 mb-3">
-                <h3 id="allReviewsTitle" class="font-extrabold text-base sm:text-lg">Semua Ulasan &amp; Statistik Pembeli</h3>
-                <p class="text-xs" style="color: var(--text-muted);">Seluruh rating (1–5 bintang) dari transaksi terverifikasi dihitung secara transparan tanpa penyaringan rating rendah.</p>
+                <h3 id="allReviewsTitle" class="font-extrabold text-base sm:text-lg">Ulasan &amp; Rating Pelanggan</h3>
+                <p class="text-xs" style="color: var(--text-muted);">Seluruh rating (1–5 bintang) ditampilkan secara transparan.</p>
             </div>
 
             <div class="flex items-center justify-between gap-2 mb-3 pb-3 border-b flex-wrap" style="border-color: var(--border-color);">
-                <div class="text-xs font-bold" id="modalReviewsCountLabel" style="color: var(--text-secondary);">Menampilkan ulasan publik</div>
+                <div class="text-xs font-bold" id="modalReviewsCountLabel" style="color: var(--text-secondary);">Menampilkan ulasan pelanggan</div>
                 <div class="flex items-center gap-2">
                     <label for="reviewSortSelect" class="text-xs font-semibold" style="color: var(--text-muted);">Urutkan:</label>
                     <select id="reviewSortSelect" class="sort-select" onchange="renderReviewsUI()">
@@ -1089,31 +1112,34 @@
 
             <!-- Tampilan Formulir Survei -->
             <div id="surveyFormView">
-                <div class="flex items-center gap-2 mb-1 pr-8">
-                    <span id="surveyVerifiedBadge" class="hidden px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider" style="background: var(--success-soft); border: 1px solid var(--success); color: var(--success);">✓ Tiket Transaksi Terverifikasi</span>
-                </div>
-                <h3 id="surveyTitle" class="font-extrabold text-base sm:text-lg">Survei Kepuasan Pelanggan</h3>
-                <p class="text-xs mb-4" style="color: var(--text-muted);">Penilaian jujur Anda (bintang 1–5) sangat berarti bagi evaluasi layanan kami.</p>
+                <h3 id="surveyTitle" class="font-extrabold text-base sm:text-lg pr-8">Survei Kepuasan Pelanggan</h3>
+                <p class="text-xs mb-3.5" style="color: var(--text-muted);">Penilaian jujur Anda (bintang 1–5) sangat berarti bagi evaluasi layanan AFIAR STORE.</p>
 
                 <!-- Kotak Error Validasi / Jaringan (Tetap mempertahankan isi form) -->
                 <div id="surveyErrorBanner" class="hidden mb-3.5 p-3 rounded-xl text-xs font-semibold" style="background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger);" role="alert"></div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3.5">
-                    <div>
-                        <label for="surveyProductSelect" class="block text-[11px] font-bold mb-1" style="color: var(--text-secondary);">Layanan yang Dipesan:</label>
-                        <select id="surveyProductSelect" disabled class="w-full themed-input rounded-lg px-2.5 py-2 text-xs font-semibold disabled:opacity-80 disabled:cursor-not-allowed"></select>
+                <!-- Ringkasan Informasi Pesanan Tetap (Bukan Input Dropdown) -->
+                <div class="themed-subbox rounded-xl p-3.5 mb-3.5 border" style="border-color: var(--accent-cyan-border);">
+                    <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b" style="border-color: var(--border-color);">
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1" style="color: var(--accent-cyan);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            <span>Rincian Transaksi Anda</span>
+                        </span>
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded" style="background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border-color);">Sesuai Transaksi</span>
                     </div>
-                    <div>
-                        <label for="surveyDurationSelect" class="block text-[11px] font-bold mb-1" style="color: var(--text-secondary);">Paket Durasi:</label>
-                        <select id="surveyDurationSelect" disabled class="w-full themed-input rounded-lg px-2.5 py-2 text-xs font-semibold disabled:opacity-80 disabled:cursor-not-allowed">
-                            <option value="1 Hari">Paket 1 Hari</option>
-                            <option value="3 Hari">Paket 3 Hari</option>
-                            <option value="5 Hari">Paket 5 Hari</option>
-                            <option value="7 Hari">Paket 7 Hari</option>
-                            <option value="14 Hari">Paket 14 Hari</option>
-                            <option value="1 Bulan">Paket 1 Bulan</option>
-                            <option value="Tahunan / Lifetime">Tahunan / Lifetime</option>
-                        </select>
+                    <div class="grid grid-cols-2 gap-2.5 text-xs">
+                        <div>
+                            <div class="text-[10px] font-semibold" style="color: var(--text-muted);">Layanan / Produk</div>
+                            <div id="surveyFixedProductText" class="font-extrabold mt-0.5" style="color: var(--text-main);">-</div>
+                        </div>
+                        <div>
+                            <div class="text-[10px] font-semibold" style="color: var(--text-muted);">Paket Durasi</div>
+                            <div id="surveyFixedDurationText" class="font-extrabold mt-0.5" style="color: var(--text-main);">-</div>
+                        </div>
+                    </div>
+                    <div id="surveyMaskedPhoneRow" class="hidden mt-2 pt-2 border-t flex items-center justify-between text-[11px]" style="border-color: var(--border-color);">
+                        <span style="color: var(--text-muted);">Nomor Pelanggan:</span>
+                        <span id="surveyFixedMaskedPhone" class="font-mono font-bold" style="color: var(--text-secondary);"></span>
                     </div>
                 </div>
 
@@ -1163,8 +1189,8 @@
                     </div>
 
                     <div class="space-y-2 pt-2 border-t" style="border-color: var(--border-color);">
-                        <label for="surveyNameInput" class="block text-[11px] font-bold" style="color: var(--text-secondary);">Nama / Inisial Anda (Opsional):</label>
-                        <input type="text" id="surveyNameInput" maxlength="40" placeholder="Contoh: Andrean D. (Kosongkan jika ingin Anonim)" class="w-full themed-input rounded-lg px-3 py-2 text-xs">
+                        <label for="surveyNameInput" class="block text-[11px] font-bold" style="color: var(--text-secondary);">Nama / Panggilan Anda (Opsional — Akan Disamarkan Otomatis):</label>
+                        <input type="text" id="surveyNameInput" maxlength="40" placeholder="Contoh: Andrean (Otomatis tampil sebagai A***n)" class="w-full themed-input rounded-lg px-3 py-2 text-xs">
 
                         <label for="surveyCustomNote" class="block text-[11px] font-bold pt-1" style="color: var(--text-secondary);">Komentar Ulasan Layanan (Opsional):</label>
                         <textarea id="surveyCustomNote" rows="2" maxlength="300" placeholder="Ceritakan pengalaman Anda menggunakan akun/layanan ini..." class="w-full themed-input rounded-lg px-3 py-2 text-xs resize-y"></textarea>
@@ -1182,13 +1208,18 @@
                         <textarea id="surveyWebNote" rows="2" maxlength="300" placeholder="Saran untuk tampilan web katalog kami (Opsional)..." class="w-full themed-input rounded-lg px-3 py-2 text-xs resize-y"></textarea>
                     </div>
 
-                    <!-- Explicit Publication Consent (Opt-In, Tidak Dicentang Default) -->
-                    <label class="flex items-start gap-2.5 p-3 rounded-xl themed-subbox cursor-pointer select-none">
-                        <input type="checkbox" id="surveyPublishConsent" class="mt-0.5 w-4 h-4 accent-cyan-600 rounded">
-                        <span class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">
-                            <strong>Persetujuan Publikasi (Opt-In):</strong> Saya setuju ulasan layanan, produk, dan nama/inisial di atas ditampilkan secara publik di katalog AFIAR STORE. <em>(Jika tidak dicentang, rating bintang tetap dihitung secara anonim pada statistik, namun ulasan Anda hanya disimpan untuk evaluasi internal Admin).</em>
-                        </span>
-                    </label>
+                    <!-- Pemberitahuan Publikasi & Privasi (Default Publik Dengan Identitas Tersamar + Opsi Privat) -->
+                    <div class="p-3 rounded-xl themed-subbox space-y-2 border" style="border-color: var(--border-color);">
+                        <div class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">
+                            <strong style="color: var(--text-main);">📌 Pemberitahuan Publikasi &amp; Privasi:</strong> Rating dan komentar layanan Anda akan ditampilkan pada katalog AFIAR STORE. Demi menjaga privasi, <strong>identitas nama disamarkan secara otomatis</strong> dan nomor HP tidak pernah ditampilkan ke publik.
+                        </div>
+                        <label class="flex items-center gap-2 pt-1.5 border-t cursor-pointer select-none" style="border-color: var(--border-color);">
+                            <input type="checkbox" id="surveyPrivateOnlyOpt" class="w-3.5 h-3.5 accent-cyan-600 rounded">
+                            <span class="text-[11px]" style="color: var(--text-muted);">
+                                Kirim sebagai evaluasi privat khusus Admin (jangan tampilkan komentar saya di katalog publik)
+                            </span>
+                        </label>
+                    </div>
                 </div>
 
                 <button type="button" id="submitSurveyBtn" onclick="submitCustomerSurvey()" disabled class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
@@ -1202,7 +1233,7 @@
                     ✓
                 </div>
                 <div class="space-y-1.5">
-                    <h4 class="font-extrabold text-base sm:text-lg" style="color: var(--text-main);">Penilaian berhasil dikirim. Terima kasih.</h4>
+                    <h4 class="font-extrabold text-base sm:text-lg" style="color: var(--text-main);">Penilaian berhasil dikirim. Terima kasih telah membantu AFIAR STORE.</h4>
                     <p id="surveySuccessSubtext" class="text-xs leading-relaxed" style="color: var(--text-secondary);">
                         Masukan Anda telah tersimpan secara permanen di sistem AFIAR STORE.
                     </p>
@@ -1269,11 +1300,18 @@
                             <option value="Tahunan / Lifetime">Tahunan / Lifetime</option>
                         </select>
                     </div>
+                    <div>
+                        <label for="adminGenPhone" class="block text-[11px] font-bold mb-1" style="color: var(--text-secondary);">Nomor HP Pelanggan (Disimpan Privat &amp; Otomatis Disamarkan):</label>
+                        <input type="tel" id="adminGenPhone" placeholder="Contoh: +62 882-0062-16644 atau 0882006216644" oninput="updateAdminPhoneMaskPreview()" class="w-full themed-input rounded-lg px-3 py-2 text-xs font-semibold">
+                        <div id="adminPhoneMaskPreview" class="text-[10px] mt-1 font-mono" style="color: var(--text-muted);">
+                            Tampilan ke pelanggan: (Masukkan nomor HP di atas)
+                        </div>
+                    </div>
                     <button type="button" id="generateTicketBtn" onclick="createOneTimeSurveyTicket()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all disabled:opacity-50">
                         Buat Tiket &amp; Salin Chat WA Pembeli
                     </button>
                     <div id="generatedTicketBox" class="hidden p-2.5 rounded-lg themed-subbox space-y-1.5 text-xs">
-                        <div class="font-bold text-[11px]" style="color: var(--accent-cyan);">Tautan Tiket Aktif:</div>
+                        <div class="font-bold text-[11px]" style="color: var(--accent-cyan);">Tautan Tiket Aktif (Tanpa Nomor HP di URL):</div>
                         <div id="generatedTicketUrl" class="font-mono text-[10px] break-all p-2 rounded bg-black/10"></div>
                     </div>
                 </div>
@@ -1286,6 +1324,25 @@
                     <div id="internalEvalList" class="max-h-56 overflow-y-auto space-y-2 text-[11px] custom-scrollbar pr-1">
                         <div class="text-slate-400 text-center py-3">Klik "Muat / Segarkan Data" untuk membaca evaluasi internal pelanggan.</div>
                     </div>
+                </div>
+
+                <!-- Pemeliharaan Data Historis: Backup JSON & Hapus Presisi 1 Rekaman Percobaan Admin -->
+                <div class="space-y-2.5 p-3 rounded-xl themed-subbox border" style="border-color: var(--border-color);">
+                    <div class="font-extrabold text-xs uppercase flex items-center justify-between">
+                        <span style="color: var(--accent-cyan);">🛠️ Pemeliharaan Data Historis &amp; Audit Rating</span>
+                    </div>
+                    <p class="text-[10px] leading-relaxed" style="color: var(--text-muted);">
+                        Unduh salinan JSON seluruh database sebelum melakukan pemeliharaan, atau identifikasi rekaman percobaan Admin (misal rating bintang 2 percobaan) untuk dihapus secara spesifik tanpa mengubah <em>timestamp</em> pelanggan lain.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <button type="button" id="btnExportBackupJson" onclick="exportDatabaseBackupJSON()" class="py-2 px-3 rounded-lg text-[11px] font-bold bg-sky-600 hover:bg-sky-700 text-white transition-all">
+                            📥 Unduh Backup JSON Database
+                        </button>
+                        <button type="button" onclick="inspectAllRatingRecordsForAudit()" class="py-2 px-3 rounded-lg text-[11px] font-bold transition-all" style="background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main);">
+                            🔍 Inspeksi Rekaman Rating
+                        </button>
+                    </div>
+                    <div id="auditRatingsListContainer" class="hidden max-h-60 overflow-y-auto space-y-2 text-[11px] custom-scrollbar pt-2 border-t" style="border-color: var(--border-color);"></div>
                 </div>
             </div>
         </div>
@@ -1321,7 +1378,7 @@
 
             <div class="search-wrapper">
                 <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input type="search" id="searchInput" class="search-box" placeholder="Cari layanan (Netflix, ChatGPT, Canva, Zoom, GTC)..." aria-label="Cari layanan di katalog">
+                <input type="search" id="searchInput" class="search-box" placeholder="Cari produk atau layanan..." aria-label="Cari produk atau layanan">
                 <button type="button" id="clearSearchBtn" class="search-clear-btn" onclick="clearSearch()" title="Bersihkan pencarian" aria-label="Bersihkan pencarian">&times;</button>
             </div>
         </div>
@@ -1347,8 +1404,8 @@
             <section class="gmaps-review-container" aria-label="Ulasan dan Rating Pelanggan">
                 <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
                     <div>
-                        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wide" style="color: var(--text-main);">Ulasan &amp; Rating Transaksi Terverifikasi</h2>
-                        <p class="text-[11px]" style="color: var(--text-muted);">Statistik dihitung murni dari tiket transaksi pelanggan (bintang 1–5 tanpa sensor).</p>
+                        <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wide" style="color: var(--text-main);">Ulasan &amp; Rating Pelanggan</h2>
+                        <p class="text-[11px]" style="color: var(--text-muted);">Ringkasan penilaian dan ulasan dari pelanggan AFIAR STORE.</p>
                     </div>
                     <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold hover:underline flex items-center gap-1" style="color: var(--success);">
                         <span>Arsip Bukti Transfer (Saluran WA)</span>
@@ -1357,10 +1414,10 @@
                 </div>
 
                 <div class="gmaps-summary-grid">
-                    <div class="flex flex-col items-center sm:items-start justify-center text-center sm:text-left">
+                    <div class="flex flex-col items-center sm:items-start justify-center text-center sm:text-left pr-2 border-r" style="border-color: var(--border-color);">
                         <div class="gmaps-score-big" id="gmapsAvgScore">0.0</div>
-                        <div class="text-sm font-bold my-1" id="gmapsAvgStars" style="color: var(--accent-gold-star);">☆☆☆☆☆</div>
-                        <div class="text-[11px] font-semibold" id="gmapsTotalCount" style="color: var(--text-muted);">Belum ada penilaian</div>
+                        <div class="text-xs sm:text-sm font-bold my-1" id="gmapsAvgStars" style="color: var(--accent-gold-star);">☆☆☆☆☆</div>
+                        <div class="text-[10px] sm:text-[11px] font-semibold" id="gmapsTotalCount" style="color: var(--text-muted);">Belum ada penilaian</div>
                     </div>
 
                     <div class="space-y-1.5" id="gmapsDistributionBars">
@@ -1898,7 +1955,79 @@
         }
 
         /* =========================================================
+         * FUNGSI NORMALISASI & PENYAMARAN (MASKING) NOMOR HP & NAMA
+         * Contoh: +62 882-0062-16644 -> +62 882-xxxx-xxx44
+         * ========================================================= */
+        function normalizePhoneNumber(rawInput) {
+            if (!rawInput) return "";
+            let digits = String(rawInput).replace(/[^0-9]/g, '');
+            if (!digits) return "";
+            if (digits.startsWith('08')) {
+                digits = '62' + digits.slice(1);
+            } else if (digits.startsWith('8')) {
+                digits = '62' + digits;
+            }
+            if (digits.length < 10 || digits.length > 16) return "";
+            return '+' + digits;
+        }
+
+        function maskPhoneNumber(rawInput) {
+            const norm = normalizePhoneNumber(rawInput);
+            if (!norm) return "";
+            const digitsOnly = norm.slice(1); // contoh: 62882006216644
+            if (!digitsOnly.startsWith('62') || digitsOnly.length < 10) {
+                const prefix = norm.slice(0, 4);
+                const suffix = norm.slice(-2);
+                return `${prefix}-xxxx-xxx${suffix}`;
+            }
+            const subscriber = digitsOnly.slice(2); // contoh: 882006216644
+            const prefix3 = subscriber.slice(0, 3); // 882
+            const last2 = subscriber.slice(-2);     // 44
+            return `+62 ${prefix3}-xxxx-xxx${last2}`;
+        }
+
+        function maskCustomerDisplayName(rawName) {
+            const cleaned = String(rawName || '').trim().replace(/[0-9+]{5,}/g, '').trim();
+            if (!cleaned || cleaned.toLowerCase() === 'pembeli terverifikasi' || cleaned.toLowerCase() === 'pelanggan afiar') {
+                return "Pelanggan AFIAR";
+            }
+            // Jika sudah disamarkan dengan bintang, pertahankan
+            if (cleaned.includes('*')) return cleaned.slice(0, 25);
+
+            const parts = cleaned.split(/\s+/).filter(Boolean);
+            const maskedParts = parts.slice(0, 2).map((word, idx) => {
+                if (word.length <= 2) return word.charAt(0).toUpperCase() + '*';
+                if (idx === 0) {
+                    return word.charAt(0).toUpperCase() + '***' + word.charAt(word.length - 1).toLowerCase();
+                }
+                return word.charAt(0).toUpperCase() + '.';
+            });
+            return maskedParts.join(' ');
+        }
+
+        function updateAdminPhoneMaskPreview() {
+            const inp = document.getElementById('adminGenPhone');
+            const previewEl = document.getElementById('adminPhoneMaskPreview');
+            if (!inp || !previewEl) return;
+            const rawVal = inp.value.trim();
+            if (!rawVal) {
+                previewEl.textContent = "Tampilan ke pelanggan: (Masukkan nomor HP di atas)";
+                previewEl.style.color = "var(--text-muted)";
+                return;
+            }
+            const masked = maskPhoneNumber(rawVal);
+            if (!masked) {
+                previewEl.textContent = "Format nomor HP belum lengkap (minimal 10 digit).";
+                previewEl.style.color = "var(--danger)";
+            } else {
+                previewEl.textContent = `Tampilan ke pelanggan: ${masked}`;
+                previewEl.style.color = "var(--success)";
+            }
+        }
+
+        /* =========================================================
          * RENDER ULASAN & STATISTIK ALA GOOGLE MAPS (ANTI-XSS DOM)
+         * Tanpa label "Terverifikasi" berulang di kartu publik
          * ========================================================= */
         function createSafeReviewCardElement(item) {
             const card = document.createElement('article');
@@ -1910,7 +2039,7 @@
             const authorWrap = document.createElement('div');
             authorWrap.className = 'flex items-center gap-2.5 min-w-0';
 
-            const cleanName = String(item.name || 'Pembeli Terverifikasi').trim();
+            const cleanName = maskCustomerDisplayName(item.name);
             const initial = cleanName.charAt(0).toUpperCase() || 'P';
 
             const avatar = document.createElement('div');
@@ -1928,14 +2057,7 @@
             nameEl.style.color = 'var(--text-main)';
             nameEl.textContent = cleanName;
 
-            const verBadge = document.createElement('span');
-            verBadge.className = 'px-1.5 py-0.5 rounded text-[10px] font-bold';
-            verBadge.style.background = 'var(--success-soft)';
-            verBadge.style.color = 'var(--success)';
-            verBadge.textContent = '✓ Terverifikasi';
-
             nameRow.appendChild(nameEl);
-            nameRow.appendChild(verBadge);
 
             const dateEl = document.createElement('div');
             dateEl.className = 'text-[10px] font-medium mt-0.5';
@@ -2044,7 +2166,7 @@
                 avgStarsEl.textContent = totalValid > 0 ? ('★'.repeat(rounded) + '☆'.repeat(5 - rounded)) : '☆☆☆☆☆';
             }
             if (totalCountEl) {
-                totalCountEl.textContent = totalValid > 0 ? `Berdasarkan ${totalValid} penilaian terverifikasi` : 'Belum ada penilaian terverifikasi';
+                totalCountEl.textContent = totalValid > 0 ? `${totalValid} penilaian` : 'Belum ada penilaian';
             }
 
             for (let s = 1; s <= 5; s++) {
@@ -2066,7 +2188,7 @@
                     const emptyBox = document.createElement('div');
                     emptyBox.className = 'col-span-full text-center py-6 px-4 rounded-xl themed-subbox text-xs';
                     emptyBox.style.color = 'var(--text-muted)';
-                    emptyBox.textContent = 'Belum ada ulasan publik yang ditampilkan saat ini. Ulasan hanya dapat diisi oleh pembeli yang menerima tiket survei transaksi dari Admin.';
+                    emptyBox.textContent = 'Belum ada ulasan publik yang ditampilkan saat ini.';
                     previewContainer.appendChild(emptyBox);
                     if (btnAll) btnAll.classList.add('hidden');
                 } else {
@@ -2092,7 +2214,7 @@
                 const slicedList = sortedAll.slice(0, visibleModalReviewsCount);
 
                 if (countLabel) {
-                    countLabel.textContent = `Menampilkan ${slicedList.length} dari ${sortedAll.length} ulasan publik (Total ${totalValid} penilaian terverifikasi)`;
+                    countLabel.textContent = `Menampilkan ${slicedList.length} dari ${sortedAll.length} ulasan (${totalValid} penilaian)`;
                 }
 
                 if (slicedList.length === 0) {
@@ -2273,11 +2395,11 @@
             const nameInp = document.getElementById('surveyNameInput');
             const noteInp = document.getElementById('surveyCustomNote');
             const webNoteInp = document.getElementById('surveyWebNote');
-            const consentChk = document.getElementById('surveyPublishConsent');
+            const privateOptChk = document.getElementById('surveyPrivateOnlyOpt');
             if (nameInp) nameInp.value = '';
             if (noteInp) noteInp.value = '';
             if (webNoteInp) webNoteInp.value = '';
-            if (consentChk) consentChk.checked = false;
+            if (privateOptChk) privateOptChk.checked = false;
 
             const submitBtn = document.getElementById('submitSurveyBtn');
             if (submitBtn) {
@@ -2371,55 +2493,27 @@
             activeSurveyTicketId = ticketId;
             verifiedTicketRecord = {
                 product: String(ticketData.product),
-                duration: String(ticketData.duration)
+                duration: String(ticketData.duration),
+                maskedPhone: ticketData.maskedPhone ? String(ticketData.maskedPhone) : ""
             };
 
-            populateSurveyProductDropdown();
+            const prodTextEl = document.getElementById('surveyFixedProductText');
+            const durTextEl = document.getElementById('surveyFixedDurationText');
+            const phoneRowEl = document.getElementById('surveyMaskedPhoneRow');
+            const phoneTextEl = document.getElementById('surveyFixedMaskedPhone');
 
-            const selectEl = document.getElementById('surveyProductSelect');
-            const durSelect = document.getElementById('surveyDurationSelect');
-            const verBadge = document.getElementById('surveyVerifiedBadge');
+            if (prodTextEl) prodTextEl.textContent = verifiedTicketRecord.product;
+            if (durTextEl) durTextEl.textContent = verifiedTicketRecord.duration;
 
-            // Tampilkan lencana Terverifikasi hanya setelah pemeriksaan backend sukses
-            if (verBadge) verBadge.classList.remove('hidden');
-
-            // Pastikan produk & durasi memakai sumber kebenaran dari tiket
-            const targetProd = verifiedTicketRecord.product.toLowerCase();
-            let prodMatched = false;
-            for (let i = 0; i < selectEl.options.length; i++) {
-                const opt = selectEl.options[i];
-                if (opt.value.toLowerCase() === targetProd || opt.dataset.shortcut === targetProd) {
-                    selectEl.selectedIndex = i;
-                    prodMatched = true;
-                    break;
+            if (phoneRowEl && phoneTextEl) {
+                if (verifiedTicketRecord.maskedPhone) {
+                    phoneTextEl.textContent = verifiedTicketRecord.maskedPhone;
+                    phoneRowEl.classList.remove('hidden');
+                } else {
+                    phoneTextEl.textContent = '';
+                    phoneRowEl.classList.add('hidden');
                 }
             }
-            if (!prodMatched) {
-                const customOpt = document.createElement('option');
-                customOpt.value = verifiedTicketRecord.product;
-                customOpt.textContent = verifiedTicketRecord.product;
-                selectEl.appendChild(customOpt);
-                selectEl.value = verifiedTicketRecord.product;
-            }
-            selectEl.disabled = true;
-
-            const targetDur = verifiedTicketRecord.duration.toLowerCase();
-            let durMatched = false;
-            for (let i = 0; i < durSelect.options.length; i++) {
-                if (durSelect.options[i].value.toLowerCase() === targetDur) {
-                    durSelect.selectedIndex = i;
-                    durMatched = true;
-                    break;
-                }
-            }
-            if (!durMatched) {
-                const customDur = document.createElement('option');
-                customDur.value = verifiedTicketRecord.duration;
-                customDur.textContent = verifiedTicketRecord.duration;
-                durSelect.appendChild(customDur);
-                durSelect.value = verifiedTicketRecord.duration;
-            }
-            durSelect.disabled = true;
 
             resetSurveyToEmptyState();
 
@@ -2453,7 +2547,8 @@
             const rawName = document.getElementById('surveyNameInput').value.trim();
             const customNote = document.getElementById('surveyCustomNote').value.trim();
             const webNote = document.getElementById('surveyWebNote').value.trim();
-            const hasConsent = document.getElementById('surveyPublishConsent').checked === true;
+            const isPrivateOnly = document.getElementById('surveyPrivateOnlyOpt') && document.getElementById('surveyPrivateOnlyOpt').checked === true;
+            const hasConsent = !isPrivateOnly;
             const tagsArray = Array.from(selectedSurveyTags);
             const webTagsArray = Array.from(selectedWebTags);
 
@@ -2477,10 +2572,13 @@
             submitBtn.disabled = true;
             submitBtn.textContent = "Menyimpan Penilaian...";
 
+            const maskedDisplayName = maskCustomerDisplayName(rawName);
+
             // Produk & durasi diambil dari tiket terverifikasi (bukan dari manipulasi DOM)
             const surveyPayload = {
                 ticketId: activeSurveyTicketId,
-                name: rawName || "Pembeli Terverifikasi",
+                name: maskedDisplayName,
+                rawNameInternal: rawName || "Anonim",
                 product: verifiedTicketRecord.product,
                 duration: verifiedTicketRecord.duration,
                 stars: currentSurveyStar,
@@ -2517,8 +2615,8 @@
                 const subtextEl = document.getElementById('surveySuccessSubtext');
                 if (subtextEl) {
                     subtextEl.textContent = hasConsent
-                        ? "Ulasan dan rating Anda telah berhasil dipublikasikan secara transparan di katalog AFIAR STORE."
-                        : "Rating Anda telah dicatat ke dalam statistik transparan dan evaluasi internal Admin (tanpa memublikasikan identitas/komentar Anda).";
+                        ? "Ulasan dan rating Anda telah berhasil ditampilkan pada katalog AFIAR STORE dengan identitas yang disamarkan."
+                        : "Penilaian Anda telah dicatat secara privat untuk evaluasi internal Admin tanpa menampilkan komentar di katalog publik.";
                 }
                 if (formView) formView.classList.add('hidden');
                 if (successView) successView.classList.remove('hidden');
@@ -2558,8 +2656,17 @@
             }
             const prodName = document.getElementById('adminGenProd').value;
             const durName = document.getElementById('adminGenDur').value;
-            const btn = document.getElementById('generateTicketBtn');
+            const phoneInp = document.getElementById('adminGenPhone');
+            const rawPhone = phoneInp ? phoneInp.value.trim() : '';
 
+            const normalizedPhone = normalizePhoneNumber(rawPhone);
+            const maskedPhone = maskPhoneNumber(rawPhone);
+            if (!normalizedPhone || !maskedPhone) {
+                showAdminError("Masukkan nomor HP pelanggan yang valid terlebih dahulu (contoh: +62 882-0062-16644 atau 0882006216644).");
+                return;
+            }
+
+            const btn = document.getElementById('generateTicketBtn');
             btn.disabled = true;
             btn.textContent = "Membuat Tiket di Database...";
 
@@ -2571,7 +2678,9 @@
                     ticketCode = generateCryptographicTicketCode();
                     created = await window.saveNewTicketToFirebase(ticketCode, {
                         product: prodName,
-                        duration: durName
+                        duration: durName,
+                        maskedPhone: maskedPhone,
+                        fullPhonePrivate: normalizedPhone
                     });
                     if (created) break;
                 }
@@ -2580,10 +2689,11 @@
                     throw new Error("Gagal membuat kode tiket unik. Silakan coba lagi.");
                 }
 
+                // Tautan survei HANYA berisi ID tiket acak tanpa nomor HP di URL
                 const baseUrl = window.location.origin + window.location.pathname;
                 const inviteLink = `${baseUrl}?ticket=${encodeURIComponent(ticketCode)}`;
 
-                const waText = `Halo Kak! ⚡ Masa aktif layanan *${prodName} (${durName})* Kakak di *AFIAR STORE* telah selesai.\n\nTerima kasih sudah mempercayakan kebutuhan akun premium Kakak kepada kami. Demi menjaga kualitas layanan ke depannya, mohon bantuannya mengisi *Survei Khusus Pembeli (3-Klik Tanpa Ketik)* melalui tiket sekali pakai berikut:\n\n👉 ${inviteLink}\n\n*(Jika Kakak ingin memperpanjang masa aktif atau mencoba layanan lain, silakan balas pesan ini kapan saja ya Kak!)*\n\n*Transparan & Garansi S&K Berlaku — AFIAR STORE*`;
+                const waText = `Halo Kak (${maskedPhone})! ⚡ Masa aktif layanan *${prodName} (${durName})* Kakak di *AFIAR STORE* telah selesai.\n\nTerima kasih sudah mempercayakan kebutuhan akun premium Kakak kepada kami. Demi menjaga kualitas layanan ke depannya, mohon bantuannya mengisi *Survei Kepuasan Pelanggan* melalui tautan tiket sekali pakai berikut:\n\n👉 ${inviteLink}\n\n*(Identitas Kakak otomatis disamarkan demi privasi. Jika ingin memperpanjang masa aktif atau mencoba layanan lain, silakan balas pesan ini kapan saja ya Kak!)*\n\n*Transparan & Garansi S&K Berlaku — AFIAR STORE*`;
 
                 await copyTextSafe(waText, `Tiket ${ticketCode} dibuat & Chat WA berhasil disalin!`);
 
@@ -2591,6 +2701,8 @@
                 const urlEl = document.getElementById('generatedTicketUrl');
                 urlEl.textContent = inviteLink;
                 box.classList.remove('hidden');
+                if (phoneInp) phoneInp.value = '';
+                updateAdminPhoneMaskPreview();
             } catch (err) {
                 showAdminError(err && err.message ? err.message : "Gagal membuat tiket. Pastikan akun memiliki otorisasi Admin di Firebase.");
             } finally {
@@ -2865,15 +2977,12 @@
                         <h2 class="hero-slide-title">${item.title}</h2>
                         <p class="hero-slide-desc">${item.desc}</p>
                         <div class="hero-price-highlight">
-                            <span class="hero-price-main">${priceLabel}</span>
+                            <span class="hero-price-main">Mulai <span class="hero-price-accent">Rp ${prod.startPrice}</span></span>
                         </div>
                         <div class="hero-btn-group">
                             <button type="button" class="btn-hero-primary" onclick="openHeroProduct(${prod.id})">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
                                 <span>Lihat Paket</span>
-                            </button>
-                            <button type="button" class="btn-hero-secondary" onclick="openPaymentModal()">
-                                <span>QRIS / Bayar</span>
                             </button>
                         </div>
                     </div>
@@ -3290,14 +3399,13 @@
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
-          apiKey: "AIzaSyAXrRUX9bt9MoO7jYY4dFvW_iPr9GOdLyg",
-          authDomain: "afiar-store-web.firebaseapp.com",
-          databaseURL: "https://afiar-store-web-default-rtdb.asia-southeast1.firebasedatabase.app",
-          projectId: "afiar-store-web",
-          storageBucket: "afiar-store-web.firebasestorage.app",
-          messagingSenderId: "332112428329",
-          appId: "1:332112428329:web:f11949dbddf2020efd4b38",
-          measurementId: "G-PTHDH889LG"
+            apiKey: "AIzaSyAXrRUX9bt9Mo07jYY4dFvW_iPr9GOdLyg",
+            authDomain: "afiar-store-web.firebaseapp.com",
+            databaseURL: "https://afiar-store-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "afiar-store-web",
+            storageBucket: "afiar-store-web.firebasestorage.app",
+            messagingSenderId: "332112428329",
+            appId: "1:332112428329:web:f11949dbddf2020efd4b38"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -3372,6 +3480,7 @@
         };
 
         // Pembuatan tiket menggunakan waktu server & mencegah timpa tiket lama (collision-safe)
+        // Nomor HP lengkap disimpan di node privat /ticket_private_meta, sedangkan /survey_tickets hanya menyimpan maskedPhone
         window.saveNewTicketToFirebase = async function(ticketId, meta) {
             if (!window.isCurrentUserAuthorizedAdmin()) {
                 throw new Error("Akses ditolak: Hanya Admin terotorisasi yang dapat membuat tiket.");
@@ -3385,16 +3494,29 @@
 
             const nowServerEstimate = Date.now();
             const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
-            await update(ref(db), {
+            const updates = {
                 [`survey_tickets/${cleanId}`]: {
                     product: String(meta.product),
                     duration: String(meta.duration),
+                    maskedPhone: String(meta.maskedPhone || ""),
                     createdAt: serverTimestamp(),
                     expiresAt: nowServerEstimate + sevenDaysMs,
                     used: false,
                     createdBy: auth.currentUser.uid
                 }
-            });
+            };
+            if (meta.fullPhonePrivate) {
+                updates[`ticket_private_meta/${cleanId}`] = {
+                    ticketId: cleanId,
+                    fullPhone: String(meta.fullPhonePrivate),
+                    maskedPhone: String(meta.maskedPhone || ""),
+                    product: String(meta.product),
+                    duration: String(meta.duration),
+                    createdAt: serverTimestamp(),
+                    createdBy: auth.currentUser.uid
+                };
+            }
+            await update(ref(db), updates);
             return true;
         };
 
@@ -3489,10 +3611,14 @@
             // Gunakan produk & durasi otoritatif dari tiket server
             const authoritativeProduct = String(ticketData.product);
             const authoritativeDuration = String(ticketData.duration);
+            const authoritativeMaskedPhone = ticketData.maskedPhone ? String(ticketData.maskedPhone) : "";
             const serverTs = serverTimestamp();
             const isPublic = payload.publishConsent === true;
+            const safeMaskedName = typeof maskCustomerDisplayName === "function"
+                ? maskCustomerDisplayName(payload.name)
+                : "Pelanggan AFIAR";
 
-            // Satu operasi multi-path update atomik:
+            // Satu operasi multi-path update:
             // Semua path berhasil ditulis bersama atau batal bersama (mencegah tiket hangus akibat kegagalan parsial)
             const atomicMultiPathUpdates = {};
 
@@ -3510,7 +3636,9 @@
 
             atomicMultiPathUpdates[`internal_evaluations/${cleanId}`] = {
                 ticketId: cleanId,
-                name: String(payload.name || "Pembeli Terverifikasi").slice(0, 40),
+                name: String(payload.rawNameInternal || safeMaskedName).slice(0, 40),
+                maskedName: safeMaskedName,
+                maskedPhone: authoritativeMaskedPhone,
                 product: authoritativeProduct,
                 duration: authoritativeDuration,
                 stars: starVal,
@@ -3527,7 +3655,7 @@
             if (isPublic) {
                 atomicMultiPathUpdates[`public_reviews/${cleanId}`] = {
                     ticketId: cleanId,
-                    name: String(payload.name || "Pembeli Terverifikasi").slice(0, 40),
+                    name: safeMaskedName,
                     product: authoritativeProduct,
                     duration: authoritativeDuration,
                     stars: starVal,
@@ -3553,8 +3681,223 @@
         };
 
         /* =========================================================
-         * REAL-TIME LISTENERS DENGAN ERROR HANDLING & IDEMPOTENT STATS
+         * PEMELIHARAAN DATA HISTORIS ADMIN:
+         * 1. Ekspor Backup JSON Non-Destruktif
+         * 2. Inspeksi Rekaman & Hapus Presisi 1 Tiket Percobaan Admin + Rekonsiliasi Statistik
          * ========================================================= */
+        window.exportDatabaseBackupJSON = async function() {
+            if (!window.isCurrentUserAuthorizedAdmin()) {
+                showAdminError("Hanya Admin terotorisasi yang dapat mengunduh backup database.");
+                return;
+            }
+            const btn = document.getElementById('btnExportBackupJson');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = "Menyiapkan Backup JSON...";
+            }
+            try {
+                const nodes = ['survey_tickets', 'review_ratings', 'review_stats', 'public_reviews', 'internal_evaluations', 'ticket_private_meta', 'customer_surveys', 'product_views'];
+                const backupPayload = {
+                    exportedAt: new Date().toISOString(),
+                    projectId: "afiar-store-web",
+                    data: {}
+                };
+                for (const nodeName of nodes) {
+                    try {
+                        const snap = await get(ref(db, nodeName));
+                        backupPayload.data[nodeName] = snap.exists() ? snap.val() : null;
+                    } catch (e) {
+                        backupPayload.data[nodeName] = { _readError: e.message };
+                    }
+                }
+                const blob = new Blob([JSON.stringify(backupPayload, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                const dateStamp = new Date().toISOString().replace(/[:.]/g, '-');
+                a.href = url;
+                a.download = `afiar-store-rtdb-backup-${dateStamp}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast("Backup JSON database berhasil diunduh.");
+            } catch (err) {
+                showAdminError("Gagal mengunduh backup JSON: " + (err.message || "Unknown error"));
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = "📥 Unduh Backup JSON Database";
+                }
+            }
+        };
+
+        window.inspectAllRatingRecordsForAudit = async function() {
+            if (!window.isCurrentUserAuthorizedAdmin()) {
+                showAdminError("Hanya Admin terotorisasi yang dapat menginspeksi rekaman rating.");
+                return;
+            }
+            const container = document.getElementById('auditRatingsListContainer');
+            if (!container) return;
+            container.classList.remove('hidden');
+            container.textContent = 'Memuat daftar rekaman dari review_ratings & internal_evaluations...';
+
+            try {
+                const [ratingsSnap, internalSnap, publicSnap] = await Promise.all([
+                    get(ref(db, 'review_ratings')),
+                    get(ref(db, 'internal_evaluations')),
+                    get(ref(db, 'public_reviews'))
+                ]);
+                const ratingsMap = ratingsSnap.exists() ? ratingsSnap.val() : {};
+                const internalMap = internalSnap.exists() ? internalSnap.val() : {};
+                const publicMap = publicSnap.exists() ? publicSnap.val() : {};
+
+                const allKeys = Array.from(new Set([
+                    ...Object.keys(ratingsMap),
+                    ...Object.keys(internalMap),
+                    ...Object.keys(publicMap)
+                ]));
+
+                container.textContent = '';
+                if (allKeys.length === 0) {
+                    container.textContent = 'Tidak ditemukan rekaman rating di database.';
+                    return;
+                }
+
+                const combined = allKeys.map(key => {
+                    const r = ratingsMap[key] || {};
+                    const ie = internalMap[key] || {};
+                    const pub = publicMap[key] || {};
+                    return {
+                        ticketId: key,
+                        stars: Number(r.stars || ie.stars || pub.stars || 0),
+                        timestamp: Number(r.timestamp || ie.timestamp || pub.timestamp || 0),
+                        product: ie.product || pub.product || '-',
+                        duration: ie.duration || pub.duration || '-',
+                        name: ie.name || pub.name || '-',
+                        note: ie.note || pub.note || '',
+                        inRatings: Boolean(ratingsMap[key]),
+                        inPublic: Boolean(publicMap[key]),
+                        inInternal: Boolean(internalMap[key])
+                    };
+                }).sort((a, b) => b.timestamp - a.timestamp);
+
+                combined.forEach(rec => {
+                    const row = document.createElement('div');
+                    row.className = 'p-2.5 rounded-lg border space-y-1';
+                    row.style.background = 'var(--card-bg)';
+                    row.style.borderColor = rec.stars === 2 ? 'var(--danger)' : 'var(--border-color)';
+
+                    const head = document.createElement('div');
+                    head.className = 'flex items-center justify-between gap-2 font-bold';
+                    const idSpan = document.createElement('span');
+                    idSpan.className = 'font-mono text-[10px]';
+                    idSpan.style.color = 'var(--accent-cyan)';
+                    idSpan.textContent = `${rec.ticketId} (${rec.stars} ★)`;
+
+                    const timeSpan = document.createElement('span');
+                    timeSpan.className = 'text-[10px]';
+                    timeSpan.style.color = 'var(--text-muted)';
+                    timeSpan.textContent = formatReviewTimestamp(rec.timestamp);
+
+                    head.appendChild(idSpan);
+                    head.appendChild(timeSpan);
+                    row.appendChild(head);
+
+                    const detail = document.createElement('div');
+                    detail.className = 'text-[10px]';
+                    detail.style.color = 'var(--text-secondary)';
+                    detail.textContent = `Produk: ${rec.product} (${rec.duration}) • Nama: ${rec.name} • Komentar: "${rec.note || '-'}"`;
+                    row.appendChild(detail);
+
+                    const actionWrap = document.createElement('div');
+                    actionWrap.className = 'pt-1 flex items-center justify-end gap-2';
+
+                    const delBtn = document.createElement('button');
+                    delBtn.type = 'button';
+                    delBtn.className = 'px-2.5 py-1 rounded text-[10px] font-bold text-white bg-rose-600 hover:bg-rose-700';
+                    delBtn.textContent = 'Hapus Rekaman Percobaan Ini';
+                    delBtn.onclick = () => {
+                        delBtn.classList.add('hidden');
+                        confirmWrap.classList.remove('hidden');
+                    };
+
+                    const confirmWrap = document.createElement('div');
+                    confirmWrap.className = 'hidden flex items-center gap-1.5';
+                    const confirmLabel = document.createElement('span');
+                    confirmLabel.className = 'text-[10px] font-bold text-rose-500';
+                    confirmLabel.textContent = `Yakin hapus ${rec.ticketId}?`;
+
+                    const yesBtn = document.createElement('button');
+                    yesBtn.type = 'button';
+                    yesBtn.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-600 text-white';
+                    yesBtn.textContent = 'Ya, Hapus & Hitung Ulang Statistik';
+                    yesBtn.onclick = () => removeSpecificAdminTestRecord(rec.ticketId);
+
+                    const cancelBtn = document.createElement('button');
+                    cancelBtn.type = 'button';
+                    cancelBtn.className = 'px-2 py-0.5 rounded text-[10px] font-semibold themed-subbox';
+                    cancelBtn.textContent = 'Batal';
+                    cancelBtn.onclick = () => {
+                        confirmWrap.classList.add('hidden');
+                        delBtn.classList.remove('hidden');
+                    };
+
+                    confirmWrap.appendChild(confirmLabel);
+                    confirmWrap.appendChild(yesBtn);
+                    confirmWrap.appendChild(cancelBtn);
+
+                    actionWrap.appendChild(delBtn);
+                    actionWrap.appendChild(confirmWrap);
+                    row.appendChild(actionWrap);
+
+                    container.appendChild(row);
+                });
+            } catch (err) {
+                container.textContent = 'Gagal memuat rekaman audit: ' + (err.message || 'Unknown error');
+            }
+        };
+
+        async function removeSpecificAdminTestRecord(ticketId) {
+            if (!window.isCurrentUserAuthorizedAdmin()) {
+                showAdminError("Akses ditolak: Hanya Admin terotorisasi yang dapat menghapus rekaman percobaan.");
+                return;
+            }
+            const cleanId = String(ticketId || '').replace(/[^A-Za-z0-9_-]/g, '');
+            if (!cleanId) return;
+
+            try {
+                // Hapus HANYA rekaman percobaan tersebut dari review_ratings, public_reviews, dan internal_evaluations
+                // Pertahankan survey_tickets/{ticketId} sebagai catatan audit
+                const updates = {
+                    [`review_ratings/${cleanId}`]: null,
+                    [`public_reviews/${cleanId}`]: null,
+                    [`internal_evaluations/${cleanId}`]: null,
+                    [`survey_tickets/${cleanId}/adminTestRemovedAt`]: serverTimestamp()
+                };
+                await update(ref(db), updates);
+
+                // Hitung ulang review_stats dari seluruh rekaman valid yang tersisa di review_ratings tanpa menyentuh timestamp pelanggan lain
+                const remainingSnap = await get(ref(db, 'review_ratings'));
+                const recalculated = { totalCount: 0, sumStars: 0, stars: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
+                if (remainingSnap.exists()) {
+                    Object.values(remainingSnap.val()).forEach(entry => {
+                        const s = Number(entry && entry.stars);
+                        if (Number.isInteger(s) && s >= 1 && s <= 5) {
+                            recalculated.totalCount += 1;
+                            recalculated.sumStars += s;
+                            recalculated.stars[s] = (recalculated.stars[s] || 0) + 1;
+                        }
+                    });
+                }
+                await update(ref(db), { [`review_stats`]: recalculated });
+
+                showToast(`Rekaman percobaan ${cleanId} dihapus & statistik berhasil direkonsiliasi.`);
+                await window.inspectAllRatingRecordsForAudit();
+            } catch (err) {
+                showAdminError("Gagal menghapus rekaman percobaan: " + (err.message || "Periksa izin Security Rules Admin."));
+            }
+        }
+
         function setReviewsReadError(message) {
             const errBox = document.getElementById('reviewsReadErrorBox');
             if (!errBox) return;
