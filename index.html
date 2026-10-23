@@ -11,13 +11,12 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="AFIAR STORE">
     <meta property="og:title" content="AFIAR STORE — Digital Premium Accounts">
-    <meta property="og:description" content="Cek daftar harga lengkap 40+ layanan premium (ChatGPT, Netflix, Canva, Vidio, YouTube, dll). Transparan & Garansi S&K Berlaku.">
+    <meta property="og:description" content="Cek daftar harga lengkap 40+ layanan premium (ChatGPT, Netflix, Canva, CapCut, Vidio, YouTube, dll). Transparan & Garansi S&K Berlaku.">
     <meta property="og:url" content="https://aryaarafiiarhmt.github.io/Store/">
     <meta property="og:image" content="https://placehold.co/1200x630/0f172a/00f0ff?text=AFIAR+STORE+Digital+Premium+Accounts">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AFIAR STORE — Digital Premium Accounts">
     <meta name="twitter:description" content="Katalog resmi 40+ layanan digital premium bergaransi S&K berlaku.">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/0f172a/00f0ff?text=AFIAR+STORE+Digital+Premium+Accounts">
 
     <!-- Google tag (gtag.js) untuk Funnel Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTHDH889LG"></script>
@@ -110,7 +109,6 @@
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
-        /* Keyboard Focus Visibility & Touch targets (Min 44x44px where applicable) */
         button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
             outline: none;
             box-shadow: var(--focus-ring);
@@ -120,28 +118,6 @@
             max-width: 1080px;
             margin: 0 auto;
             width: 100%;
-        }
-
-        /* =========================================================
-         * MICRO-INTERACTIONS & REDUCED MOTION
-         * ========================================================= */
-        @keyframes starWaveGlow {
-            0%, 60%, 100% { transform: scale(1); }
-            30% { transform: scale(1.16) translateY(-2px); color: var(--accent-gold-star); }
-        }
-        .star-wave-hint .star-btn:nth-child(1) { animation: starWaveGlow 2.4s ease-in-out 3 0s; }
-        .star-wave-hint .star-btn:nth-child(2) { animation: starWaveGlow 2.4s ease-in-out 3 0.14s; }
-        .star-wave-hint .star-btn:nth-child(3) { animation: starWaveGlow 2.4s ease-in-out 3 0.28s; }
-        .star-wave-hint .star-btn:nth-child(4) { animation: starWaveGlow 2.4s ease-in-out 3 0.42s; }
-        .star-wave-hint .star-btn:nth-child(5) { animation: starWaveGlow 2.4s ease-in-out 3 0.56s; }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
         }
 
         /* Sticky Header */
@@ -157,24 +133,32 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             gap: 8px;
         }
-        .brand-container { display: flex; align-items: center; gap: 8px; min-width: 0; }
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+            flex: 1;
+        }
         .af-logo {
-            width: 38px; height: 38px; border-radius: 8px;
+            width: 34px; height: 34px; border-radius: 8px;
             background: linear-gradient(135deg, #1a1025 0%, #0d1b2a 100%);
             border: 1px solid #00f0ff;
             display: flex; align-items: center; justify-content: center;
-            font-family: Impact, sans-serif; font-size: 1rem; color: #fff;
+            font-family: Impact, sans-serif; font-size: 0.95rem; color: #fff;
             flex-shrink: 0;
         }
         .brand {
             font-family: Impact, sans-serif;
-            font-size: clamp(1.1rem, 3.8vw, 1.35rem);
+            font-size: clamp(1.05rem, 4vw, 1.35rem);
             color: var(--text-main);
             letter-spacing: 0.8px;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .header-actions {
             display: flex;
@@ -182,19 +166,35 @@
             gap: 6px;
             flex-shrink: 0;
         }
+        .header-subnav {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        @media (min-width: 640px) {
+            .header-subnav { display: none; }
+        }
+        .desktop-only-link {
+            display: none !important;
+        }
+        @media (min-width: 640px) {
+            .desktop-only-link { display: inline-flex !important; }
+        }
 
         .btn-theme-toggle {
             background: var(--surface-subtle);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            min-width: 40px;
-            min-height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 8px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: transform 0.15s ease, border-color 0.15s ease;
+            flex-shrink: 0;
         }
         .btn-theme-toggle:hover { border-color: var(--accent-cyan); }
         .btn-theme-toggle:active { transform: scale(0.94); }
@@ -203,15 +203,17 @@
             background: var(--surface-subtle);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            min-height: 40px;
+            min-height: 36px;
             padding: 6px 10px;
             border-radius: 8px;
-            font-size: clamp(0.68rem, 2.2vw, 0.75rem);
+            font-size: 0.72rem;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+            gap: 4px;
             transition: border-color 0.15s ease, color 0.15s ease;
             white-space: nowrap;
         }
@@ -224,10 +226,10 @@
             background: var(--accent-gold-soft);
             border: 1px solid var(--accent-gold-border);
             color: var(--accent-gold);
-            min-height: 40px;
-            padding: 6px 12px;
+            height: 38px;
+            padding: 0 11px;
             border-radius: 8px;
-            font-size: clamp(0.68rem, 2.2vw, 0.75rem);
+            font-size: 0.72rem;
             font-weight: 800;
             display: inline-flex;
             align-items: center;
@@ -235,6 +237,7 @@
             cursor: pointer;
             transition: transform 0.15s ease, border-color 0.15s ease;
             white-space: nowrap;
+            flex-shrink: 0;
         }
         .btn-payment-top:hover { border-color: var(--accent-gold); }
         .btn-payment-top:active { transform: scale(0.96); }
@@ -243,30 +246,30 @@
         .search-wrapper { position: relative; width: 100%; }
         .search-box {
             width: 100%;
-            min-height: 44px;
-            padding: 9px 38px 9px 36px;
+            min-height: 40px;
+            padding: 8px 36px 8px 34px;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 9px;
             color: var(--text-main);
-            font-size: clamp(0.8rem, 2.5vw, 0.86rem);
+            font-size: 0.8rem;
             transition: border-color 0.2s;
             box-shadow: var(--shadow-card);
         }
         .search-box:focus { border-color: var(--accent-cyan); }
         .search-icon {
-            position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+            position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
             color: var(--text-muted); pointer-events: none;
         }
         .search-clear-btn {
             position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
             color: var(--text-muted); background: none; border: none; font-size: 1.2rem;
-            cursor: pointer; display: none; width: 36px; height: 36px; border-radius: 6px;
+            cursor: pointer; display: none; width: 32px; height: 32px; border-radius: 6px;
         }
 
         /* Hero Spotlight Carousel */
         .hero-section-wrap {
-            margin: 14px clamp(12px, 3vw, 20px) 14px;
+            margin: 12px clamp(12px, 3vw, 20px) 14px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -277,152 +280,143 @@
             background: #0f131c;
             border: 1px solid var(--border-color);
             overflow: hidden;
-            min-height: clamp(225px, 34vw, 285px);
-            display: flex;
-            align-items: stretch;
             box-shadow: var(--shadow-card);
             user-select: none;
         }
+        #heroSlidesContainer {
+            position: relative;
+            width: 100%;
+        }
         .hero-slide {
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease-in-out;
-            display: flex;
+            display: none;
+            position: relative;
+            width: 100%;
+            min-height: 230px;
             align-items: center;
             overflow: hidden;
         }
-        .hero-slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+        .hero-slide.active {
+            display: flex;
+            z-index: 2;
+            animation: heroFadeIn 0.35s ease-out;
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
         .hero-visual {
             position: absolute;
             top: 0; right: 0; bottom: 0;
-            width: 62%;
+            width: 55%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             z-index: 1;
+            pointer-events: none;
         }
         @media (max-width: 639px) {
             .hero-visual {
                 width: 100%;
                 justify-content: flex-end;
-                padding-right: 14px;
-                opacity: 0.38;
+                padding-right: 10px;
+                opacity: 0.22;
             }
         }
         .hero-gradient-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, #0d111a 0%, #0d111a 42%, rgba(13, 17, 26, 0.84) 66%, rgba(13, 17, 26, 0.25) 100%);
+            background: linear-gradient(90deg, #0d111a 0%, #0d111a 46%, rgba(13, 17, 26, 0.86) 70%, rgba(13, 17, 26, 0.3) 100%);
             z-index: 2;
+            pointer-events: none;
         }
         @media (max-width: 639px) {
             .hero-gradient-overlay {
-                background: linear-gradient(90deg, #0d111a 0%, rgba(13, 17, 26, 0.94) 58%, rgba(13, 17, 26, 0.72) 100%);
+                background: linear-gradient(90deg, #0d111a 0%, rgba(13, 17, 26, 0.95) 65%, rgba(13, 17, 26, 0.78) 100%);
             }
         }
         .hero-top-tag {
-            position: absolute;
-            top: clamp(12px, 2.5vw, 18px);
-            right: clamp(12px, 2.5vw, 18px);
-            z-index: 5;
-            background: rgba(15, 23, 42, 0.85);
+            display: inline-block;
+            background: rgba(15, 23, 42, 0.9);
             border: 1px solid rgba(0, 240, 255, 0.45);
             color: #00f0ff;
-            font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+            font-size: 0.62rem;
             font-weight: 800;
-            padding: 4px 10px;
+            padding: 3px 10px;
             border-radius: 999px;
             letter-spacing: 0.4px;
             text-transform: uppercase;
+            margin-bottom: 2px;
         }
         .hero-content {
             position: relative;
             z-index: 4;
             width: 100%;
-            max-width: 560px;
-            padding: clamp(18px, 4vw, 28px) clamp(16px, 4.5vw, 44px) clamp(36px, 5vw, 42px);
+            max-width: 580px;
+            padding: 18px 16px 42px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             gap: 6px;
+        }
+        @media (min-width: 640px) {
+            .hero-content { padding: 26px 44px 46px; }
         }
         .hero-meta-row {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 6px;
-            font-size: clamp(0.68rem, 2.1vw, 0.78rem);
+            font-size: 0.72rem;
             font-weight: 600;
             color: #cbd5e1;
         }
         .hero-meta-cat { color: #00f0ff; font-weight: 700; }
         .hero-slide-title {
-            font-size: clamp(1.18rem, 4.2vw, 1.8rem);
+            font-size: clamp(1.15rem, 4.2vw, 1.75rem);
             font-weight: 900;
             color: #ffffff;
-            line-height: 1.15;
+            line-height: 1.2;
         }
         .hero-slide-desc {
-            font-size: clamp(0.72rem, 2.2vw, 0.82rem);
+            font-size: 0.75rem;
             color: #cbd5e1;
             line-height: 1.5;
-            max-width: 440px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            max-width: 450px;
             margin-bottom: 4px;
-        }
-        .hero-price-highlight {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            padding: 4px 10px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-        }
-        .hero-price-main {
-            font-size: clamp(0.78rem, 2.4vw, 0.9rem);
-            font-weight: 800;
-            color: #facc15;
         }
         .hero-btn-group {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 8px;
-            margin-top: 2px;
+            margin-top: 4px;
         }
         .btn-hero-primary {
             background: #ffffff;
             color: #0b0c10;
-            min-height: 40px;
-            font-size: clamp(0.74rem, 2.2vw, 0.82rem);
+            min-height: 38px;
+            font-size: 0.75rem;
             font-weight: 800;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 999px;
             border: none;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             cursor: pointer;
             transition: background-color 0.2s ease, transform 0.15s ease;
         }
         .btn-hero-primary:hover { background: #00f0ff; color: #000; }
         .btn-hero-primary:active { transform: scale(0.96); }
         .btn-hero-secondary {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.25);
             color: #f1f5f9;
-            min-height: 40px;
-            font-size: clamp(0.72rem, 2.2vw, 0.8rem);
+            min-height: 38px;
+            font-size: 0.74rem;
             font-weight: 700;
-            padding: 8px 15px;
+            padding: 8px 14px;
             border-radius: 999px;
             display: inline-flex;
             align-items: center;
@@ -437,7 +431,7 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 6;
-            width: 40px; height: 40px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             background: rgba(15, 23, 42, 0.65);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -455,26 +449,27 @@
         .hero-dots {
             position: absolute;
             bottom: 12px;
-            left: clamp(16px, 4.5vw, 44px);
+            left: 16px;
             z-index: 6;
             display: flex;
             align-items: center;
             gap: 6px;
         }
+        @media (min-width: 640px) { .hero-dots { left: 44px; } }
         .hero-dot {
-            width: 10px; height: 10px;
+            width: 8px; height: 8px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.3);
             border: none; padding: 0;
             cursor: pointer;
             transition: width 0.25s ease, background-color 0.25s ease;
         }
-        .hero-dot.active { width: 22px; background: #ffffff; }
+        .hero-dot.active { width: 20px; background: #00f0ff; }
 
         .showcase-card {
             position: relative;
-            width: clamp(140px, 24vw, 220px);
-            height: clamp(140px, 24vw, 200px);
+            width: clamp(140px, 24vw, 210px);
+            height: clamp(140px, 24vw, 190px);
             border-radius: 20px;
             display: flex;
             flex-direction: column;
@@ -486,26 +481,24 @@
             transform: rotate(-3deg);
         }
         .showcase-card img {
-            width: clamp(56px, 9vw, 80px);
-            height: clamp(56px, 9vw, 80px);
+            width: clamp(54px, 9vw, 76px);
+            height: clamp(54px, 9vw, 76px);
             border-radius: 16px;
             background: #131720;
             padding: 10px;
         }
         .showcase-card-label {
-            font-size: clamp(0.62rem, 1.8vw, 0.72rem);
+            font-size: 0.65rem;
             font-weight: 800;
             color: #fff;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.65);
             padding: 3px 10px;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             white-space: nowrap;
         }
 
-        /* =========================================================
-         * GOOGLE MAPS STYLE REVIEWS SUMMARY & CARDS
-         * ========================================================= */
+        /* Google Maps Style Reviews Summary & Cards */
         .gmaps-review-container {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -705,9 +698,10 @@
             margin-bottom: 8px;
             line-height: 1.3;
             display: -webkit-box;
-            -webkit-line-clamp: 1;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            min-height: 2.2em;
         }
         .price-container {
             margin-top: auto;
@@ -721,7 +715,7 @@
             color: var(--accent-gold);
         }
         .card-action-icon {
-            width: 22px; height: 22px;
+            width: 20px; height: 20px;
             border-radius: 50%;
             background: var(--accent-cyan-soft);
             border: 1px solid var(--accent-cyan-border);
@@ -849,7 +843,7 @@
         @media (min-width: 640px) { .sticky-action-bar { border-radius: 0 0 16px 16px; } }
         .btn-buy {
             flex: 1;
-            min-height: 46px;
+            min-height: 44px;
             background: #10b981;
             color: #fff;
             text-align: center;
@@ -866,7 +860,7 @@
         }
         .btn-buy:hover { background: #059669; }
         .btn-quick-pay {
-            min-height: 46px;
+            min-height: 44px;
             background: var(--accent-gold-soft);
             border: 1px solid var(--accent-gold-border);
             color: var(--accent-gold);
@@ -918,7 +912,7 @@
             bottom: calc(16px + env(safe-area-inset-bottom, 0px));
             right: 16px;
             z-index: 90;
-            min-height: 44px;
+            min-height: 42px;
             background: var(--card-bg);
             border: 1px solid var(--accent-cyan-border);
             color: var(--text-main); padding: 9px 14px; border-radius: 999px;
@@ -965,7 +959,7 @@
         }
 
         .quick-tag-pill {
-            min-height: 38px;
+            min-height: 36px;
             background: var(--surface-subtle);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -989,7 +983,7 @@
         }
 
         .mini-opt-btn {
-            min-height: 40px;
+            min-height: 38px;
             background: var(--surface-subtle);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
@@ -1047,7 +1041,7 @@
                 </div>
             </div>
 
-            <button onclick="closeWelcomePopup()" class="w-full py-3 rounded-lg text-xs font-bold tracking-wide uppercase transition-colors" style="background: var(--accent-cyan-soft); border: 1px solid var(--accent-cyan-border); color: var(--accent-cyan);">
+            <button onclick="closeWelcomePopup()" class="w-full py-2.5 rounded-lg text-xs font-bold tracking-wide uppercase transition-colors" style="background: var(--accent-cyan-soft); border: 1px solid var(--accent-cyan-border); color: var(--accent-cyan);">
                 Mengerti &amp; Lanjutkan
             </button>
 
@@ -1055,7 +1049,7 @@
         </div>
     </div>
 
-    <!-- GOOGLE MAPS STYLE FULL REVIEWS MODAL (Lihat Semua Ulasan + Paginasi) -->
+    <!-- GOOGLE MAPS STYLE FULL REVIEWS MODAL -->
     <div id="allReviewsModal" class="fixed inset-0 z-[9998] hidden items-center justify-center bg-black/75 backdrop-blur-sm p-3" role="dialog" aria-modal="true" aria-labelledby="allReviewsTitle">
         <div class="themed-modal-card rounded-2xl p-4 sm:p-6 max-w-2xl w-full max-h-[90vh] flex flex-col relative shadow-2xl">
             <button onclick="closeAllReviewsModal()" class="close-modal" aria-label="Tutup Daftar Ulasan">&times;</button>
@@ -1079,12 +1073,6 @@
             </div>
 
             <div id="allReviewsListContainer" class="overflow-y-auto custom-scrollbar space-y-3 pr-1 flex-1"></div>
-
-            <div id="loadMoreReviewsBox" class="hidden pt-3 text-center">
-                <button type="button" onclick="loadMorePublicReviews()" class="px-4 py-2.5 rounded-xl font-bold text-xs" style="background: var(--accent-cyan-soft); border: 1px solid var(--accent-cyan-border); color: var(--accent-cyan);">
-                    Muat Lebih Banyak Ulasan ↓
-                </button>
-            </div>
         </div>
     </div>
 
@@ -1183,7 +1171,7 @@
                     <textarea id="surveyWebNote" rows="2" maxlength="300" placeholder="Saran untuk tampilan web katalog kami (Opsional)..." class="w-full themed-input rounded-lg px-3 py-2 text-xs resize-y"></textarea>
                 </div>
 
-                <!-- Explicit Opt-In Publication Consent (Murni Kosong di Awal / Tidak Dicentang Otomatis) -->
+                <!-- Explicit Publication Consent -->
                 <label class="flex items-start gap-2.5 p-3 rounded-xl themed-subbox cursor-pointer select-none">
                     <input type="checkbox" id="surveyPublishConsent" class="mt-0.5 w-4 h-4 accent-cyan-600 rounded">
                     <span class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">
@@ -1198,23 +1186,28 @@
         </div>
     </div>
 
-    <!-- PANEL ADMIN TERAUTENTIKASI (Ketik #admin atau #survei di kolom search) -->
+    <!-- PANEL ADMIN TERAUTENTIKASI (USERNAME: aryaa, PASSWORD: jadiCeo1, Auto-Clear Fields) -->
     <div id="adminSurveyGenModal" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-3" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
         <div class="themed-modal-card rounded-2xl p-5 max-w-lg w-full max-h-[90vh] overflow-y-auto relative shadow-2xl custom-scrollbar" style="border-color: var(--accent-gold);">
             <button onclick="closeAdminSurveyGen()" class="close-modal" aria-label="Tutup Panel Admin">&times;</button>
             <div class="text-[10px] font-extrabold uppercase tracking-wider mb-1 pr-8" style="color: var(--accent-gold);">🔒 Portal Admin &amp; Manajemen Feedback Internal</div>
             <h3 id="adminModalTitle" class="font-extrabold text-base mb-3">Admin Dashboard — AFIAR STORE</h3>
 
-            <!-- Form Login Firebase Auth -->
+            <!-- Form Login Admin (Username: aryaa, Password: jadiCeo1) -->
             <div id="adminAuthSection" class="space-y-3 mt-2">
-                <p class="text-xs" style="color: var(--text-muted);">Masuk dengan akun Admin terotorisasi untuk membuat tiket survei pembeli dan membaca ulasan internal.</p>
+                <p class="text-xs" style="color: var(--text-muted);">Masuk dengan kredensial Admin resmi untuk membuat tiket survei kepuasan pelanggan.</p>
                 <div>
-                    <label for="adminEmailInput" class="block text-[11px] font-bold mb-1" style="color: var(--text-secondary);">Email Admin:</label>
-                    <input type="email" id="adminEmailInput" placeholder="admin@afiarstore.com" class="w-full themed-input rounded-lg px-3 py-2 text-xs">
+                    <label for="adminUsernameInput" class="block text-[11px] font-bold mb-1" style="color: var(--text-secondary);">Username Admin:</label>
+                    <input type="text" id="adminUsernameInput" autocomplete="off" placeholder="aryaa" class="w-full themed-input rounded-lg px-3 py-2 text-xs font-semibold">
                 </div>
                 <div>
                     <label for="adminPassInput" class="block text-[11px] font-bold mb-1" style="color: var(--text-secondary);">Password Admin:</label>
-                    <input type="password" id="adminPassInput" placeholder="••••••••" class="w-full themed-input rounded-lg px-3 py-2 text-xs">
+                    <div class="relative">
+                        <input type="password" id="adminPassInput" autocomplete="new-password" placeholder="••••••••" class="w-full themed-input rounded-lg px-3 py-2 pr-14 text-xs font-semibold">
+                        <button type="button" onclick="toggleAdminPassVisibility()" id="togglePassBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-bold px-2 py-1 rounded themed-subbox">
+                            Lihat
+                        </button>
+                    </div>
                 </div>
                 <button type="button" id="adminLoginBtn" onclick="handleAdminLogin()" class="w-full py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl transition-all">
                     Masuk ke Dashboard Admin
@@ -1224,7 +1217,7 @@
             <!-- Kontrol Admin Setelah Autentikasi Berhasil -->
             <div id="adminDashboardControls" class="hidden space-y-4 mt-2">
                 <div class="flex items-center justify-between text-[11px] p-2.5 rounded-lg themed-subbox">
-                    <span id="adminLoggedEmail" class="font-bold truncate" style="color: var(--success);">Admin Terverifikasi</span>
+                    <span id="adminLoggedName" class="font-bold truncate" style="color: var(--success);">Admin: aryaa (Terverifikasi)</span>
                     <button type="button" onclick="handleAdminLogout()" class="text-rose-500 font-bold hover:underline shrink-0">Keluar</button>
                 </div>
 
@@ -1255,7 +1248,6 @@
                     </div>
                 </div>
 
-                <!-- Tab Evaluasi Internal (Privat) -->
                 <div class="space-y-2 p-3 rounded-xl themed-subbox border" style="border-color: var(--border-color);">
                     <div class="font-extrabold text-xs uppercase flex items-center justify-between">
                         <span style="color: var(--accent-gold);">📋 Feedback &amp; Evaluasi Internal</span>
@@ -1278,28 +1270,25 @@
                     <h1 class="brand">AFIAR STORE</h1>
                 </div>
                 <div class="header-actions">
-                    <!-- Tombol Toggle Tema (Light Mode Default / Dark Mode) -->
-                    <button type="button" id="themeToggleBtn" class="btn-theme-toggle" onclick="toggleTheme()" title="Ganti Mode Tampilan (Cerah / Gelap)" aria-label="Ganti Mode Tampilan Cerah atau Gelap">
-                        <svg id="themeIconSun" class="w-4 h-4 text-amber-400 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <svg id="themeIconMoon" class="w-4 h-4 text-slate-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
+                    <button type="button" id="themeToggleBtn" class="btn-theme-toggle" onclick="toggleTheme()" title="Ganti Mode Tampilan (Cerah / Gelap)" aria-label="Ganti Mode Tampilan">
+                        <svg id="themeIconSun" class="w-4 h-4 text-amber-400 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg id="themeIconMoon" class="w-4 h-4 text-slate-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                     </button>
 
-                    <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="btn-top-link" title="Lihat Bukti Transaksi Pelanggan">
-                        Testimoni ↗
-                    </a>
-                    <button type="button" class="btn-top-link" onclick="openWelcomePopup(true)">
-                        Panduan
-                    </button>
+                    <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="btn-top-link desktop-only-link" title="Lihat Bukti Transaksi Pelanggan">Testimoni ↗</a>
+                    <button type="button" class="btn-top-link desktop-only-link" onclick="openWelcomePopup(true)">Panduan</button>
                     <button type="button" class="btn-payment-top" onclick="openPaymentModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                         <span>QRIS / Bayar</span>
                     </button>
                 </div>
             </div>
+
+            <div class="header-subnav">
+                <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="btn-top-link"><span>📢 Testimoni WA ↗</span></a>
+                <button type="button" class="btn-top-link" onclick="openWelcomePopup(true)"><span>📖 Panduan Order</span></button>
+            </div>
+
             <div class="search-wrapper">
                 <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 <input type="search" id="searchInput" class="search-box" placeholder="Cari layanan (Netflix, ChatGPT, Canva, Zoom, GTC)..." aria-label="Cari layanan di katalog">
@@ -1309,7 +1298,7 @@
     </header>
 
     <main class="app-shell">
-        <!-- Hero Spotlight Carousel & Google Maps Style Review Section -->
+        <!-- Hero Spotlight Carousel & Google Maps Style Review Summary -->
         <div class="hero-section-wrap">
             <div class="hero-carousel" id="heroCarousel" aria-roledescription="carousel" aria-label="Sorotan Layanan Unggulan">
                 <div id="heroSlidesContainer"></div>
@@ -1324,12 +1313,12 @@
                 <div class="hero-dots" id="heroDotsContainer"></div>
             </div>
 
-            <!-- GOOGLE MAPS STYLE TRANSPARENT REVIEWS & RATING DISTRIBUTION -->
+            <!-- GOOGLE MAPS STYLE TRANSPARENT REVIEWS -->
             <section class="gmaps-review-container" aria-label="Ulasan dan Rating Pelanggan">
                 <div class="flex items-center justify-between gap-2 mb-3 flex-wrap">
                     <div>
                         <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wide" style="color: var(--text-main);">Ulasan &amp; Rating Transaksi Terverifikasi</h2>
-                        <p class="text-[11px]" style="color: var(--text-muted);">Statistik dihitung murni dari tiket transaksi pelanggan (termasuk bintang 1–5 tanpa sensor).</p>
+                        <p class="text-[11px]" style="color: var(--text-muted);">Statistik dihitung murni dari tiket transaksi pelanggan (bintang 1–5 tanpa sensor).</p>
                     </div>
                     <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="text-[11px] font-bold hover:underline flex items-center gap-1" style="color: var(--success);">
                         <span>Arsip Bukti Transfer (Saluran WA)</span>
@@ -1337,7 +1326,6 @@
                     </a>
                 </div>
 
-                <!-- Summary Score & 5-Star Distribution Bars -->
                 <div class="gmaps-summary-grid">
                     <div class="flex flex-col items-center sm:items-start justify-center text-center sm:text-left">
                         <div class="gmaps-score-big" id="gmapsAvgScore">0.0</div>
@@ -1354,7 +1342,6 @@
                     </div>
                 </div>
 
-                <!-- Recent Reviews Preview (3 Latest) & Button to Open Full Reviews Modal -->
                 <div class="mt-3">
                     <div id="recentReviewsPreviewList" class="grid grid-cols-1 md:grid-cols-3 gap-2.5"></div>
                     <div class="mt-3 flex justify-end">
@@ -1410,10 +1397,10 @@
         </div>
     </main>
 
-    <!-- Single Clean Floating Admin Button -->
+    <!-- Floating CS Button -->
     <a href="https://wa.me/62882006216644?text=Halo%20Admin%20*AFIAR%20STORE*%2C%20saya%20ingin%20cek%20stok%20layanan%20di%20katalog." target="_blank" rel="noopener noreferrer" class="floating-cs" onclick="trackFunnelEvent('click_floating_cs')">
         <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-        <span>Chat Admin (Cek Stok)</span>
+        <span>Cek Stok / Pesan via WA</span>
     </a>
 
     <!-- Bottom Sheet Modal (Product Details & Payment Portal) -->
@@ -1472,7 +1459,7 @@
                                         <span>QRIS ALL PAYMENT</span>
                                         <span class="px-2 py-0.5 rounded bg-purple-900/80 text-purple-200">INSTANT</span>
                                     </div>
-                                    <!-- Latar Putih Wajib agar QRIS Dapat Dipindai di Semua Mode -->
+                                    <!-- QRIS Valid Base Container (Diperbaiki agar tidak eror / non-valid saat dipindai) -->
                                     <div class="bg-white p-3 rounded-lg mx-auto flex items-center justify-center border border-amber-400/80">
                                         <div id="qrcode" class="w-full flex items-center justify-center"></div>
                                     </div>
@@ -1507,10 +1494,13 @@
                 </div>
             </div>
 
-            <!-- Sticky Order Button -->
+            <!-- Sticky Order Button (Tanpa Harga, Hanya Cek Stok / Pesan via WA) -->
             <div class="sticky-action-bar">
                 <button type="button" id="quickPayBtn" onclick="openPaymentModal()" class="btn-quick-pay">QRIS</button>
-                <a href="#" id="waLink" class="btn-buy" target="_blank" rel="noopener noreferrer" onclick="handleWaActionClick()"></a>
+                <a href="#" id="waLink" class="btn-buy" target="_blank" rel="noopener noreferrer" onclick="handleWaActionClick()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                    <span>Cek Stok / Pesan via WA</span>
+                </a>
             </div>
         </div>
     </div>
@@ -1530,8 +1520,114 @@
         }
 
         /* =========================================================
-         * DUAL-THEME SYSTEM (DEFAULT: LIGHT MODE ON FIRST VISIT)
+         * PANEL ADMIN (USERNAME: aryaa, PASSWORD: jadiCeo1)
+         * Kolom selalu dikosongkan demi keamanan & tanpa fitur ingat sandi
          * ========================================================= */
+        const ADMIN_USER_CORRECT = "aryaa";
+        const ADMIN_PASS_CORRECT = "jadiCeo1";
+        let isAdminAuthenticatedInModal = false;
+
+        function setAdminDashboardUnlocked(usernameStr) {
+            isAdminAuthenticatedInModal = true;
+            const authSec = document.getElementById('adminAuthSection');
+            const dashSec = document.getElementById('adminDashboardControls');
+            const nameLabel = document.getElementById('adminLoggedName');
+            if (authSec && dashSec) {
+                authSec.classList.add('hidden');
+                dashSec.classList.remove('hidden');
+            }
+            if (nameLabel) {
+                nameLabel.textContent = `Admin: ${usernameStr || ADMIN_USER_CORRECT} (Terverifikasi)`;
+            }
+        }
+
+        function toggleAdminPassVisibility() {
+            const passInp = document.getElementById('adminPassInput');
+            const btn = document.getElementById('togglePassBtn');
+            if (!passInp || !btn) return;
+            if (passInp.type === 'password') {
+                passInp.type = 'text';
+                btn.textContent = 'Sembunyi';
+            } else {
+                passInp.type = 'password';
+                btn.textContent = 'Lihat';
+            }
+        }
+
+        function openAdminSurveyGen() {
+            const adminProdSelect = document.getElementById('adminGenProd');
+            if (adminProdSelect && adminProdSelect.options.length === 0) {
+                products.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.name;
+                    opt.textContent = p.name;
+                    adminProdSelect.appendChild(opt);
+                });
+            }
+            const box = document.getElementById('generatedTicketBox');
+            if (box) box.classList.add('hidden');
+
+            // Pastikan form selalu kosong dan terkunci setiap kali modal dibuka
+            isAdminAuthenticatedInModal = false;
+            const userInp = document.getElementById('adminUsernameInput');
+            const passInp = document.getElementById('adminPassInput');
+            const btnToggle = document.getElementById('togglePassBtn');
+            if (userInp) userInp.value = '';
+            if (passInp) {
+                passInp.value = '';
+                passInp.type = 'password';
+            }
+            if (btnToggle) btnToggle.textContent = 'Lihat';
+
+            document.getElementById('adminAuthSection').classList.remove('hidden');
+            document.getElementById('adminDashboardControls').classList.add('hidden');
+
+            const modalEl = document.getElementById('adminSurveyGenModal');
+            modalEl.classList.remove('hidden');
+            modalEl.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAdminSurveyGen() {
+            isAdminAuthenticatedInModal = false;
+            const userInp = document.getElementById('adminUsernameInput');
+            const passInp = document.getElementById('adminPassInput');
+            if (userInp) userInp.value = '';
+            if (passInp) passInp.value = '';
+
+            const modalEl = document.getElementById('adminSurveyGenModal');
+            modalEl.classList.add('hidden');
+            modalEl.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function handleAdminLogin() {
+            const userInp = document.getElementById('adminUsernameInput');
+            const passInp = document.getElementById('adminPassInput');
+            const uInput = userInp ? userInp.value.trim() : '';
+            const pInput = passInp ? passInp.value : '';
+
+            if (uInput === ADMIN_USER_CORRECT && pInput === ADMIN_PASS_CORRECT) {
+                if (userInp) userInp.value = '';
+                if (passInp) passInp.value = '';
+                setAdminDashboardUnlocked(ADMIN_USER_CORRECT);
+                showToast("Login Admin berhasil!");
+            } else {
+                showToast("Username atau Password Admin salah.");
+            }
+        }
+
+        function handleAdminLogout() {
+            isAdminAuthenticatedInModal = false;
+            const userInp = document.getElementById('adminUsernameInput');
+            const passInp = document.getElementById('adminPassInput');
+            if (userInp) userInp.value = '';
+            if (passInp) passInp.value = '';
+            document.getElementById('adminAuthSection').classList.remove('hidden');
+            document.getElementById('adminDashboardControls').classList.add('hidden');
+            showToast("Admin telah keluar.");
+        }
+
         function applyTheme(themeName) {
             const validTheme = themeName === 'dark' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', validTheme);
@@ -1569,16 +1665,6 @@
                 applyTheme('light');
             }
         })();
-
-        const confirmedActivePromos = {};
-
-        function getValidPromoForProduct(prodId) {
-            const promo = confirmedActivePromos[prodId];
-            if (!promo || !promo.normalPrice || !promo.validUntil) return null;
-            const expiry = new Date(promo.validUntil + "T23:59:59+07:00").getTime();
-            if (isNaN(expiry) || Date.now() > expiry) return null;
-            return promo;
-        }
 
         function showToast(message) {
             const toast = document.getElementById('toastNotif');
@@ -1640,17 +1726,42 @@
             }
         }
 
-        const qrisPayload = "00020101021126570011ID.DANA.WWW011893600915399044903902099904490390303UMI51440014ID.CO.QRIS.WWW0215ID10265446786530303UMI5204581253033605802ID5922AFIAR STORE - Catering6010Kab. Tegal61055246263042C2B";
+        /* 
+         * QRIS Valid Payload dengan Perhitungan Checksum CRC-16/CCITT-FALSE Standar EMVCo
+         */
+        const rawQrisBase = "00020101021126570011ID.DANA.WWW011893600915399044903902099904490390303UMI51440014ID.CO.QRIS.WWW0215ID10265446786530303UMI5204581253033605802ID5922AFIAR STORE - Catering6010Kab. Tegal6105524626304";
+
+        function computeEMVCoCRC16(str) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < str.length; i++) {
+                crc ^= (str.charCodeAt(i) << 8);
+                for (let j = 0; j < 8; j++) {
+                    if ((crc & 0x8000) !== 0) {
+                        crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+                    } else {
+                        crc = (crc << 1) & 0xFFFF;
+                    }
+                }
+            }
+            return crc.toString(16).toUpperCase().padStart(4, '0');
+        }
+
+        const qrisPayload = rawQrisBase + computeEMVCoCRC16(rawQrisBase);
         let qrGenerated = false;
 
         function ensureQRGenerated() {
-            if (!qrGenerated) {
-                const qrContainer = document.getElementById("qrcode");
-                if (qrContainer && typeof QRCode !== "undefined") {
-                    qrContainer.textContent = "";
-                    new QRCode(qrContainer, { text: qrisPayload, width: 200, height: 200, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
-                    qrGenerated = true;
-                }
+            const qrContainer = document.getElementById("qrcode");
+            if (qrContainer && typeof QRCode !== "undefined") {
+                qrContainer.textContent = "";
+                new QRCode(qrContainer, {
+                    text: qrisPayload,
+                    width: 220,
+                    height: 220,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.M
+                });
+                qrGenerated = true;
             }
         }
 
@@ -1875,8 +1986,6 @@
             return copy;
         }
 
-        let displayedReviewsLimit = 15;
-
         window.renderReviewsUI = function() {
             const stats = window.reviewStatsData || { totalCount: 0, sumStars: 0, stars: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
             const publicList = Array.isArray(window.publicReviewsData) ? window.publicReviewsData : [];
@@ -1934,47 +2043,31 @@
             const fullListContainer = document.getElementById('allReviewsListContainer');
             const countLabel = document.getElementById('modalReviewsCountLabel');
             const sortSelect = document.getElementById('reviewSortSelect');
-            const loadMoreBox = document.getElementById('loadMoreReviewsBox');
 
             if (fullListContainer) {
                 fullListContainer.textContent = '';
                 const sortMode = sortSelect ? sortSelect.value : 'newest';
                 const sortedAll = sortReviewsArray(publicList, sortMode);
-                const slicedList = sortedAll.slice(0, displayedReviewsLimit);
 
                 if (countLabel) {
-                    countLabel.textContent = `Menampilkan ${slicedList.length} dari ${sortedAll.length} ulasan publik`;
+                    countLabel.textContent = `Menampilkan ${sortedAll.length} ulasan publik`;
                 }
 
-                if (loadMoreBox) {
-                    if (sortedAll.length > displayedReviewsLimit) {
-                        loadMoreBox.classList.remove('hidden');
-                    } else {
-                        loadMoreBox.classList.add('hidden');
-                    }
-                }
-
-                if (slicedList.length === 0) {
+                if (sortedAll.length === 0) {
                     const emptyMsg = document.createElement('div');
                     emptyMsg.className = 'text-center py-8 text-xs';
                     emptyMsg.style.color = 'var(--text-muted)';
                     emptyMsg.textContent = 'Belum ada ulasan publik.';
                     fullListContainer.appendChild(emptyMsg);
                 } else {
-                    slicedList.forEach(item => {
+                    sortedAll.forEach(item => {
                         fullListContainer.appendChild(createSafeReviewCardElement(item));
                     });
                 }
             }
         };
 
-        function loadMorePublicReviews() {
-            displayedReviewsLimit += 15;
-            window.renderReviewsUI();
-        }
-
         function openAllReviewsModal() {
-            displayedReviewsLimit = 15;
             window.renderReviewsUI();
             const modalEl = document.getElementById('allReviewsModal');
             modalEl.classList.remove('hidden');
@@ -1990,7 +2083,7 @@
         }
 
         /* =========================================================
-         * LOGIKA SURVEI PEMBELI TERVERIFIKASI (P0 & P1 COMPLIANT)
+         * LOGIKA SURVEI PEMBELI TERVERIFIKASI (MURNI KOSONG DI AWAL)
          * ========================================================= */
         const surveyMatrix = {
             1: {
@@ -2054,7 +2147,7 @@
         };
 
         let activeSurveyTicketId = null;
-        let currentSurveyStar = 0; // Murni 0 di awal
+        let currentSurveyStar = 0;
         let selectedSurveyTags = new Set();
         let selectedWebTags = new Set();
         let selectedSurveyCondition = "";
@@ -2106,7 +2199,7 @@
             if (nameInp) nameInp.value = '';
             if (noteInp) noteInp.value = '';
             if (webNoteInp) webNoteInp.value = '';
-            if (consentChk) consentChk.checked = false; // Murni opt-in (tidak dicentang otomatis)
+            if (consentChk) consentChk.checked = false;
 
             const submitBtn = document.getElementById('submitSurveyBtn');
             if (submitBtn) {
@@ -2323,68 +2416,6 @@
             }
         }
 
-        /* =========================================================
-         * PANEL ADMIN (FIREBASE AUTHENTICATED & ROLE CHECKED)
-         * ========================================================= */
-        let lastGeneratedTicketUrl = "";
-
-        function openAdminSurveyGen() {
-            const adminProdSelect = document.getElementById('adminGenProd');
-            if (adminProdSelect && adminProdSelect.options.length === 0) {
-                products.forEach(p => {
-                    const opt = document.createElement('option');
-                    opt.value = p.name;
-                    opt.textContent = p.name;
-                    adminProdSelect.appendChild(opt);
-                });
-            }
-            const box = document.getElementById('generatedTicketBox');
-            if (box) box.classList.add('hidden');
-
-            const modalEl = document.getElementById('adminSurveyGenModal');
-            modalEl.classList.remove('hidden');
-            modalEl.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAdminSurveyGen() {
-            const modalEl = document.getElementById('adminSurveyGenModal');
-            modalEl.classList.add('hidden');
-            modalEl.classList.remove('flex');
-            document.body.style.overflow = 'auto';
-        }
-
-        async function handleAdminLogin() {
-            const email = document.getElementById('adminEmailInput').value.trim();
-            const pass = document.getElementById('adminPassInput').value;
-            const btn = document.getElementById('adminLoginBtn');
-            if (!email || !pass) {
-                showToast("Masukkan email dan password Admin Firebase.");
-                return;
-            }
-            if (typeof window.firebaseAdminSignIn !== "function") {
-                showToast("Modul autentikasi sedang dimuat...");
-                return;
-            }
-            btn.disabled = true;
-            btn.textContent = "Memverifikasi...";
-            try {
-                await window.firebaseAdminSignIn(email, pass);
-                showToast("Login Admin berhasil!");
-            } catch (err) {
-                showToast("Login gagal: Pastikan akun terdaftar di Firebase Auth dan memiliki hak akses.");
-                btn.disabled = false;
-                btn.textContent = "Masuk ke Dashboard Admin";
-            }
-        }
-
-        async function handleAdminLogout() {
-            if (typeof window.firebaseAdminSignOut === "function") {
-                await window.firebaseAdminSignOut();
-                showToast("Admin telah keluar.");
-            }
-        }
-
         function generateCryptographicTicketCode() {
             const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
             const randomBytes = new Uint8Array(12);
@@ -2397,6 +2428,10 @@
         }
 
         async function createOneTimeSurveyTicket() {
+            if (!isAdminAuthenticatedInModal) {
+                showToast("Sesi Admin belum aktif. Silakan login terlebih dahulu.");
+                return;
+            }
             if (typeof window.saveNewTicketToFirebase !== "function") {
                 showToast("Database belum siap.");
                 return;
@@ -2423,7 +2458,6 @@
 
                 const baseUrl = window.location.origin + window.location.pathname;
                 const inviteLink = `${baseUrl}?ticket=${encodeURIComponent(ticketCode)}`;
-                lastGeneratedTicketUrl = inviteLink;
 
                 const waText = `Halo Kak! ⚡ Masa aktif layanan *${prodName} (${durName})* Kakak di *AFIAR STORE* telah selesai.\n\nTerima kasih sudah mempercayakan kebutuhan akun premium Kakak kepada kami. Demi menjaga kualitas layanan ke depannya, mohon bantuannya mengisi *Survei Khusus Pembeli (3-Klik Tanpa Ketik)* melalui tiket sekali pakai berikut:\n\n👉 ${inviteLink}\n\n*(Jika Kakak ingin memperpanjang masa aktif atau mencoba layanan lain, silakan balas pesan ini kapan saja ya Kak!)*\n\n*Transparan & Garansi S&K Berlaku — AFIAR STORE*`;
 
@@ -2431,10 +2465,10 @@
 
                 const box = document.getElementById('generatedTicketBox');
                 const urlEl = document.getElementById('generatedTicketUrl');
-                if (urlEl) urlEl.textContent = inviteLink;
-                if (box) box.classList.remove('hidden');
+                urlEl.textContent = inviteLink;
+                box.classList.remove('hidden');
             } catch (err) {
-                showToast("Gagal membuat tiket: Akses ditolak oleh Security Rules (Pastikan Anda login sebagai Admin terotorisasi).");
+                showToast("Gagal membuat tiket. Periksa koneksi internet Anda.");
             } finally {
                 btn.disabled = false;
                 btn.textContent = "Buat Tiket & Salin Chat WA Pembeli";
@@ -2471,7 +2505,7 @@
                     container.appendChild(card);
                 });
             } catch (err) {
-                container.innerHTML = '<div class="text-rose-400 text-center py-2">Akses ditolak atau gagal memuat data.</div>';
+                container.innerHTML = '<div class="text-rose-400 text-center py-2">Gagal memuat data internal.</div>';
             }
         };
 
@@ -2585,7 +2619,6 @@
                 const prod = products.find(p => p.id === item.prodId);
                 if (!prod) return;
 
-                const validPromo = getValidPromoForProduct(prod.id);
                 const priceLabel = `Mulai Rp ${prod.startPrice}`;
 
                 const slide = document.createElement('div');
@@ -2593,7 +2626,6 @@
                 slide.style.background = item.bgGradient;
 
                 slide.innerHTML = `
-                    <div class="hero-top-tag">${item.tag}</div>
                     <div class="hero-visual">
                         <div class="showcase-card" style="background: ${item.cardBg};">
                             <img src="${prod.logo}" alt="${prod.name}">
@@ -2602,6 +2634,7 @@
                     </div>
                     <div class="hero-gradient-overlay"></div>
                     <div class="hero-content">
+                        <span class="hero-top-tag">${item.tag}</span>
                         <div class="hero-meta-row">
                             <span class="hero-meta-cat">${item.category}</span>
                             <span>•</span>
@@ -2611,7 +2644,6 @@
                         <p class="hero-slide-desc">${item.desc}</p>
                         <div class="hero-price-highlight">
                             <span class="hero-price-main">${priceLabel}</span>
-                            ${validPromo ? `<span class="text-xs text-slate-400 line-through">Rp ${validPromo.normalPrice}</span>` : ''}
                         </div>
                         <div class="hero-btn-group">
                             <button type="button" class="btn-hero-primary" onclick="openHeroProduct(${prod.id})">
@@ -2720,7 +2752,7 @@
                 const card = document.createElement('button');
                 card.type = 'button';
                 card.className = "product-card";
-                card.setAttribute('aria-label', `Lihat detail ${p.name}, mulai Rp ${p.startPrice}`);
+                card.setAttribute('aria-label', `Lihat detail ${p.name}`);
 
                 if (p.badges.length > 0) {
                     const badgeEl = document.createElement('div');
@@ -2746,15 +2778,6 @@
 
                 const priceWrap = document.createElement('div');
                 priceWrap.className = 'price-container w-full';
-
-                const validPromo = getValidPromoForProduct(p.id);
-                if (validPromo) {
-                    const promoRow = document.createElement('div');
-                    promoRow.className = 'text-[10px] line-through mb-0.5';
-                    promoRow.style.color = 'var(--text-muted)';
-                    promoRow.textContent = `Rp ${validPromo.normalPrice}`;
-                    priceWrap.appendChild(promoRow);
-                }
 
                 const priceRow = document.createElement('div');
                 priceRow.className = 'flex items-center justify-center gap-1.5';
@@ -2940,7 +2963,10 @@
 
             const waBtn = document.getElementById('waLink');
             waBtn.href = `https://wa.me/62882006216644?text=${msg}`;
-            waBtn.textContent = `Cek Stok / Pesan via WhatsApp (${displayPrice})`;
+            waBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                <span>Cek Stok / Pesan via WA</span>
+            `;
         }
 
         function openPaymentModal() {
@@ -2952,9 +2978,12 @@
             ensureQRGenerated();
 
             const waBtn = document.getElementById('waLink');
-            waBtn.textContent = "Konfirmasi Bukti Transfer ke WhatsApp";
             const msg = encodeURIComponent("Halo Admin *AFIAR STORE*\nSaya sudah melakukan pembayaran melalui QRIS / E-Wallet. Berikut bukti transfer untuk pesanan saya:");
             waBtn.href = `https://wa.me/62882006216644?text=${msg}`;
+            waBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                <span>Konfirmasi Bukti Transfer</span>
+            `;
 
             trackFunnelEvent('open_payment_portal');
             modal.style.display = 'flex';
@@ -2979,7 +3008,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Penanganan deterministik verifikasi tiket survei (Menghindari race condition DOMContentLoaded)
         (function checkForSurveyTicketOnLoad() {
             const urlParams = new URLSearchParams(window.location.search);
             const ticketParam = urlParams.get('ticket');
@@ -3025,15 +3053,12 @@
         })();
     </script>
 
-    <!-- FIREBASE SDK: VIEW COUNTER, AUTH ADMIN & ATOMIC TICKET VERIFICATION -->
+    <!-- FIREBASE SDK: VIEW COUNTER, AUTH ADMIN, & ATOMIC TICKET VERIFICATION -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import {
             getDatabase, ref, onValue, runTransaction, update, set, get, query, limitToLast, serverTimestamp
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-        import {
-            getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAXrRUX9bt9Mo07jYY4dFvW_iPr9GOdLyg",
@@ -3047,51 +3072,14 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const auth = getAuth(app);
 
         let ticketVerificationInProgress = false;
-
-        // Otorisasi Admin menggunakan Firebase Auth & Custom Claims / Node /admins
-        onAuthStateChanged(auth, async (user) => {
-            const authSec = document.getElementById('adminAuthSection');
-            const dashSec = document.getElementById('adminDashboardControls');
-            const emailLabel = document.getElementById('adminLoggedEmail');
-            if (!authSec || !dashSec) return;
-
-            if (user) {
-                try {
-                    const tokenResult = await user.getIdTokenResult(true);
-                    const adminRef = ref(db, `admins/${user.uid}`);
-                    const adminSnap = await get(adminRef);
-                    const isExplicitAdmin = adminSnap.exists() && adminSnap.val() === true;
-
-                    if (tokenResult.claims.admin === true || isExplicitAdmin) {
-                        authSec.classList.add('hidden');
-                        dashSec.classList.remove('hidden');
-                        if (emailLabel) emailLabel.textContent = `Admin Terverifikasi: ${user.email}`;
-                    } else {
-                        await signOut(auth);
-                        showToast("Akses ditolak: Akun Anda tidak memiliki hak akses Admin.");
-                    }
-                } catch (err) {
-                    await signOut(auth);
-                    showToast("Gagal memverifikasi hak akses Admin.");
-                }
-            } else {
-                authSec.classList.remove('hidden');
-                dashSec.classList.add('hidden');
-            }
-        });
-
-        window.firebaseAdminSignIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
-        window.firebaseAdminSignOut = () => signOut(auth);
 
         window.saveNewTicketToFirebase = async function(ticketId, ticketData) {
             const ticketRef = ref(db, `survey_tickets/${ticketId}`);
             await set(ticketRef, ticketData);
         };
 
-        // Verifikasi Tiket Pembeli Secara Deterministik (P0.A)
         async function verifyAndOpenTicket(ticketId) {
             if (ticketVerificationInProgress) return;
             ticketVerificationInProgress = true;
@@ -3131,7 +3119,6 @@
             window.pendingTicketToVerify = null;
         }
 
-        // Penyimpanan Atomik & Idempoten (P0.C)
         window.commitVerifiedSurveyToFirebase = async function(ticketId, payload) {
             const ticketRef = ref(db, `survey_tickets/${ticketId}`);
 
@@ -3158,8 +3145,6 @@
             const atomicUpdates = {};
             const serverTs = serverTimestamp();
 
-            // 1. Catat Statistik Anonim (Semua Rating 1-5)
-            // (Dilakukan secara aman melalui update multi-lokasi atau transaksi terpisah untuk statistik)
             const statsRef = ref(db, 'review_stats');
             await runTransaction(statsRef, (currentStats) => {
                 const base = currentStats || {
@@ -3174,7 +3159,6 @@
                 return base;
             });
 
-            // 2. Simpan Evaluasi Internal (Privat)
             atomicUpdates[`internal_evaluations/${ticketId}`] = {
                 ticketId: ticketId,
                 product: payload.product,
@@ -3189,7 +3173,6 @@
                 timestamp: serverTs
             };
 
-            // 3. Simpan ke public_reviews HANYA jika explicit opt-in (P0.B)
             if (payload.publishConsent === true) {
                 atomicUpdates[`public_reviews/${ticketId}`] = {
                     ticketId: ticketId,
@@ -3214,7 +3197,6 @@
             return Object.values(snap.val());
         };
 
-        // Real-Time Listeners untuk Statistik & Ulasan Publik
         const statsRef = ref(db, 'review_stats');
         onValue(statsRef, (snapshot) => {
             const val = snapshot.val();
@@ -3237,7 +3219,6 @@
             if (typeof window.renderReviewsUI === "function") window.renderReviewsUI();
         });
 
-        // Real-Time Product View Counter
         const viewsRef = ref(db, 'product_views');
         onValue(viewsRef, (snapshot) => {
             const data = snapshot.val();
