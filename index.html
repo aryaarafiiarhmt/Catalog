@@ -3156,6 +3156,22 @@
             grid.textContent = '';
             const sortMode = document.getElementById('sortSelect') ? document.getElementById('sortSelect').value : 'default';
 
+            // Sembunyikan Banner Carousel & Ulasan saat sedang mencari produk agar hasil langsung di paling atas
+            const heroAndReviewSection = document.querySelector('.hero-section-wrap');
+            const isSearching = searchQ.trim().length > 0;
+            if (heroAndReviewSection) {
+                if (isSearching) {
+                    if (heroAndReviewSection.style.display !== 'none') {
+                        heroAndReviewSection.style.display = 'none';
+                        stopHeroAutoPlay();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } else {
+                    heroAndReviewSection.style.display = 'flex';
+                    startHeroAutoPlay();
+                }
+            }
+
             let filtered = products.filter(p => {
                 const matchCat = filterCat === 'all' || p.cat === filterCat;
                 const matchSearch = p.name.toLowerCase().includes(searchQ.toLowerCase())
