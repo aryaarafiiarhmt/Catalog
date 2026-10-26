@@ -1600,17 +1600,27 @@
                 </div>
 
                 <!-- Product Variants & Details Section -->
+                <!-- Product Variants & Details Section -->
                 <div id="variantSection">
                     <div class="section-label">Pilih Paket / Durasi (Harga Aktual):</div>
                     <div class="variant-list" id="variantList"></div>
 
-                    <div class="section-label">Rincian Harga Lengkap &amp; Ketentuan Layanan:</div>
-                    <div class="details-box" id="modalDetails"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="section-label !mb-0">Rincian Harga Lengkap &amp; Ketentuan Layanan:</div>
+                        <span class="text-[10px] font-semibold" style="color: var(--text-muted);">⬇ Tarik panel kanan ke bawah utk tutup</span>
+                    </div>
+
+                    <div class="pricelist-wrap-relative">
+                        <div class="details-box" id="modalDetails"></div>
+                        <div id="rightDragAffordance" class="right-drag-affordance" title="Tarik ke bawah untuk menutup">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
 
                     <div class="mt-3 p-3 rounded-lg themed-subbox flex items-center justify-between gap-2 text-[11px]">
                         <span style="color: var(--text-muted);">Ingin melihat bukti transaksi pelanggan kami?</span>
-                        <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold shrink-0" style="color: var(--success);">
-                            Lihat Testimoni ↗
+                        <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold shrink-0" style="color: var(--success);">
+                            Lihat Testimoni Telegram ↗
                         </a>
                     </div>
                 </div>
