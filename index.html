@@ -3280,7 +3280,7 @@
         function shareCurrentProduct() {
             if (!currentProd) return;
             const deepLink = `https://aryaarafiiarhmt.github.io/Store/?item=${currentProd.shortcut}`;
-            const shareText = `*${currentProd.name} — AFIAR STORE*\n\nTersedia paket mulai *Rp ${currentProd.startPrice}* • Transparan & Garansi S&K Berlaku.\n\nLihat rincian paket & cek stok di katalog resmi:\n${deepLink}\n\nBukti Transaksi & Testimoni: https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i`;
+            const shareText = `*${currentProd.name} — AFIAR STORE*\n\nTersedia paket mulai *Rp ${currentProd.startPrice}* • Transparan & Garansi S&K Berlaku.\n\nLihat rincian paket & cek stok di katalog resmi:\n${deepLink}\n\nBukti Transaksi & Testimoni: https://t.me/s/afiarstore`;
             copyTextSafe(shareText, `Tautan ${currentProd.name} berhasil disalin`);
             trackFunnelEvent('share_product', { 'item_name': currentProd.name });
         }
