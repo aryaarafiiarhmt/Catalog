@@ -3395,12 +3395,17 @@
 
             const msg = encodeURIComponent(`Halo Admin *AFIAR STORE*\nSaya ingin cek stok & memesan layanan berikut:\n\n• *Produk:* ${currentProd.name}\n• *Paket:* ${currentVariant.name}\n• *Harga:* ${displayPrice}\n\nApakah stoknya tersedia, Kak?`);
 
-            const waBtn = document.getElementById('waLink');
-            waBtn.href = `https://wa.me/62882006216644?text=${msg}`;
-            waBtn.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                <span>Cek Stok / Pesan via WA</span>
-            `;
+            const waBtn1 = document.getElementById('waLink');
+            const waBtn2 = document.getElementById('waLinkBackup');
+
+            if (waBtn1) {
+                waBtn1.href = `https://wa.me/62882006216644?text=${msg}`;
+                waBtn1.innerHTML = `<span>Cek Stok / Pesan (WA 1)</span>`;
+            }
+            if (waBtn2) {
+                waBtn2.href = `https://wa.me/6282149992412?text=${msg}`;
+                waBtn2.innerHTML = `<span>WA Admin 2</span>`;
+            }
         }
 
         function openPaymentModal() {
@@ -3411,83 +3416,101 @@
             document.getElementById('quickPayBtn').style.display = 'none';
             ensureQRGenerated();
 
-            const waBtn = document.getElementById('waLink');
             const msg = encodeURIComponent("Halo Admin *AFIAR STORE*\nSaya sudah melakukan pembayaran melalui QRIS / E-Wallet. Berikut bukti transfer untuk pesanan saya:");
-            waBtn.href = `https://wa.me/62882006216644?text=${msg}`;
-            waBtn.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                <span>Konfirmasi Bukti Transfer</span>
-            `;
+            const waBtn1 = document.getElementById('waLink');
+            const waBtn2 = document.getElementById('waLinkBackup');
+
+            if (waBtn1) {
+                waBtn1.href = `https://wa.me/62882006216644?text=${msg}`;
+                waBtn1.innerHTML = `<span>Konfirmasi Transfer (WA 1)</span>`;
+            }
+            if (waBtn2) {
+                waBtn2.href = `https://wa.me/6282149992412?text=${msg}`;
+                waBtn2.innerHTML = `<span>Konfirmasi (WA 2)</span>`;
+            }
 
             trackFunnelEvent('open_payment_portal');
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
-        function handleWaActionClick() {
+        function handleWaActionClick(adminTarget = 'admin1') {
             if (currentModalMode === 'payment') {
-                trackFunnelEvent('click_payment_confirmation');
+                trackFunnelEvent('click_payment_confirmation', { 'admin': adminTarget });
             } else if (currentProd && currentVariant) {
                 trackFunnelEvent('begin_whatsapp_order', {
                     'item_id': currentProd.id,
                     'item_name': currentProd.name,
                     'variant_name': currentVariant.name,
-                    'price': currentVariant.price
+                    'price': currentVariant.price,
+                    'admin': adminTarget
                 });
             }
         }
 
         function closeModal() {
+            const sheet = document.querySelector('#bottomSheet .modal-sheet');
+            if (sheet) {
+                sheet.style.transform = '';
+                sheet.style.transition = '';
+            }
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        (function checkForSurveyTicketOnLoad() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ticketParam = urlParams.get('ticket');
-            const itemParam = urlParams.get('item');
-            const catParam = urlParams.get('cat');
-            const utmSource = urlParams.get('utm_source');
+        // Fitur Drag-to-Close pada Drag Handle Atas & Panel Abu-abu Kanan Pricelist
+        (function initDragToCloseModal() {
+            const sheet = document.querySelector('#bottomSheet .modal-sheet');
+            const topHandle = document.querySelector('#bottomSheet .drag-handle');
+            const rightHandle = document.getElementById('rightDragAffordance');
+            if (!sheet) return;
 
-            trackFunnelEvent('catalog_visit', { 'utm_source': utmSource || 'direct' });
+            let isDragging = false;
+            let startY = 0;
+            let currentDeltaY = 0;
 
-            if (utmSource && utmSource.toLowerCase().includes('ig')) {
-                const igBanner = document.getElementById('igVisitorBanner');
-                if (igBanner) igBanner.classList.remove('hidden');
-                trackFunnelEvent('ig_story_visit', { 'source': utmSource });
+            function onDragStart(clientY) {
+                isDragging = true;
+                startY = clientY;
+                currentDeltaY = 0;
+                sheet.style.transition = 'none';
             }
 
-            if (catParam) {
-                document.addEventListener("DOMContentLoaded", () => {
-                    const matchingTab = Array.from(document.querySelectorAll('.cat-tab')).find(
-                        btn => btn.dataset.cat.toLowerCase() === catParam.toLowerCase()
-                    );
-                    if (matchingTab) filterCat(matchingTab.dataset.cat, matchingTab);
-                });
-            }
-
-            if (ticketParam) {
-                window.pendingTicketToVerify = ticketParam.trim();
-                if (typeof window.verifyAndOpenTicket === "function") {
-                    window.verifyAndOpenTicket(window.pendingTicketToVerify);
-                    window.pendingTicketToVerify = null;
+            function onDragMove(clientY, e) {
+                if (!isDragging) return;
+                const delta = clientY - startY;
+                if (delta > 0) {
+                    if (e && e.cancelable) e.preventDefault();
+                    currentDeltaY = delta;
+                    sheet.style.transform = `translateY(${delta}px)`;
                 }
-            } else if (itemParam) {
-                document.addEventListener("DOMContentLoaded", () => {
-                    const targetProduct = products.find(p => p.shortcut.toLowerCase() === itemParam.toLowerCase());
-                    if (targetProduct) setTimeout(() => openModal(targetProduct), 250);
-                });
-            } else {
-                document.addEventListener("DOMContentLoaded", () => {
-                    try {
-                        const alreadyShown = sessionStorage.getItem('afiarWelcomeShown');
-                        if (!alreadyShown) {
-                            sessionStorage.setItem('afiarWelcomeShown', '1');
-                            setTimeout(() => openWelcomePopup(false), 350);
-                        }
-                    } catch (e) {}
-                });
             }
+
+            function onDragEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                sheet.style.transition = 'transform 0.2s ease-out';
+                if (currentDeltaY > 75) {
+                    closeModal();
+                } else {
+                    sheet.style.transform = 'translateY(0)';
+                }
+                currentDeltaY = 0;
+            }
+
+            [topHandle, rightHandle].forEach(handleEl => {
+                if (!handleEl) return;
+                handleEl.addEventListener('touchstart', (e) => onDragStart(e.touches[0].clientY), { passive: true });
+                handleEl.addEventListener('touchmove', (e) => onDragMove(e.touches[0].clientY, e), { passive: false });
+                handleEl.addEventListener('touchend', onDragEnd);
+                handleEl.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    onDragStart(e.clientY);
+                });
+            });
+
+            window.addEventListener('mousemove', (e) => onDragMove(e.clientY, e));
+            window.addEventListener('mouseup', onDragEnd);
         })();
     </script>
 
