@@ -1025,9 +1025,78 @@
             color: var(--success);
             font-weight: 700;
         }
+
+        /* TAMBAHAN BARU: Drag Handle Atas & Panel Visual Affordance Abu-abu Kanan */
+        .drag-handle {
+            width: 44px;
+            height: 5px;
+            background: #94a3b8;
+            border-radius: 999px;
+            margin: 10px auto 6px;
+            cursor: grab;
+            touch-action: none;
+        }
+        .drag-handle:active { cursor: grabbing; }
+
+        .pricelist-wrap-relative {
+            position: relative;
+            padding-right: 18px;
+        }
+        .right-drag-affordance {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 12px;
+            background: var(--surface-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            cursor: ns-resize;
+            touch-action: none;
+            user-select: none;
+            transition: background-color 0.15s ease;
+        }
+        .right-drag-affordance:hover,
+        .right-drag-affordance:active {
+            background: #94a3b8;
+        }
+        .right-drag-affordance span {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+
+        /* TAMBAHAN BARU: Tombol WA Admin 2 / Backup di Sticky Action Bar */
+        .btn-buy-backup {
+            min-height: 44px;
+            background: var(--surface-subtle);
+            border: 1px solid var(--success);
+            color: var(--success);
+            text-align: center;
+            padding: 10px 12px;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: clamp(0.72rem, 2.3vw, 0.8rem);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .btn-buy-backup:hover {
+            background: var(--success);
+            color: #fff;
+        }
     </style>
 </head>
-<body>
 
     <!-- Toast Notification -->
     <div id="toastNotif" role="status" aria-live="polite">
@@ -1055,12 +1124,12 @@
 
                 <div class="themed-subbox rounded-lg p-3">
                     <div class="font-bold mb-0.5" style="color: var(--accent-cyan);">2. Cek Stok &amp; Order ke Admin</div>
-                    <p class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">Gunakan tombol <strong>Cek Stok / Pesan via WA</strong>. Pesan otomatis akan diarahkan ke WhatsApp Admin kami untuk konfirmasi ketersediaan stok.</p>
+                    <p class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">Gunakan tombol <strong>Cek Stok / Pesan via WA</strong>. Anda dapat menghubungi <a href="https://wa.me/62882006216644" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">WA Admin 1 (Utama)</a> atau <a href="https://wa.me/6282149992412" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--accent-cyan);">WA Admin 2 (Backup)</a>.</p>
                 </div>
 
                 <div class="themed-subbox rounded-lg p-3">
                     <div class="font-bold mb-0.5" style="color: var(--accent-cyan);">3. Pembayaran &amp; Transparansi</div>
-                    <p class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">Pembayaran resmi melalui <strong>QRIS / E-Wallet</strong>. Anda juga dapat beralih antara <strong>Mode Cerah</strong> &amp; <strong>Mode Gelap</strong> lewat ikon di atas, serta melihat bukti transaksi di <a href="https://whatsapp.com/channel/0029VbENBAO4Spk7tuXdFQ3i" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">Saleri Testimoni Saluran WA</a>.</p>
+                    <p class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">Pembayaran resmi melalui <strong>QRIS / E-Wallet</strong>. Anda juga dapat beralih antara <strong>Mode Cerah</strong> &amp; <strong>Mode Gelap</strong> lewat ikon di atas, serta melihat bukti transaksi di <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">Channel Testimoni Telegram</a>.</p>
                 </div>
             </div>
 
