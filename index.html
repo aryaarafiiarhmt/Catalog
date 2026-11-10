@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <!-- Baseline defense-in-depth. For stronger protection, configure server-side headers and Firebase rules too. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self' https://wa.me; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.gstatic.com; connect-src 'self' https://cdn.tailwindcss.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://firebasestorage.googleapis.com; upgrade-insecure-requests">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>AFIAR STORE — Katalog Akun Digital Premium Bergaransi</title>
     <meta name="description" content="Katalog resmi AFIAR STORE. Akses 40+ layanan akun digital premium (AI Tools, Streaming, Editing, Produktivitas) dengan prinsip Transparan & Garansi S&K Berlaku.">
     <meta name="theme-color" content="#f8fafc" id="metaThemeColor">
@@ -223,25 +220,6 @@
             color: var(--text-main);
         }
 
-        .btn-payment-top {
-            background: var(--accent-gold-soft);
-            border: 1px solid var(--accent-gold-border);
-            color: var(--accent-gold);
-            height: 38px;
-            padding: 0 11px;
-            border-radius: 8px;
-            font-size: 0.72rem;
-            font-weight: 800;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            transition: transform 0.15s ease, border-color 0.15s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        .btn-payment-top:hover { border-color: var(--accent-gold); }
-        .btn-payment-top:active { transform: scale(0.96); }
 
         /* Search Box */
         .search-wrapper { position: relative; width: 100%; }
@@ -330,7 +308,7 @@
                 width: 44%;
                 justify-content: flex-end;
                 padding-right: 12px;
-                opacity: 1;
+                opacity: 0.92;
             }
         }
         .hero-gradient-overlay {
@@ -883,23 +861,12 @@
             transition: background-color 0.2s ease;
         }
         .btn-buy:hover { background: #059669; }
-        .btn-quick-pay {
-            min-height: 44px;
-            background: var(--accent-gold-soft);
-            border: 1px solid var(--accent-gold-border);
-            color: var(--accent-gold);
-            padding: 11px 14px;
-            border-radius: 9px;
-            font-weight: 700;
-            font-size: clamp(0.74rem, 2.4vw, 0.82rem);
-            cursor: pointer;
-            white-space: nowrap;
-        }
 
         /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #64748b; border-radius: 4px; }
+
 
         @keyframes shrink { from { width: 100%; } to { width: 0%; } }
 
@@ -1115,7 +1082,7 @@
 
                 <div class="themed-subbox rounded-lg p-3">
                     <div class="font-bold mb-0.5" style="color: var(--accent-cyan);">3. Pembayaran &amp; Transparansi</div>
-                    <p class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">Untuk sementara, <strong>jangan gunakan QRIS dari halaman website ini atau screenshot lama</strong>. Hubungi Admin AFIAR STORE melalui WhatsApp untuk meminta dan mengonfirmasi QRIS resmi. Anda juga dapat beralih antara <strong>Mode Cerah</strong> &amp; <strong>Mode Gelap</strong>, serta melihat bukti transaksi di <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">Channel Testimoni Telegram</a>.</p>
+                    <p class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">Pembayaran resmi melalui <strong>QRIS All Payment</strong>, mohon <strong>konfirmasi ke Admin</strong> terlebih dahulu. Anda juga dapat beralih antara <strong>Mode Cerah</strong> &amp; <strong>Mode Gelap</strong> lewat ikon di atas, serta melihat bukti transaksi di <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">Channel Testimoni Telegram</a>.</p>
                 </div>
             </div>
 
@@ -1263,14 +1230,15 @@
                         <textarea id="surveyWebNote" rows="2" maxlength="300" placeholder="Saran untuk tampilan web katalog kami (Opsional)..." class="w-full themed-input rounded-lg px-3 py-2 text-xs resize-y"></textarea>
                     </div>
 
+                    <!-- Pemberitahuan Publikasi & Privasi (Default Publik Dengan Identitas Tersamar + Opsi Privat) -->
                     <div class="p-3 rounded-xl themed-subbox space-y-2 border" style="border-color: var(--border-color);">
                         <div class="text-[11px] leading-relaxed" style="color: var(--text-secondary);">
-                            <strong style="color: var(--text-main);">📌 Pemberitahuan Publikasi &amp; Privasi:</strong> Rating dan komentar layanan Anda dapat ditampilkan pada katalog AFIAR STORE. Identitas nama disamarkan secara otomatis dan nomor HP tidak pernah ditampilkan ke publik.
+                            <strong style="color: var(--text-main);">📌 Pemberitahuan Publikasi &amp; Privasi:</strong> Rating dan komentar layanan Anda akan ditampilkan pada katalog AFIAR STORE. Demi menjaga privasi, <strong>identitas nama disamarkan secara otomatis</strong> dan nomor HP tidak pernah ditampilkan ke publik.
                         </div>
-                        <label class="flex items-start gap-2 pt-1.5 border-t cursor-pointer select-none" style="border-color: var(--border-color);">
-                            <input type="checkbox" id="surveyPublishConsent" class="mt-0.5 w-3.5 h-3.5 accent-cyan-600 rounded">
+                        <label class="flex items-center gap-2 pt-1.5 border-t cursor-pointer select-none" style="border-color: var(--border-color);">
+                            <input type="checkbox" id="surveyPrivateOnlyOpt" class="w-3.5 h-3.5 accent-cyan-600 rounded">
                             <span class="text-[11px]" style="color: var(--text-muted);">
-                                <strong style="color: var(--text-main);">Persetujuan Publikasi:</strong> Saya setuju ulasan saya ditampilkan secara publik. (Jika tidak dicentang, evaluasi Anda disimpan secara privat khusus untuk Admin).
+                                Kirim sebagai evaluasi privat khusus Admin (jangan tampilkan komentar saya di katalog publik)
                             </span>
                         </label>
                     </div>
@@ -1418,10 +1386,6 @@
 
                     <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="btn-top-link desktop-only-link" title="Lihat Bukti Transaksi Pelanggan di Telegram">Testimoni ↗</a>
                     <button type="button" class="btn-top-link desktop-only-link" onclick="openWelcomePopup(true)">Panduan</button>
-                    <button type="button" class="btn-payment-top" onclick="openPaymentModal()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-                        <span>Pembayaran</span>
-                    </button>
                 </div>
             </div>
 
@@ -1442,23 +1406,6 @@
             </div>
         </div>
     </header>
-
-    <!-- SAFETY NOTICE: QRIS is intentionally not embedded in this static website while it is under security review. -->
-    <div class="mx-auto w-full max-w-[1080px] px-3 pt-3 sm:px-5">
-        <section role="alert" aria-live="polite" class="rounded-xl border p-3 sm:p-4" style="background: var(--danger-soft); border-color: var(--danger); color: var(--text-main);">
-            <div class="flex items-start gap-3">
-                <div aria-hidden="true" class="text-xl leading-none">⚠️</div>
-                <div class="min-w-0">
-                    <h2 class="text-sm sm:text-base font-extrabold">PEMBAYARAN QRIS SEMENTARA DINONAKTIFKAN</h2>
-                    <p class="mt-1 text-xs sm:text-sm leading-relaxed">Website AFIAR STORE sedang dalam proses pemeriksaan dan perbaikan keamanan. Jangan scan QRIS dari halaman ini, tautan lama, atau screenshot yang belum dikonfirmasi. Untuk meminta QRIS resmi, hubungi Admin AFIAR STORE dan pastikan nama merchant di aplikasi pembayaran sesuai sebelum menyetujui transaksi.</p>
-                    <div class="mt-2 flex flex-wrap gap-2 text-xs font-bold">
-                        <a href="https://wa.me/62882006216644?text=Halo%20Admin%20AFIAR%20STORE%2C%20saya%20ingin%20meminta%20QRIS%20resmi%20yang%20sudah%20dikonfirmasi." target="_blank" rel="noopener noreferrer" class="rounded-lg px-3 py-2" style="background: var(--card-bg); border: 1px solid var(--danger); color: var(--text-main);">Konfirmasi ke Admin 1 ↗</a>
-                        <a href="https://wa.me/6282149992412?text=Halo%20Admin%20AFIAR%20STORE%2C%20saya%20ingin%20meminta%20QRIS%20resmi%20yang%20sudah%20dikonfirmasi." target="_blank" rel="noopener noreferrer" class="rounded-lg px-3 py-2" style="background: var(--card-bg); border: 1px solid var(--danger); color: var(--text-main);">Admin 2 (Backup) ↗</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
     <main class="app-shell">
         <!-- Hero Spotlight Carousel & Google Maps Style Review Summary -->
@@ -1552,6 +1499,11 @@
                         <div class="font-bold mb-1" style="color: var(--text-main);">Ketentuan Garansi S&amp;K Berlaku</div>
                         <p class="text-[11px] leading-relaxed" style="color: var(--text-muted);">Layanan berlabel <strong>Fullgar / Garansi Backfree (BF)</strong> dijamin selama masa aktif selama pelanggan mematuhi aturan pemakaian (tidak mengubah data akun &amp; mematuhi batas perangkat).</p>
                     </div>
+
+                    <div class="themed-modal-card rounded-xl p-3.5 sm:col-span-2" style="box-shadow: var(--shadow-card);">
+                        <div class="font-bold mb-1" style="color: var(--text-main);">Informasi Pembayaran</div>
+                        <p class="text-[11px] leading-relaxed" style="color: var(--text-muted);">Pembayaran melalui <strong>QRIS All Payment</strong>. Mohon <strong>konfirmasi ke Admin</strong> (<a href="https://wa.me/62882006216644" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">WA Admin 1</a> atau <a href="https://wa.me/6282149992412" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--accent-cyan);">WA Admin 2</a>) sebelum melakukan pembayaran, lalu kirim bukti pembayaran ke Admin.</p>
+                    </div>
                 </div>
 
                 <div class="text-center text-[11px] pb-14 space-y-1" style="color: var(--text-muted);">
@@ -1563,7 +1515,7 @@
                     <p>
                         Instagram: <a href="https://instagram.com/afiar_business" target="_blank" rel="noopener noreferrer" class="underline">@afiar_business</a> •
                         Testimoni: <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="underline font-semibold" style="color: var(--success);">t.me/s/afiarstore ↗</a> •
-                        Pembayaran QRIS: konfirmasi langsung kepada Admin AFIAR STORE melalui WhatsApp. QRIS website sedang dinonaktifkan sementara.
+                        QRIS Resmi: AFIAR STORE - Catering (NMID: ID1026544678653)
                     </p>
                 </div>
             </footer>
@@ -1576,7 +1528,7 @@
         <span>Cek Stok / Pesan via WA</span>
     </a>
 
-    <!-- Bottom Sheet Modal (Product Details & Payment Portal) -->
+    <!-- Bottom Sheet Modal (Product Details) -->
     <div id="bottomSheet" class="modal-overlay" onclick="if(event.target === this) closeModal()" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-sheet">
             <div class="drag-handle"></div>
@@ -1619,6 +1571,11 @@
                         </div>
                     </div>
 
+                    <div class="mt-3 p-3 rounded-lg text-[11px] leading-relaxed" style="background: var(--accent-gold-soft); border: 1px solid var(--accent-gold-border); color: var(--text-secondary);">
+                        <div class="font-bold mb-0.5" style="color: var(--accent-gold);">💳 Informasi Pembayaran</div>
+                        Pembayaran melalui <strong>QRIS All Payment</strong>. Mohon <strong>konfirmasi ke Admin</strong> terlebih dahulu melalui tombol WA di bawah, lalu kirim bukti pembayaran ke Admin.
+                    </div>
+
                     <div class="mt-3 p-3 rounded-lg themed-subbox flex items-center justify-between gap-2 text-[11px]">
                         <span style="color: var(--text-muted);">Ingin melihat bukti transaksi pelanggan kami?</span>
                         <a href="https://t.me/s/afiarstore" target="_blank" rel="noopener noreferrer" class="hover:underline font-bold shrink-0" style="color: var(--success);">
@@ -1627,39 +1584,10 @@
                     </div>
                 </div>
 
-                <!-- PAYMENT SAFETY PANEL: QRIS is requested and confirmed directly with an admin. -->
-                <div id="qrisSection" style="display: none;">
-                    <section class="themed-modal-card rounded-2xl p-4 sm:p-5" aria-labelledby="paymentConfirmTitle">
-                        <div class="flex items-start gap-3">
-                            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-xl" style="background: var(--danger-soft); border: 1px solid var(--danger);" aria-hidden="true">🛡️</div>
-                            <div class="min-w-0">
-                                <h2 id="paymentConfirmTitle" class="text-base sm:text-lg font-extrabold">Konfirmasi Pembayaran QRIS ke Admin</h2>
-                                <p class="mt-1 text-xs sm:text-sm leading-relaxed" style="color: var(--text-secondary);">Untuk keamanan pelanggan, QRIS dan nomor tujuan pembayaran tidak ditampilkan di website selama pemeriksaan keamanan berlangsung.</p>
-                            </div>
-                        </div>
-
-                        <div class="mt-4 rounded-xl p-3.5" style="background: var(--danger-soft); border: 1px solid var(--danger);">
-                            <p class="text-xs sm:text-sm font-extrabold">JANGAN SCAN ATAU TRANSFER DARI QRIS LAMA.</p>
-                            <p class="mt-1 text-xs leading-relaxed" style="color: var(--text-secondary);">Minta QRIS langsung melalui WhatsApp Admin AFIAR STORE. Sebelum membayar, pastikan nama merchant dan informasi yang tampil di aplikasi pembayaran sudah dikonfirmasi oleh admin.</p>
-                        </div>
-
-                        <ol class="mt-4 space-y-2 text-xs sm:text-sm" style="color: var(--text-secondary);">
-                            <li>1. Hubungi salah satu admin resmi melalui tombol di bawah.</li>
-                            <li>2. Sebutkan pesanan dan minta QRIS untuk transaksi tersebut.</li>
-                            <li>3. Periksa nama merchant di aplikasi pembayaran sebelum memasukkan PIN.</li>
-                            <li>4. Jika detailnya berbeda atau mencurigakan, batalkan transaksi dan tanyakan kembali kepada admin.</li>
-                        </ol>
-
-                        <div class="mt-4 border-t pt-3 text-[11px] leading-relaxed" style="border-color: var(--border-color); color: var(--text-muted);">
-                            Status: QRIS website sementara dinonaktifkan dan sedang diperiksa. Pembayaran hanya dilanjutkan setelah detail QRIS dikonfirmasi langsung oleh admin.
-                        </div>
-                    </section>
-                </div>
             </div>
 
-            <!-- Sticky Order Button: order and payment confirmation go through the official admins. -->
+            <!-- Sticky Order Button (Admin 1 & Admin 2 Otomatis Mengikuti Format Pesanan) -->
             <div class="sticky-action-bar">
-                <button type="button" id="quickPayBtn" onclick="openPaymentModal(true)" class="btn-quick-pay">Tanya Pembayaran</button>
                 <a href="#" id="waLink" class="btn-buy" target="_blank" rel="noopener noreferrer" onclick="handleWaActionClick('admin1')">
                     <span>Cek Stok / Pesan (WA 1)</span>
                 </a>
@@ -1676,7 +1604,6 @@
         window.productViewsData = {};
         window.publicReviewsData = [];
         window.reviewStatsData = { totalCount: 0, sumStars: 0, stars: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
-        let currentModalMode = 'product';
         let visibleModalReviewsCount = 20;
 
         function trackFunnelEvent(eventName, params = {}) {
@@ -1898,8 +1825,6 @@
                 clearTimeout(autoCloseTimer);
             }
         }
-
-        // QRIS tidak ditanamkan atau dibuat oleh kode website. Pelanggan harus meminta QRIS resmi kepada admin.
 
         const products = [
             { id: 1, cat: "AI & INTELLIGENCE", name: "ChatGPT Plus", shortcut: "chatgpt", logo: "https://ui-avatars.com/api/?name=CG&background=1a202c&color=00f0ff&font-size=0.45", badges: ["BEST SELLER"], startPrice: "5.000", variants: [ {name: "Sharing 8U (1H)", price: "5.000"}, {name: "Sharing 8U (3H)", price: "7.000"}, {name: "Sharing 8U (7H)", price: "15.000"}, {name: "Sharing 8U (1B)", price: "49.000"}, {name: "Sharing 5U (1H)", price: "8.000"}, {name: "Sharing 5U (7H)", price: "36.000"}, {name: "Sharing 5U (1B)", price: "92.000"}, {name: "Private Legal (1B)", price: "377.000"} ], details: "▪ Sharing Legal (8U | 5U | 3U)\n• 1 Hari : 5k | 8k | 11k\n• 2 Hari : 6k | 13k | 19k\n• 3 Hari : 7k | 17k | 23k\n• 4 Hari : 8.5k | 21k | 29k\n• 5 Hari : 11k | 26k | 33k\n• 7 Hari : 15k | 36k | 41k\n• 14 Hari : 27k | 52k | 72k\n• 1 Bulan : 49k | 92k | 127k\n\n▪ Sharing Trik (Nogar)\n• 1 Bulan (5U) : 24k\n• 1 Bulan (3U) : 37k\n\n▪ Private 1 Bulan\n• Legal (Garansi) : 377k\n• Trik (Nogar) : 102k\n📌 Ketentuan:\n✅ Akun dari seller & standby OTP\n✅ Paid legal bergaransi Backfree (BF)\n✅ Private bisa akun cust / perpanjang (PPJ)\n⚠️ Membeli sharing = paham risiko limit server" },
@@ -2425,11 +2350,11 @@
             const nameInp = document.getElementById('surveyNameInput');
             const noteInp = document.getElementById('surveyCustomNote');
             const webNoteInp = document.getElementById('surveyWebNote');
-            const publishConsentChk = document.getElementById('surveyPublishConsent');
+            const privateOptChk = document.getElementById('surveyPrivateOnlyOpt');
             if (nameInp) nameInp.value = '';
             if (noteInp) noteInp.value = '';
             if (webNoteInp) webNoteInp.value = '';
-            if (publishConsentChk) publishConsentChk.checked = false;
+            if (privateOptChk) privateOptChk.checked = false;
 
             const submitBtn = document.getElementById('submitSurveyBtn');
             if (submitBtn) {
@@ -2577,8 +2502,8 @@
             const rawName = document.getElementById('surveyNameInput').value.trim();
             const customNote = document.getElementById('surveyCustomNote').value.trim();
             const webNote = document.getElementById('surveyWebNote').value.trim();
-            const isPublic = document.getElementById('surveyPublishConsent') && document.getElementById('surveyPublishConsent').checked === true;
-            const hasConsent = isPublic;
+            const isPrivateOnly = document.getElementById('surveyPrivateOnlyOpt') && document.getElementById('surveyPrivateOnlyOpt').checked === true;
+            const hasConsent = !isPrivateOnly;
             const tagsArray = Array.from(selectedSurveyTags);
             const webTagsArray = Array.from(selectedWebTags);
 
@@ -2618,7 +2543,7 @@
                 note: customNote,
                 webFeedbackTags: webTagsArray,
                 webFeedbackNote: webNote,
-                publishConsent: Boolean(isPublic)
+                publishConsent: Boolean(hasConsent)
             };
 
             try {
@@ -2627,7 +2552,7 @@
                 trackFunnelEvent('submit_verified_survey', {
                     'product': verifiedTicketRecord.product,
                     'stars': currentSurveyStar,
-                    'publish_consent': isPublic
+                    'publish_consent': hasConsent
                 });
 
                 // Bersihkan tiket dari state & URL hanya SETELAH server mengonfirmasi penyimpanan sukses
@@ -2974,74 +2899,56 @@
             const slidesContainer = document.getElementById('heroSlidesContainer');
             const dotsContainer = document.getElementById('heroDotsContainer');
             const carouselEl = document.getElementById('heroCarousel');
-            if (!slidesContainer || !dotsContainer || !carouselEl) return;
+            if (!slidesContainer || !dotsContainer) return;
 
             slidesContainer.textContent = '';
             dotsContainer.textContent = '';
-
-            const makeEl = (tag, className, text) => {
-                const element = document.createElement(tag);
-                if (className) element.className = className;
-                if (text !== undefined && text !== null) element.textContent = String(text);
-                return element;
-            };
-            const makeSvg = (tag, attrs) => {
-                const node = document.createElementNS('http://www.w3.org/2000/svg', tag);
-                Object.entries(attrs).forEach(([name, value]) => node.setAttribute(name, value));
-                return node;
-            };
 
             heroSpotlights.forEach((item, index) => {
                 const prod = products.find(p => p.id === item.prodId);
                 if (!prod) return;
 
-                const slide = makeEl('div', `hero-slide ${index === 0 ? 'active' : ''}`);
+                const priceLabel = `Mulai Rp ${prod.startPrice}`;
+
+                const slide = document.createElement('div');
+                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
                 slide.style.background = item.bgGradient;
 
-                const visual = makeEl('div', 'hero-visual');
-                const showcase = makeEl('div', 'showcase-card');
-                showcase.style.background = item.cardBg;
-                const logo = makeEl('img');
-                logo.src = prod.logo;
-                logo.alt = prod.name;
-                logo.loading = 'lazy';
-                const feature = makeEl('span', 'showcase-card-label', item.featureLabel);
-                showcase.append(logo, feature);
-                visual.appendChild(showcase);
-
-                const overlay = makeEl('div', 'hero-gradient-overlay');
-                const content = makeEl('div', 'hero-content');
-                content.appendChild(makeEl('span', 'hero-top-tag', item.tag));
-
-                const meta = makeEl('div', 'hero-meta-row');
-                meta.appendChild(makeEl('span', 'hero-meta-cat', item.category));
-                meta.appendChild(makeEl('span', '', '•'));
-                meta.appendChild(makeEl('span', '', item.subtitle));
-
-                content.append(meta, makeEl('h2', 'hero-slide-title', item.title), makeEl('p', 'hero-slide-desc', item.desc));
-
-                const priceHighlight = makeEl('div', 'hero-price-highlight');
-                const priceMain = makeEl('span', 'hero-price-main', 'Mulai ');
-                priceMain.appendChild(makeEl('span', 'hero-price-accent', `Rp ${prod.startPrice}`));
-                priceHighlight.appendChild(priceMain);
-                content.appendChild(priceHighlight);
-
-                const buttonGroup = makeEl('div', 'hero-btn-group');
-                const button = makeEl('button', 'btn-hero-primary');
-                button.type = 'button';
-                button.appendChild(makeEl('span', '', '▶'));
-                button.appendChild(makeEl('span', '', 'Lihat Paket'));
-                button.addEventListener('click', () => openHeroProduct(prod.id));
-                buttonGroup.appendChild(button);
-                content.appendChild(buttonGroup);
-
-                slide.append(visual, overlay, content);
+                slide.innerHTML = `
+                    <div class="hero-visual">
+                        <div class="showcase-card" style="background: ${item.cardBg};">
+                            <img src="${prod.logo}" alt="${prod.name}">
+                            <span class="showcase-card-label">${item.featureLabel}</span>
+                        </div>
+                    </div>
+                    <div class="hero-gradient-overlay"></div>
+                    <div class="hero-content">
+                        <span class="hero-top-tag">${item.tag}</span>
+                        <div class="hero-meta-row">
+                            <span class="hero-meta-cat">${item.category}</span>
+                            <span>•</span>
+                            <span>${item.subtitle}</span>
+                        </div>
+                        <h2 class="hero-slide-title">${item.title}</h2>
+                        <p class="hero-slide-desc">${item.desc}</p>
+                        <div class="hero-price-highlight">
+                            <span class="hero-price-main">Mulai <span class="hero-price-accent">Rp ${prod.startPrice}</span></span>
+                        </div>
+                        <div class="hero-btn-group">
+                            <button type="button" class="btn-hero-primary" onclick="openHeroProduct(${prod.id})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+                                <span>Lihat Paket</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
                 slidesContainer.appendChild(slide);
 
-                const dot = makeEl('button', `hero-dot ${index === 0 ? 'active' : ''}`);
+                const dot = document.createElement('button');
                 dot.type = 'button';
+                dot.className = `hero-dot ${index === 0 ? 'active' : ''}`;
                 dot.setAttribute('aria-label', `Tampilkan Slide ${index + 1}`);
-                dot.addEventListener('click', () => goToHeroSlide(index));
+                dot.onclick = () => goToHeroSlide(index);
                 dotsContainer.appendChild(dot);
             });
 
@@ -3183,19 +3090,7 @@
                 const arrowIcon = document.createElement('span');
                 arrowIcon.className = 'card-action-icon';
                 arrowIcon.setAttribute('aria-hidden', 'true');
-                const arrowSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                arrowSvg.setAttribute('width', '11');
-                arrowSvg.setAttribute('height', '11');
-                arrowSvg.setAttribute('fill', 'none');
-                arrowSvg.setAttribute('viewBox', '0 0 24 24');
-                arrowSvg.setAttribute('stroke', 'currentColor');
-                arrowSvg.setAttribute('stroke-width', '3');
-                const arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                arrowPath.setAttribute('stroke-linecap', 'round');
-                arrowPath.setAttribute('stroke-linejoin', 'round');
-                arrowPath.setAttribute('d', 'M9 5l7 7-7 7');
-                arrowSvg.appendChild(arrowPath);
-                arrowIcon.appendChild(arrowSvg);
+                arrowIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>`;
 
                 priceRow.appendChild(priceText);
                 priceRow.appendChild(arrowIcon);
@@ -3205,14 +3100,7 @@
                 const currentViews = window.productViewsData[p.id] || 0;
                 const metaRow = document.createElement('div');
                 metaRow.className = 'prod-meta w-full';
-                const metaStatus = document.createElement('div');
-                metaStatus.className = 'meta-status';
-                const statusDot = document.createElement('span');
-                statusDot.className = 'dot';
-                const statusText = document.createElement('span');
-                statusText.textContent = 'Garansi S&K';
-                metaStatus.append(statusDot, statusText);
-                metaRow.appendChild(metaStatus);
+                metaRow.innerHTML = `<div class="meta-status"><span class="dot"></span><span>Garansi S&amp;K</span></div>`;
 
                 const viewSpan = document.createElement('span');
                 viewSpan.id = `view-count-${p.id}`;
@@ -3305,7 +3193,6 @@
 
         function openModal(prod) {
             currentProd = prod;
-            currentModalMode = 'product';
 
             document.getElementById('modalHeaderInfo').style.display = 'flex';
             document.getElementById('modalLogo').src = prod.logo;
@@ -3314,8 +3201,6 @@
             renderDetailsSafeDOM(document.getElementById('modalDetails'), prod.details);
 
             document.getElementById('variantSection').style.display = 'block';
-            document.getElementById('qrisSection').style.display = 'none';
-            document.getElementById('quickPayBtn').style.display = 'block';
 
             const vList = document.getElementById('variantList');
             vList.textContent = '';
@@ -3380,52 +3265,16 @@
 
             if (waBtn1) {
                 waBtn1.href = `https://wa.me/62882006216644?text=${msg}`;
-                waBtn1.textContent = "Cek Stok / Pesan (WA 1)";
+                waBtn1.innerHTML = `<span>Cek Stok / Pesan (WA 1)</span>`;
             }
             if (waBtn2) {
                 waBtn2.href = `https://wa.me/6282149992412?text=${msg}`;
-                waBtn2.textContent = "WA Admin 2";
+                waBtn2.innerHTML = `<span>WA Admin 2</span>`;
             }
-        }
-
-        function openPaymentModal(fromProduct = false) {
-            const selectedProduct = fromProduct ? currentProd : null;
-            const selectedVariant = fromProduct ? currentVariant : null;
-            currentModalMode = 'payment';
-            document.getElementById('modalHeaderInfo').style.display = 'none';
-            document.getElementById('variantSection').style.display = 'none';
-            document.getElementById('qrisSection').style.display = 'block';
-            document.getElementById('quickPayBtn').style.display = 'none';
-
-            const messageLines = [
-                'Halo Admin AFIAR STORE, saya ingin meminta QRIS resmi untuk pembayaran.',
-                'Mohon konfirmasi nama merchant dan tujuan pembayaran yang benar sebelum saya transfer.'
-            ];
-            if (selectedProduct && selectedVariant) {
-                messageLines.push('', `Produk: ${selectedProduct.name}`, `Paket: ${selectedVariant.name}`, `Harga: Rp ${selectedVariant.price}`);
-            }
-            const msg = encodeURIComponent(messageLines.join('\n'));
-            const waBtn1 = document.getElementById('waLink');
-            const waBtn2 = document.getElementById('waLinkBackup');
-
-            if (waBtn1) {
-                waBtn1.href = `https://wa.me/62882006216644?text=${msg}`;
-                waBtn1.textContent = 'Konfirmasi QRIS (WA 1)';
-            }
-            if (waBtn2) {
-                waBtn2.href = `https://wa.me/6282149992412?text=${msg}`;
-                waBtn2.textContent = 'Konfirmasi QRIS (WA 2)';
-            }
-
-            trackFunnelEvent('open_payment_confirmation');
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
         }
 
         function handleWaActionClick(adminTarget = 'admin1') {
-            if (currentModalMode === 'payment') {
-                trackFunnelEvent('click_payment_confirmation', { 'admin': adminTarget });
-            } else if (currentProd && currentVariant) {
+            if (currentProd && currentVariant) {
                 trackFunnelEvent('begin_whatsapp_order', {
                     'item_id': currentProd.id,
                     'item_name': currentProd.name,
@@ -3512,9 +3361,6 @@
             getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
         } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Konfigurasi Firebase web memang dapat terlihat di browser; ini BUKAN mekanisme otorisasi.
-        // Wajib batasi semua akses melalui Realtime Database Security Rules dan hak admin yang server-verified.
-        // Jangan menaruh password, service-account key, atau token privat di file frontend.
         const firebaseConfig = {
           apiKey: "AIzaSyAXrRUX9bt9MoO7jYY4dFvW_iPr9GOdLyg",
           authDomain: "afiar-store-web.firebaseapp.com",
@@ -3557,42 +3403,27 @@
             const dashSec = document.getElementById('adminDashboardControls');
             const nameLabel = document.getElementById('adminLoggedName');
 
-            // Periksa tiket hanya sekali setelah Firebase Auth mengirim status awal.
-            // Pemeriksaan tetap berjalan untuk pelanggan yang belum login sebagai Admin.
-            let initialTicketToVerify = null;
-
-            if (!window.initialTicketChecked) {
-                window.initialTicketChecked = true;
-                initialTicketToVerify = new URLSearchParams(window.location.search).get('ticket') || window.pendingTicketToVerify;
-                if (initialTicketToVerify) {
-                    window.pendingTicketToVerify = null;
-                }
-            }
-
             if (!user) {
                 isAuthorizedAdmin = false;
                 if (authSec) authSec.classList.remove('hidden');
                 if (dashSec) dashSec.classList.add('hidden');
-            } else {
-                const allowed = await verifyAdminPermission(user);
-                if (!allowed) {
-                    isAuthorizedAdmin = false;
-                    await signOut(auth);
-                    if (typeof showAdminError === 'function') {
-                        showAdminError('Akun ini tidak memiliki otorisasi Admin (Custom Claim / Node admins belum terdaftar).');
-                    }
-                } else {
-                    isAuthorizedAdmin = true;
-                    if (authSec) authSec.classList.add('hidden');
-                    if (dashSec) dashSec.classList.remove('hidden');
-                    if (nameLabel) nameLabel.textContent = `Admin: ${user.email || user.uid} (Terotorisasi)`;
-                }
+                return;
             }
 
-            // Listener sudah menerima status Auth; aman memulai validasi tiket sekarang.
-            if (initialTicketToVerify) {
-                verifyAndOpenTicket(initialTicketToVerify);
+            const allowed = await verifyAdminPermission(user);
+            if (!allowed) {
+                isAuthorizedAdmin = false;
+                await signOut(auth);
+                if (typeof showAdminError === 'function') {
+                    showAdminError('Akun ini tidak memiliki otorisasi Admin (Custom Claim / Node admins belum terdaftar).');
+                }
+                return;
             }
+
+            isAuthorizedAdmin = true;
+            if (authSec) authSec.classList.add('hidden');
+            if (dashSec) dashSec.classList.remove('hidden');
+            if (nameLabel) nameLabel.textContent = `Admin: ${user.email || user.uid} (Terotorisasi)`;
         });
 
         window.isCurrentUserAuthorizedAdmin = () => isAuthorizedAdmin && auth.currentUser !== null;
@@ -3692,6 +3523,12 @@
         }
 
         window.verifyAndOpenTicket = verifyAndOpenTicket;
+
+        const directUrlTicket = new URLSearchParams(window.location.search).get('ticket') || window.pendingTicketToVerify;
+        if (directUrlTicket) {
+            window.pendingTicketToVerify = null;
+            verifyAndOpenTicket(directUrlTicket);
+        }
 
         /* =========================================================
          * PENYIMPANAN SURVEI KONSISTEN, IDEMPOTEN, & ATOMIK
