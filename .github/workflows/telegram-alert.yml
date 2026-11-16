@@ -1,0 +1,57 @@
+# Alert Telegram setiap ada push (perubahan kode) ke repo ini.
+# Simpan sebagai: .github/workflows/telegram-alert.yml
+#
+# Secrets yang dibutuhkan (Settings > Secrets and variables > Actions > New repository secret):
+#   TELEGRAM_BOT_TOKEN  = token dari @BotFather
+#   TELEGRAM_CHAT_ID    = ID chat tujuan alert
+#
+# Catatan: data seperti pesan commit/nama branch bisa diisi orang lain, jadi
+# semuanya dilewatkan lewat "env" (bukan ditulis langsung di dalam skrip)
+# supaya tidak bisa disusupi perintah.
+
+name: Telegram Alert
+
+on:
+  push:
+    branches: ['**']
+    tags: ['**']
+  workflow_dispatch:      # tombol "Run workflow" untuk tes manual
+
+permissions: {}           # token GitHub bawaan tidak diberi akses apa pun
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kirim alert ke Telegram
+        env:
+          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          REPO: ${{ github.repository }}
+          REF: ${{ github.ref_name }}
+          ACTOR: ${{ github.actor }}
+          EVENT: ${{ github.event_name }}
+          FORCED: ${{ github.event.forced }}
+          COMMITS: ${{ toJSON(github.event.commits) }}
+          URL: ${{ github.event.compare || format('{0}/{1}/actions', github.server_url, github.repository) }}
+        run: |
+          set -euo pipefail
+
+          TITLE="🔔 Perubahan kode di GitHub"
+          if [ "$FORCED" = "true" ]; then TITLE="🚨 FORCE PUSH terdeteksi"; fi
+          if [ "$EVENT" = "workflow_dispatch" ]; then TITLE="✅ Tes alert Telegram berhasil"; fi
+
+          # Maks. 5 commit terbaru: "• abc1234 pesan commit (nama)"
+          LIST=$(node -e '
+            const c = JSON.parse(process.env.COMMITS || "null") || [];
+            console.log(c.slice(0, 5).map(x =>
+              "• " + x.id.slice(0, 7) + " " + String(x.message).split("\n")[0].slice(0, 120) +
+              " (" + ((x.author && x.author.name) || "?") + ")").join("\n"));
+          ' || true)
+
+          TEXT=$(printf '%s\nRepo: %s\nBranch/tag: %s\nOleh: %s\n%s\n%s' "$TITLE" "$REPO" "$REF" "$ACTOR" "$LIST" "$URL")
+
+          curl -sS --fail-with-body -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT_ID}" \
+            --data-urlencode "text=${TEXT}" \
+            --data-urlencode "disable_web_page_preview=true" > /dev/null
