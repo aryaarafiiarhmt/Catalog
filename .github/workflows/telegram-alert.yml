@@ -1,13 +1,13 @@
-# Alert Telegram setiap ada push (perubahan kode) ke repo ini.
-# Simpan sebagai: .github/workflows/telegram-alert.yml
+# Alert Telegram + rincian perubahan (nama file, nomor baris, isi yang berubah) setiap ada push.
+# Simpan sebagai: .github/workflows/telegram-alert.yml  (timpa isi file lama)
 #
-# Secrets yang dibutuhkan (Settings > Secrets and variables > Actions > New repository secret):
+# Secrets yang dibutuhkan (Settings > Secrets and variables > Actions):
 #   TELEGRAM_BOT_TOKEN  = token dari @BotFather
 #   TELEGRAM_CHAT_ID    = ID chat tujuan alert
 #
-# Catatan: data seperti pesan commit/nama branch bisa diisi orang lain, jadi
-# semuanya dilewatkan lewat "env" (bukan ditulis langsung di dalam skrip)
-# supaya tidak bisa disusupi perintah.
+# Rincian diambil lewat API GitHub (tanpa mengunduh kode). Semua data dari luar
+# (pesan commit, nama file, isi baris) hanya dibaca sebagai teks lewat "env",
+# tidak pernah dijalankan sebagai perintah.
 
 name: Telegram Alert
 
@@ -17,7 +17,8 @@ on:
     tags: ['**']
   workflow_dispatch:      # tombol "Run workflow" untuk tes manual
 
-permissions: {}           # token GitHub bawaan tidak diberi akses apa pun
+permissions:
+  contents: read          # hanya untuk membaca diff lewat API GitHub
 
 jobs:
   notify:
@@ -27,31 +28,112 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           REF: ${{ github.ref_name }}
           ACTOR: ${{ github.actor }}
           EVENT: ${{ github.event_name }}
           FORCED: ${{ github.event.forced }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
           COMMITS: ${{ toJSON(github.event.commits) }}
           URL: ${{ github.event.compare || format('{0}/{1}/actions', github.server_url, github.repository) }}
         run: |
           set -euo pipefail
+          : > /tmp/perubahan.diff
+          if [ "$EVENT" = "push" ]; then
+            ZERO=0000000000000000000000000000000000000000
+            if [ "$BEFORE" = "$ZERO" ]; then API="commits/${AFTER}"; else API="compare/${BEFORE}...${AFTER}"; fi
+            curl -sS -f -H "Accept: application/vnd.github.diff" -H "Authorization: Bearer ${GH_TOKEN}" \
+              "https://api.github.com/repos/${REPO}/${API}" -o /tmp/perubahan.diff || : > /tmp/perubahan.diff
+          fi
 
-          TITLE="🔔 Perubahan kode di GitHub"
-          if [ "$FORCED" = "true" ]; then TITLE="🚨 FORCE PUSH terdeteksi"; fi
-          if [ "$EVENT" = "workflow_dispatch" ]; then TITLE="✅ Tes alert Telegram berhasil"; fi
+          # Susun pesan (rincian baris + isi yang berubah). Jika gagal, tetap kirim alert dasar.
+          node - <<'JS' > /tmp/pesan.txt || printf '🔔 Perubahan kode di GitHub\nRepo: %s\nOleh: %s\n%s\n' "$REPO" "$ACTOR" "$URL" > /tmp/pesan.txt
+          const fs = require('fs');
+          const E = process.env;
+          const cut = (s, n) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
+          const rng = (a) => {                       // [3,4,5,9] -> "3–5, 9"
+            if (!a.length) return '';
+            const out = []; let s = a[0], p = a[0];
+            for (const x of a.slice(1).concat([Infinity])) {
+              if (x !== p + 1) { out.push(s === p ? String(s) : s + '–' + p); s = x; }
+              p = x;
+            }
+            return out.join(', ');
+          };
+          const inl = (a, b) => {                    // tampilkan hanya bagian yang berubah: [-lama-][+baru+]
+            let p = 0; while (p < a.length && p < b.length && a[p] === b[p]) p++;
+            let q = 0; while (q < a.length - p && q < b.length - p && a[a.length - 1 - q] === b[b.length - 1 - q]) q++;
+            return (p > 30 ? '…' : '') + a.slice(Math.max(0, p - 30), p) + '[-' + cut(a.slice(p, a.length - q), 90) +
+              '-][+' + cut(b.slice(p, b.length - q), 90) + '+]' + a.slice(a.length - q, a.length - q + 30) + (q > 30 ? '…' : '');
+          };
 
-          # Maks. 5 commit terbaru: "• abc1234 pesan commit (nama)"
-          LIST=$(node -e '
-            const c = JSON.parse(process.env.COMMITS || "null") || [];
-            console.log(c.slice(0, 5).map(x =>
-              "• " + x.id.slice(0, 7) + " " + String(x.message).split("\n")[0].slice(0, 120) +
-              " (" + ((x.author && x.author.name) || "?") + ")").join("\n"));
-          ' || true)
+          let diff = '';
+          try { diff = fs.readFileSync('/tmp/perubahan.diff', 'utf8'); } catch (e) {}
+          const files = []; let cur = null, inH = false, o = 0, n = 0, dels = [], adds = [];
+          const addedTxt = [], delTxt = [];
+          const flush = () => {                      // pasangkan baris hapus & tambah yang berurutan
+            if (!cur) return;
+            const k = Math.min(dels.length, adds.length);
+            for (let i = 0; i < k; i++) cur.prev.push('L' + adds[i].n + ' ' + inl(dels[i].t, adds[i].t));
+            for (let i = k; i < adds.length; i++) cur.prev.push('L' + adds[i].n + ' + ' + cut(adds[i].t, 120));
+            for (let i = k; i < dels.length; i++) cur.prev.push('L' + dels[i].n + ' − ' + cut(dels[i].t, 120));
+            dels = []; adds = [];
+          };
+          for (const line of diff.split(/\r?\n/)) {
+            if (line.startsWith('diff --git ')) {
+              flush(); cur = { name: line.slice(line.lastIndexOf(' b/') + 3), add: [], del: [], prev: [] };
+              files.push(cur); inH = false; continue;
+            }
+            if (!cur) continue;
+            const h = line.match(/^@@ -(\d+)(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
+            if (h) { flush(); o = +h[1]; n = +h[2]; inH = true; continue; }
+            if (!inH) continue;
+            const c = line[0], t = line.slice(1);
+            if (c === '+') { cur.add.push(n); adds.push({ n, t }); addedTxt.push(t); n++; }
+            else if (c === '-') { cur.del.push(o); dels.push({ n: o, t }); delTxt.push(t); o++; }
+            else if (c === ' ') { flush(); o++; n++; }
+          }
+          flush();
 
-          TEXT=$(printf '%s\nRepo: %s\nBranch/tag: %s\nOleh: %s\n%s\n%s' "$TITLE" "$REPO" "$REF" "$ACTOR" "$LIST" "$URL")
+          // Tanda bahaya sederhana (hanya penanda; tetap periksa sendiri)
+          const A = addedTxt.join('\n'), D = delTxt.join('\n');
+          const flags = [];
+          if (files.some(f => f.name.startsWith('.github/'))) flags.push('🚨 File di .github/ (workflow) ikut berubah');
+          if (/wa\.me\/|api\.whatsapp\.com/.test(A + D)) flags.push('🚨 Nomor/tautan WhatsApp berubah');
+          if (/<script|eval\(|atob\(|fromCharCode|document\.write|new Function\(/.test(A)) flags.push('🚨 Ada <script>/kode eksekusi dinamis yang ditambahkan');
+          if (/firebaseConfig|databaseURL|apiKey/.test(A + D)) flags.push('🚨 Konfigurasi Firebase berubah');
+
+          let title = '🔔 Perubahan kode di GitHub';
+          if (E.FORCED === 'true') title = '🚨 FORCE PUSH terdeteksi';
+          if (E.EVENT === 'workflow_dispatch') title = '✅ Tes alert Telegram berhasil';
+          const commits = JSON.parse(E.COMMITS || 'null') || [];
+          const lines = [title, 'Repo: ' + E.REPO, 'Branch/tag: ' + E.REF, 'Oleh: ' + E.ACTOR];
+          for (const c of commits.slice(0, 5)) {
+            lines.push('• ' + c.id.slice(0, 7) + ' ' + cut(String(c.message).split('\n')[0], 100) + ' (' + ((c.author && c.author.name) || '?') + ')');
+          }
+          if (flags.length) lines.push('', ...flags);
+          if (E.EVENT === 'push') {
+            lines.push('');
+            if (!files.length) lines.push('(rincian baris tidak tersedia — buka tautan di bawah)');
+            let used = 0, omitted = 0;
+            const push = (s) => { if (used + s.length > 2600) { omitted++; return; } used += s.length + 1; lines.push(s); };
+            for (const f of files.slice(0, 12)) {
+              push('📄 ' + cut(f.name, 80) + ' (+' + f.add.length + ' −' + f.del.length + ')');
+              if (f.add.length) push('   baris baru: ' + cut(rng(f.add), 80));
+              if (f.del.length) push('   baris lama dihapus: ' + cut(rng(f.del), 80));
+              f.prev.slice(0, 6).forEach(p => push('   ' + cut(p, 230)));
+              if (f.prev.length > 6) push('   … +' + (f.prev.length - 6) + ' perubahan lagi');
+            }
+            if (files.length > 12) omitted += files.length - 12;
+            if (omitted) lines.push('… sebagian rincian dipotong, lihat tautan');
+          }
+          lines.push('', E.URL);
+          console.log(lines.join('\n').slice(0, 4000));
+          JS
 
           curl -sS --fail-with-body -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${CHAT_ID}" \
-            --data-urlencode "text=${TEXT}" \
+            --data-urlencode "text@/tmp/pesan.txt" \
             --data-urlencode "disable_web_page_preview=true" > /dev/null
